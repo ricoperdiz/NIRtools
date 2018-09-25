@@ -1,0 +1,13 @@
+Package: NIRtools
+Type: Package
+Title: Tools to deal with Near InfraRed data, and allow users to easily build datasets with metadata.
+Version: 0.1.0
+Author: Ricardo de Oliveira Perdiz
+Maintainer: Ricardo de Oliveira Perdiz <ricoperdiz@gmail.com>
+Description: 
+    Build NIR parameter files;
+    Build NIR datasets based on parameters files
+License: Still thinking!
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 6.1.0
