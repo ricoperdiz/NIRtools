@@ -1,5 +1,5 @@
 ---
-title: "NIRTools - tutorial"
+title: "NIRtools - tutorial"
 author: "Ricardo de Oliveira Perdiz"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
@@ -20,15 +20,52 @@ NIRTools was developed to help users in documenting and building NIR datasets in
 
 Let's pratice.
 
-First we need a dataset to work on. I incorporated a small dataset, based on a group of Neotropical plants, focus of my PhD. Let's load it.
+First we need a dataset to work on. I incorporated a small dataset, based on a group of Neotropical plants, focus of my PhD. Let's load it and check first 10 columns.
 
 ```{r}
 library(NIRtools)
+head(nir_data)[,1:10]
 ```
+
+After that, let's create a parameter file that will contain all specifications of my first dataset. For that, let's use function `write_NIRparams`. In this example, my first dataset will be called `test`,  I will use mean of reads, only abaxial surface, and I will inform which column names refer to surface(`face`), individual (`especimenid`), and species/group (`SP1`).
+
+```{r, eval = FALSE}
+write_NIRparams(
+  file = 'test',
+  wd = getwd(),
+  reads = 'mean',
+  surface = 'abaxial',
+  nir_variables = 'all',
+  surface_id = 'face',
+  individual_id = 'especimenid',
+  group_id = 'SP1')
+```
+
+After executing the function, a message will appear confirming the action and telling where the file has been saved.
+
+Let's take a look at this file.
 
 ```{r}
-head(nir_data)
+readLines('test-NIR.txt')
 ```
 
-After that, let's create a parameter file that will contain all specifications of my first dataset. FOr that, let's use function `write_NIRparams`.
+After having our parameter file specification done, you can use function `read_NIRparams` to check your parameter file as a dataframe.
 
+```{r, eval = FALSE}
+read_NIRparams('test-NIR.txt')
+```
+
+At last, let's use the parameter file to build a dataset based on our data file. For that, let's use function `build_NIRdataset`
+
+```{r, eval = FALSE}
+build_NIRdataset(df = nir_data, params_file = 'test-NIR.txt', save_RDS = TRUE, save_txt = TRUE, wd = '.')
+```
+
+Note that you can also choose to save a RDS and/or a txt file with this dataset, that will be saved inside your current working directory.
+
+Let's check our dataset.
+
+```{r}
+nir_test <- readRDS('vignettestest.RDS')
+str(nir_test)
+```

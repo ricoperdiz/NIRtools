@@ -4,16 +4,19 @@
 \alias{build_NIRdataset}
 \title{Build NIR dataset based on a parameters file.}
 \usage{
-build_NIRdataset(df, params_file, save_RDS = FALSE, save_txt = FALSE)
+build_NIRdataset(dframe, params_file, save_RDS = FALSE,
+  save_txt = FALSE, wd = ".")
 }
 \arguments{
-\item{df}{A dataframe in long format, that is, each NIR variable must be stored in its own column, and other columns containing identifications for individuals, and leaf surface, at least.}
-
 \item{params_file}{A path for a NIR parameter file.}
 
 \item{save_RDS}{If you want to save a .RDS file with final result, just use TRUE instead. Default value is FALSE.}
 
 \item{save_txt}{If you want to save a text delimited file with final result, just use TRUE instead. Default value is FALSE.}
+
+\item{wd}{Working directory. Default value points to current working directory.}
+
+\item{df}{A dataframe in long format, that is, each NIR variable must be stored in its own column, and other columns containing identifications for individuals, and leaf surface, at least.}
 }
 \value{
 A dataframe.

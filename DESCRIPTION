@@ -13,8 +13,4 @@ LazyData: true
 RoxygenNote: 6.1.0
 Suggests: knitr,
     rmarkdown
-Imports:
-  data.table,
-  stringr,
-  tidyr
 VignetteBuilder: knitr
