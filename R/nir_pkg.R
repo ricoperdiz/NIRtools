@@ -13,8 +13,6 @@
 #'
 #' @return A message that indicates the file has been saved to disk.
 #' @export
-#'
-#' @examples
 write_NIRparams <- function(file = "", wd = '.', surface = "", reads = "", nir_variables = "", subset_file = "", individual_id = "", surface_id = "", group_id = "", nir_id = "X") {
 
 
@@ -117,8 +115,6 @@ write_NIRparams <- function(file = "", wd = '.', surface = "", reads = "", nir_v
 #' @param save_txt If you want to save a text delimited file with final result, just use TRUE instead. Default value is FALSE.
 #' @return A dataframe.
 #' @export
-#'
-#' @examples
 build_NIRdataset <- function(df, params_file, save_RDS = FALSE, save_txt = FALSE) {
 
   stopifnot(is.data.frame(dframe))
@@ -234,10 +230,7 @@ build_NIRdataset <- function(df, params_file, save_RDS = FALSE, save_txt = FALSE
 #'
 #' @return
 #' @export
-#'
-#' @examples
 read_NIRparams <- function(file) {
-  #file_name <- "/Users/ricoperdiz/Documents/DOC/PROJETO_DOC/Dados_Complexo_Aracouchini/cpa_nir/output/teste-NIR.txt"
 
   parameters <-
     readLines(file_name) %>%
