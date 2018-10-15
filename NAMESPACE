@@ -3,3 +3,6 @@
 export(build_NIRdataset)
 export(read_NIRparams)
 export(write_NIRparams)
+import(data.table)
+import(tidyr)
+importFrom(stringr,str_trim)

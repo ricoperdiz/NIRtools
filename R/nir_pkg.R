@@ -113,14 +113,16 @@ write_NIRparams <- function(file = "", wd = '.', surface = "", reads = "", nir_v
 #' @param params_file A path for a NIR parameter file.
 #' @param save_RDS If you want to save a .RDS file with final result, just use TRUE instead. Default value is FALSE.
 #' @param save_txt If you want to save a text delimited file with final result, just use TRUE instead. Default value is FALSE.
+#' @param wd Working directory. Default value points to current working directory.
 #' @return A dataframe.
 #' @export
-build_NIRdataset <- function(df, params_file, save_RDS = FALSE, save_txt = FALSE) {
+#' @import data.table
+build_NIRdataset <- function(dframe, params_file, save_RDS = FALSE, save_txt = FALSE, wd = '.') {
 
   stopifnot(is.data.frame(dframe))
 
   dframe_tbl <- as.data.table(dframe)
-  nir_params <- read_NIRparams(file_name)
+  nir_params <- read_NIRparams(params_file)
   dataset_name <- nir_params$dataset_name
   individual_id <- nir_params$individual_id
   individual_id_pos <- which(names(dframe_tbl) == individual_id)
@@ -131,6 +133,12 @@ build_NIRdataset <- function(df, params_file, save_RDS = FALSE, save_txt = FALSE
   surface <- nir_params$surface
   surface_id <- nir_params$surface_id
 
+  #### wd ####
+  if(wd == '.') {
+    wd <- getwd()
+  } else {
+    wd <- nir_params$working_dir
+  }
 
   #### If statements ####
   if(individual_id == "") {
@@ -208,13 +216,13 @@ build_NIRdataset <- function(df, params_file, save_RDS = FALSE, save_txt = FALSE
   if(save_RDS == TRUE) {
     message(paste0('Saving object dframe_res as .RDS file'))
 
-    saveRDS(dframe_res, file = paste0(nir_params$working_dir, nir_params$dataset_name, '.RDS'))
+    saveRDS(dframe_res, file = paste0(wd, nir_params$dataset_name, '.RDS'))
   }
 
   if(save_txt == TRUE) {
     message(paste0('Saving object dframe_res as .txt file'))
 
-    fwrite(dframe_res, file = paste0(nir_params$working_dir, nir_params$dataset_name, '.txt'), sep= '\t')
+    fwrite(dframe_res, file = paste0(wd, nir_params$dataset_name, '.txt'), sep= '\t')
   }
 
   # return data.frame with results
@@ -230,16 +238,22 @@ build_NIRdataset <- function(df, params_file, save_RDS = FALSE, save_txt = FALSE
 #'
 #' @return
 #' @export
+#' @import data.table
+#' @importFrom stringr str_trim
+#' @import tidyr
 read_NIRparams <- function(file) {
 
+  file_text <-
+    data.frame(text = readLines(file))
+  file_text_sbset <-
+    subset(file_text, grepl('##', text))
+  parameters_separated <-
+    tidyr::separate(file_text_sbset, text, into = c('value', 'key', 'definition'), sep = paste(c('## ', '\\: '), collapse = '|'))
+
+  data.table::setDT(parameters_separated)
+
   parameters <-
-    readLines(file_name) %>%
-    data.frame(text = .) %>%
-    subset(., grepl('##', text)) %>%
-    tidyr::separate(text, into = c('value', 'key', 'definition'), sep = paste(c('## ', '\\: '), collapse = '|')) %>%
-    #as.data.table() %>%
-    setDT(.) %>%
-    .[,.(value, key)]
+    parameters_separated[,list(value, key)]
 
     parameters$key <-
       gsub('\\[|\\]', '', parameters$key) %>%
