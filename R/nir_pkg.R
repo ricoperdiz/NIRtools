@@ -115,14 +115,22 @@ write_NIRparams <- function(file = "", wd = '.', surface = "", reads = "", nir_v
 #' @param save_txt If you want to save a text delimited file with final result, just use TRUE instead. Default value is FALSE.
 #' @param wd Working directory. Default value points to current working directory.
 #' @return A dataframe.
-#' @export
 #' @import data.table
+#' @export
 build_NIRdataset <- function(dframe, params_file, save_RDS = FALSE, save_txt = FALSE, wd = '.') {
 
   stopifnot(is.data.frame(dframe))
 
+  #### wd ####
+  if(wd == '.') {
+    wd <- getwd()
+  } else {
+    wd <- nir_params$working_dir
+  }
+  params_file_path <- paste0(wd, '/', params_file)
   dframe_tbl <- as.data.table(dframe)
-  nir_params <- read_NIRparams(params_file)
+
+  nir_params <- read_NIRparams(params_file_path)
   dataset_name <- nir_params$dataset_name
   individual_id <- nir_params$individual_id
   individual_id_pos <- which(names(dframe_tbl) == individual_id)
@@ -133,12 +141,7 @@ build_NIRdataset <- function(dframe, params_file, save_RDS = FALSE, save_txt = F
   surface <- nir_params$surface
   surface_id <- nir_params$surface_id
 
-  #### wd ####
-  if(wd == '.') {
-    wd <- getwd()
-  } else {
-    wd <- nir_params$working_dir
-  }
+
 
   #### If statements ####
   if(individual_id == "") {
@@ -149,11 +152,17 @@ build_NIRdataset <- function(dframe, params_file, save_RDS = FALSE, save_txt = F
     stop('Variable `individual_id` is empty. You must supply a value for it!')
   }
 
-  message(paste0('Variable `surface_id`: ', surface_id))
+  if(surface_id %in% names(dframe)) {
+    message(paste0('Variable `surface_id`: ', surface_id))
+  } else {
+    stop('Supplied variable `surface_id` is not present in `dframe`. You must supply a correct value for it!')
+  }
+
 
   ## Both surfaces
   if(surface == 'both') {
     message(paste0('Which `surface` was chosen: ', surface, ' sides'))
+
     ## All reads
     if(reads == 'All') {
 
@@ -171,9 +180,10 @@ build_NIRdataset <- function(dframe, params_file, save_RDS = FALSE, save_txt = F
       message(paste0('Variable `reads`: ', reads))
       message(paste0('Building dataset: ', dataset_name, '.\nMean of reads from both sides grouped by variable `', nir_params$individual_id, '`'))
 
+      dframe_tbl_melted <-
+        melt(dframe_tbl, id.vars = individual_id, measure.vars = nir_cols)
       dframe_long <-
-        melt(dframe_tbl, id.vars = individual_id, measure.vars = nir_cols) %>%
-        .[,.(mean=mean(value)), by = c(individual_id, 'variable')]
+        dframe_tbl_melted[,list(mean=mean(value)), by = c(individual_id, 'variable')]
 
       dframe_res <-
         dcast(dframe_long, ... ~ variable, value.var = 'mean')
@@ -181,37 +191,37 @@ build_NIRdataset <- function(dframe, params_file, save_RDS = FALSE, save_txt = F
   }
 
   ## Abaxial or adaxial surface
-  if(surface_id != "") {
+  if(surface != "both") {
+    message(paste0('Which `surface` was chosen: ', surface, ' side'))
 
-    if(surface_id %in% names(dframe)) {
+    # subset data for only surface of interest
+    dframe_tbl_surfaceFiltered <-
+      subset(dframe_tbl, get(surface_id) == surface)
 
-      # subset data for only surface of interest
-      dframe_tbl_surfaceFiltered <-
-        subset(dframe_tbl, get(surface_id) == surface)
+    ## All reads
+    if(reads == 'all') {
+      message(paste0('Variable `reads`: ', reads))
+      message(paste0('Building dataset: ', dataset_name, '.\nAll reads from ', surface,' side grouped by variable `', individual_id, '`'))
 
-      ## All reads
-      if(reads == 'all') {
-        message(paste0('Variable `reads`: ', reads))
-        message(paste0('Building dataset: ', dataset_name, '.\nAll reads from ', surface,' side grouped by variable `', individual_id, '`'))
+      dframe_res <-
+        dframe_tbl_surfaceFiltered[, .SD, .SDcols = c(individual_id,surface_id, nir_cols_names)]
 
-        dframe_res <-
-          dframe_tbl_surfaceFiltered[, .SD, .SDcols = c(individual_id,surface_id, nir_cols_names)]
-      }
-      ## Only mean of reads
-      if(reads == 'mean') {
-        message(paste0('Variable `reads`: ', reads))
-        message(paste0('Building dataset: ', dataset_name, '.\nMean of reads from both sides grouped by variable `', nir_params$individual_id, '`'))
-        dframe_long <-
-          melt(dframe_tbl_surfaceFiltered, id.vars = individual_id, measure.vars = nir_cols_names) %>%
-          .[ , .(mean=mean(value)), by = c(individual_id, 'variable')]
+    }
 
-        dframe_res <-
-          dcast(dframe_long, ... ~ variable, value.var = 'mean')
+    ## Only mean of reads
+    if(reads == 'mean') {
 
-      }
+      message(paste0('Variable `reads`: ', reads))
+      message(paste0('Building dataset: ', dataset_name, '.\nMean of reads from both sides grouped by variable `', nir_params$individual_id, '`'))
+
+      dframe_tbl_surfaceFiltered_melted <-
+        melt(dframe_tbl_surfaceFiltered, id.vars = individual_id, measure.vars = nir_cols_names)
+      dframe_long <-
+        dframe_tbl_surfaceFiltered_melted[ , list(mean=mean(value)), by = c(individual_id, 'variable')]
+      dframe_res <-
+        dcast(dframe_long, ... ~ variable, value.var = 'mean')
     }
   }
-
 
   if(save_RDS == TRUE) {
     message(paste0('Saving object dframe_res as .RDS file'))
@@ -230,17 +240,15 @@ build_NIRdataset <- function(dframe, params_file, save_RDS = FALSE, save_txt = F
 
 }
 
-
-
 #' Read NIR parameters file from disk
 #'
 #' @param file A path to a file.
 #'
 #' @return
-#' @export
 #' @import data.table
-#' @importFrom stringr str_trim
+#' @import stringr
 #' @import tidyr
+#' @export
 read_NIRparams <- function(file) {
 
   file_text <-
@@ -256,8 +264,8 @@ read_NIRparams <- function(file) {
     parameters_separated[,list(value, key)]
 
     parameters$key <-
-      gsub('\\[|\\]', '', parameters$key) %>%
-      str_trim('both')
+      str_trim(gsub('\\[|\\]', '', parameters$key), 'both')
+
 
     parameters$value <-
       str_trim(parameters$value, 'both')
