@@ -12,7 +12,7 @@
 
 <meta name="author" content="Ricardo de Oliveira Perdiz" />
 
-<meta name="date" content="2018-10-16" />
+<meta name="date" content="2018-10-17" />
 
 <title>NIRtools</title>
 
@@ -278,7 +278,7 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 
 <h1 class="title toc-ignore">NIRtools</h1>
 <h4 class="author"><em>Ricardo de Oliveira Perdiz</em></h4>
-<h4 class="date"><em>2018-10-16</em></h4>
+<h4 class="date"><em>2018-10-17</em></h4>
 
 
 
@@ -299,74 +299,74 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 <h1>Quick start</h1>
 <p>Let’s take a look at our example dataset and use it to build our first subset.</p>
 <p>First, load the package and check the first rows of it.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="kw">head</span>(nir_data)[,<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>]</a>
-<a class="sourceLine" id="cb1-2" title="2"><span class="co">#&gt;    especimenid SP1    read    face X10001.03  X3999.64 X4003.497 X4007.354</span></a>
-<a class="sourceLine" id="cb1-3" title="3"><span class="co">#&gt; 1:          17   4 folha-1 abaxial 0.2778664 0.6532890 0.6533827 0.6532058</span></a>
-<a class="sourceLine" id="cb1-4" title="4"><span class="co">#&gt; 2:          17   4 folha-1 adaxial 0.2327851 0.6699212 0.6699399 0.6695617</span></a>
-<a class="sourceLine" id="cb1-5" title="5"><span class="co">#&gt; 3:          17   4 folha-2 abaxial 0.2567553 0.6419270 0.6419497 0.6416439</span></a>
-<a class="sourceLine" id="cb1-6" title="6"><span class="co">#&gt; 4:          17   4 folha-2 adaxial 0.2555278 0.6343970 0.6343604 0.6339911</span></a>
-<a class="sourceLine" id="cb1-7" title="7"><span class="co">#&gt; 5:          17   4 folha-3 abaxial 0.2547329 0.6351578 0.6353651 0.6350956</span></a>
-<a class="sourceLine" id="cb1-8" title="8"><span class="co">#&gt; 6:          17   4 folha-3 adaxial 0.2304880 0.6802652 0.6802475 0.6799131</span></a>
-<a class="sourceLine" id="cb1-9" title="9"><span class="co">#&gt;    X4011.211 X4015.068</span></a>
-<a class="sourceLine" id="cb1-10" title="10"><span class="co">#&gt; 1: 0.6527848 0.6518375</span></a>
-<a class="sourceLine" id="cb1-11" title="11"><span class="co">#&gt; 2: 0.6689490 0.6678685</span></a>
-<a class="sourceLine" id="cb1-12" title="12"><span class="co">#&gt; 3: 0.6412423 0.6403816</span></a>
-<a class="sourceLine" id="cb1-13" title="13"><span class="co">#&gt; 4: 0.6335653 0.6326041</span></a>
-<a class="sourceLine" id="cb1-14" title="14"><span class="co">#&gt; 5: 0.6345941 0.6338017</span></a>
-<a class="sourceLine" id="cb1-15" title="15"><span class="co">#&gt; 6: 0.6793467 0.6782958</span></a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="kw">head</span>(nir_data)[,<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>]</a></code></pre></div>
+<pre><code>##    especimenid SP1    read    face X10001.03  X3999.64 X4003.497 X4007.354
+## 1:          17   4 folha-1 abaxial 0.2778664 0.6532890 0.6533827 0.6532058
+## 2:          17   4 folha-1 adaxial 0.2327851 0.6699212 0.6699399 0.6695617
+## 3:          17   4 folha-2 abaxial 0.2567553 0.6419270 0.6419497 0.6416439
+## 4:          17   4 folha-2 adaxial 0.2555278 0.6343970 0.6343604 0.6339911
+## 5:          17   4 folha-3 abaxial 0.2547329 0.6351578 0.6353651 0.6350956
+## 6:          17   4 folha-3 adaxial 0.2304880 0.6802652 0.6802475 0.6799131
+##    X4011.211 X4015.068
+## 1: 0.6527848 0.6518375
+## 2: 0.6689490 0.6678685
+## 3: 0.6412423 0.6403816
+## 4: 0.6335653 0.6326041
+## 5: 0.6345941 0.6338017
+## 6: 0.6793467 0.6782958</code></pre>
 <p>We have a column <code>especimenid</code> that specifies the sample id number, a columm <code>SP1</code> that specifies our sample identity (in this case, it is the number of the species, a hypothetical number); a column <code>read</code> that specifies the leaf/leaflet id, that is, for each leaf/leaflet, we have a different value; a column <code>face</code> that specifies which surface was used to obtain the data; and at least, a group of columns that starts with letter <em>X</em> and that refer to NIR spectra.</p>
 <p>There are samples that have more than one read per surface. So, suppose we want to create a subset that contains only read means for both surfaces and containing all NIR spectra variables, that is, for each specimen, we would calculate mean for all reads per surface per NIR spectra variable. Our first step would be to create a parameter file that will contain all specifications of it. Let’s use the function <code>write_NIRparams</code>.</p>
 <p>In this example, my first subset will be called <code>test</code>, and I will use mean of reads, only abaxial surface, and I will inform which column names refer to surface(<code>face</code>), individual (<code>especimenid</code>), and species/group (<code>SP1</code>).</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1"><span class="kw">write_NIRparams</span>(</a>
-<a class="sourceLine" id="cb2-2" title="2">  <span class="dt">file =</span> <span class="st">&#39;test&#39;</span>,</a>
-<a class="sourceLine" id="cb2-3" title="3">  <span class="dt">wd =</span> <span class="kw">getwd</span>(),</a>
-<a class="sourceLine" id="cb2-4" title="4">  <span class="dt">reads =</span> <span class="st">&#39;mean&#39;</span>,</a>
-<a class="sourceLine" id="cb2-5" title="5">  <span class="dt">surface =</span> <span class="st">&#39;abaxial&#39;</span>,</a>
-<a class="sourceLine" id="cb2-6" title="6">  <span class="dt">nir_variables =</span> <span class="st">&#39;all&#39;</span>,</a>
-<a class="sourceLine" id="cb2-7" title="7">  <span class="dt">surface_id =</span> <span class="st">&#39;face&#39;</span>,</a>
-<a class="sourceLine" id="cb2-8" title="8">  <span class="dt">individual_id =</span> <span class="st">&#39;especimenid&#39;</span>,</a>
-<a class="sourceLine" id="cb2-9" title="9">  <span class="dt">group_id =</span> <span class="st">&#39;SP1&#39;</span>,</a>
-<a class="sourceLine" id="cb2-10" title="10">  <span class="dt">nir_id =</span> <span class="st">&#39;X&#39;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1"><span class="kw">write_NIRparams</span>(</a>
+<a class="sourceLine" id="cb3-2" title="2">  <span class="dt">file =</span> <span class="st">&#39;test&#39;</span>,</a>
+<a class="sourceLine" id="cb3-3" title="3">  <span class="dt">wd =</span> <span class="kw">getwd</span>(),</a>
+<a class="sourceLine" id="cb3-4" title="4">  <span class="dt">reads =</span> <span class="st">&#39;mean&#39;</span>,</a>
+<a class="sourceLine" id="cb3-5" title="5">  <span class="dt">surface =</span> <span class="st">&#39;abaxial&#39;</span>,</a>
+<a class="sourceLine" id="cb3-6" title="6">  <span class="dt">nir_variables =</span> <span class="st">&#39;all&#39;</span>,</a>
+<a class="sourceLine" id="cb3-7" title="7">  <span class="dt">surface_id =</span> <span class="st">&#39;face&#39;</span>,</a>
+<a class="sourceLine" id="cb3-8" title="8">  <span class="dt">individual_id =</span> <span class="st">&#39;especimenid&#39;</span>,</a>
+<a class="sourceLine" id="cb3-9" title="9">  <span class="dt">group_id =</span> <span class="st">&#39;SP1&#39;</span>,</a>
+<a class="sourceLine" id="cb3-10" title="10">  <span class="dt">nir_id =</span> <span class="st">&#39;X&#39;</span>)</a></code></pre></div>
 <p>After executing the function, a message will appear confirming the action and telling where the file has been saved.</p>
 <p>Let’s take a look at this file.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1"><span class="kw">readLines</span>(<span class="st">&#39;test-NIR.txt&#39;</span>)</a>
-<a class="sourceLine" id="cb3-2" title="2"><span class="co">#&gt;  [1] &quot;# NIR dataset description - Dataset name and variables for its construction&quot;                                                                                                       </span></a>
-<a class="sourceLine" id="cb3-3" title="3"><span class="co">#&gt;  [2] &quot;test ## [dataset_name]: Dataset name.&quot;                                                                                                                                             </span></a>
-<a class="sourceLine" id="cb3-4" title="4"><span class="co">#&gt;  [3] &quot;/Users/ricoperdiz/Documents/DOC/PROJETO_DOC/R/pkgs/NIRtools/vignettes ## [working_dir]: Location of working directory. If not provided, current working directory will be used one&quot;</span></a>
-<a class="sourceLine" id="cb3-5" title="5"><span class="co">#&gt;  [4] &quot;abaxial ## [surface]: Which leaf surface (abaxial, adaxial, both)&quot;                                                                                                                 </span></a>
-<a class="sourceLine" id="cb3-6" title="6"><span class="co">#&gt;  [5] &quot;mean ## [reads]: Do all the reads will be taken into account (all, mean)?&quot;                                                                                                         </span></a>
-<a class="sourceLine" id="cb3-7" title="7"><span class="co">#&gt;  [6] &quot;all ## [nir_variables]: Which NIR variables will be used (all, subset)&quot;                                                                                                            </span></a>
-<a class="sourceLine" id="cb3-8" title="8"><span class="co">#&gt;  [7] &quot;           ## [subset_file]: Location of NIR variable subset file, in case option selected in `nir_variables` was `subset`&quot;                                                        </span></a>
-<a class="sourceLine" id="cb3-9" title="9"><span class="co">#&gt;  [8] &quot;especimenid ## [individual_id]: Which variable name corresponds to the individual?&quot;                                                                                                </span></a>
-<a class="sourceLine" id="cb3-10" title="10"><span class="co">#&gt;  [9] &quot;face ## [surface_id]: Which variable name corresponds to the leaf surface?&quot;                                                                                                        </span></a>
-<a class="sourceLine" id="cb3-11" title="11"><span class="co">#&gt; [10] &quot;SP1 ## [group_id]: Which name corresponds to the group category?&quot;                                                                                                                  </span></a>
-<a class="sourceLine" id="cb3-12" title="12"><span class="co">#&gt; [11] &quot;X ## [nir_id]: A string that can be used to grep column names containing NIR data. Default value is &#39;`X`, which precedes all columns with NIR data.&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1"><span class="kw">readLines</span>(<span class="st">&#39;test-NIR.txt&#39;</span>)</a></code></pre></div>
+<pre><code>##  [1] &quot;# NIR dataset description - Dataset name and variables for its construction&quot;                                                                                                       
+##  [2] &quot;test ## [dataset_name]: Dataset name.&quot;                                                                                                                                             
+##  [3] &quot;/Users/ricoperdiz/Documents/DOC/PROJETO_DOC/R/pkgs/NIRtools/vignettes ## [working_dir]: Location of working directory. If not provided, current working directory will be used one&quot;
+##  [4] &quot;abaxial ## [surface]: Which leaf surface (abaxial, adaxial, both)&quot;                                                                                                                 
+##  [5] &quot;mean ## [reads]: Do all the reads will be taken into account (all, mean)?&quot;                                                                                                         
+##  [6] &quot;all ## [nir_variables]: Which NIR variables will be used (all, subset)&quot;                                                                                                            
+##  [7] &quot;           ## [subset_file]: Location of NIR variable subset file, in case option selected in `nir_variables` was `subset`&quot;                                                        
+##  [8] &quot;especimenid ## [individual_id]: Which variable name corresponds to the individual?&quot;                                                                                                
+##  [9] &quot;face ## [surface_id]: Which variable name corresponds to the leaf surface?&quot;                                                                                                        
+## [10] &quot;SP1 ## [group_id]: Which name corresponds to the group category?&quot;                                                                                                                  
+## [11] &quot;X ## [nir_id]: A string that can be used to grep column names containing NIR data. Default value is &#39;`X`, which precedes all columns with NIR data.&quot;</code></pre>
 <p>After having our parameter file specification done, you can use function <code>read_NIRparams</code> to have your parameter file read as a dataframe.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1"><span class="kw">read_NIRparams</span>(<span class="st">&#39;test-NIR.txt&#39;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" title="1"><span class="kw">read_NIRparams</span>(<span class="st">&#39;test-NIR.txt&#39;</span>)</a></code></pre></div>
 <p>At last, let’s use the parameter file to build a subset based on our data file. For that, let’s use function <code>build_NIRdataset</code></p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1">subset01 &lt;-<span class="st"> </span><span class="kw">build_NIRdataset</span>(<span class="dt">df =</span> nir_data, <span class="dt">params_file =</span> <span class="st">&#39;test-NIR.txt&#39;</span>, <span class="dt">wd =</span> <span class="st">&#39;.&#39;</span>)</a>
-<a class="sourceLine" id="cb5-2" title="2"><span class="co">#&gt; Variable `surface_id`: face</span></a>
-<a class="sourceLine" id="cb5-3" title="3"><span class="co">#&gt; Which `surface` was chosen: abaxial side</span></a>
-<a class="sourceLine" id="cb5-4" title="4"><span class="co">#&gt; Variable `reads`: mean</span></a>
-<a class="sourceLine" id="cb5-5" title="5"><span class="co">#&gt; Building dataset: test.</span></a>
-<a class="sourceLine" id="cb5-6" title="6"><span class="co">#&gt; Mean of reads from both sides grouped by variable `especimenid`</span></a></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" title="1">subset01 &lt;-<span class="st"> </span><span class="kw">build_NIRdataset</span>(<span class="dt">df =</span> nir_data, <span class="dt">params_file =</span> <span class="st">&#39;test-NIR.txt&#39;</span>, <span class="dt">wd =</span> <span class="st">&#39;.&#39;</span>)</a></code></pre></div>
+<pre><code>## Variable `surface_id`: face</code></pre>
+<pre><code>## Which `surface` was chosen: abaxial side</code></pre>
+<pre><code>## Variable `reads`: mean</code></pre>
+<pre><code>## Building dataset: test.
+## Mean of reads from both sides grouped by variable `especimenid`</code></pre>
 <p>Note that you can also choose to save a RDS and/or a txt file with this subset, you just need to choose <code>TRUE</code> instead of the default option <code>FALSE</code>.</p>
 <p>Let’s check our subset01.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" title="1"><span class="kw">head</span>(subset01)[,<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>]</a>
-<a class="sourceLine" id="cb6-2" title="2"><span class="co">#&gt;    especimenid X10001.03  X3999.64 X4003.497 X4007.354 X4011.211 X4015.068</span></a>
-<a class="sourceLine" id="cb6-3" title="3"><span class="co">#&gt; 1:           1 0.2726848 0.5870106 0.5873088 0.5872404 0.5871257 0.5866435</span></a>
-<a class="sourceLine" id="cb6-4" title="4"><span class="co">#&gt; 2:           2 0.2669050 0.6696110 0.6696059 0.6692295 0.6688587 0.6681104</span></a>
-<a class="sourceLine" id="cb6-5" title="5"><span class="co">#&gt; 3:           3 0.2676881 0.6619618 0.6620807 0.6618708 0.6614516 0.6606935</span></a>
-<a class="sourceLine" id="cb6-6" title="6"><span class="co">#&gt; 4:           4 0.2482224 0.6593646 0.6593484 0.6591898 0.6588389 0.6581174</span></a>
-<a class="sourceLine" id="cb6-7" title="7"><span class="co">#&gt; 5:           5 0.2880839 0.6449743 0.6449506 0.6447369 0.6445321 0.6439594</span></a>
-<a class="sourceLine" id="cb6-8" title="8"><span class="co">#&gt; 6:           6 0.2572176 0.6149731 0.6151043 0.6149442 0.6147412 0.6141836</span></a>
-<a class="sourceLine" id="cb6-9" title="9"><span class="co">#&gt;    X4018.925 X4022.781 X4026.638</span></a>
-<a class="sourceLine" id="cb6-10" title="10"><span class="co">#&gt; 1: 0.5857780 0.5845048 0.5829656</span></a>
-<a class="sourceLine" id="cb6-11" title="11"><span class="co">#&gt; 2: 0.6668576 0.6653342 0.6635179</span></a>
-<a class="sourceLine" id="cb6-12" title="12"><span class="co">#&gt; 3: 0.6596471 0.6580762 0.6561215</span></a>
-<a class="sourceLine" id="cb6-13" title="13"><span class="co">#&gt; 4: 0.6571161 0.6554641 0.6534191</span></a>
-<a class="sourceLine" id="cb6-14" title="14"><span class="co">#&gt; 5: 0.6429325 0.6415167 0.6399324</span></a>
-<a class="sourceLine" id="cb6-15" title="15"><span class="co">#&gt; 6: 0.6133114 0.6119306 0.6102560</span></a></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" title="1"><span class="kw">head</span>(subset01)[,<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>]</a></code></pre></div>
+<pre><code>##    especimenid X10001.03  X3999.64 X4003.497 X4007.354 X4011.211 X4015.068
+## 1:           1 0.2726848 0.5870106 0.5873088 0.5872404 0.5871257 0.5866435
+## 2:           2 0.2669050 0.6696110 0.6696059 0.6692295 0.6688587 0.6681104
+## 3:           3 0.2676881 0.6619618 0.6620807 0.6618708 0.6614516 0.6606935
+## 4:           4 0.2482224 0.6593646 0.6593484 0.6591898 0.6588389 0.6581174
+## 5:           5 0.2880839 0.6449743 0.6449506 0.6447369 0.6445321 0.6439594
+## 6:           6 0.2572176 0.6149731 0.6151043 0.6149442 0.6147412 0.6141836
+##    X4018.925 X4022.781 X4026.638
+## 1: 0.5857780 0.5845048 0.5829656
+## 2: 0.6668576 0.6653342 0.6635179
+## 3: 0.6596471 0.6580762 0.6561215
+## 4: 0.6571161 0.6554641 0.6534191
+## 5: 0.6429325 0.6415167 0.6399324
+## 6: 0.6133114 0.6119306 0.6102560</code></pre>
 </div>
 <div id="tutorial" class="section level1">
 <h1>Tutorial</h1>
@@ -376,233 +376,233 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 <div id="using-parameter-file" class="section level2">
 <h2>Using parameter file</h2>
 <p>First, let’s create a vector of subset names.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" title="1"><span class="kw">library</span>(dplyr)</a>
-<a class="sourceLine" id="cb7-2" title="2"><span class="kw">library</span>(magrittr)</a>
-<a class="sourceLine" id="cb7-3" title="3"><span class="kw">library</span>(purrr)</a>
-<a class="sourceLine" id="cb7-4" title="4"></a>
-<a class="sourceLine" id="cb7-5" title="5">subset_names &lt;-<span class="st"> </span><span class="kw">sprintf</span>(<span class="st">&#39;subset%02d&#39;</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">3</span>)</a>
-<a class="sourceLine" id="cb7-6" title="6">surface_values &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;abaxial&#39;</span>, <span class="st">&#39;adaxial&#39;</span>, <span class="st">&#39;both&#39;</span>)</a>
-<a class="sourceLine" id="cb7-7" title="7">surface_id &lt;-<span class="st"> &#39;face&#39;</span></a>
-<a class="sourceLine" id="cb7-8" title="8">reads_values &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;all&#39;</span>, <span class="st">&#39;all&#39;</span>, <span class="st">&#39;mean&#39;</span>)</a>
-<a class="sourceLine" id="cb7-9" title="9">individual_id &lt;-<span class="st"> &#39;especimenid&#39;</span></a>
-<a class="sourceLine" id="cb7-10" title="10">group_id &lt;-<span class="st"> &#39;SP1&#39;</span></a>
-<a class="sourceLine" id="cb7-11" title="11">nir_id &lt;-<span class="st"> &#39;X&#39;</span></a>
-<a class="sourceLine" id="cb7-12" title="12"></a>
-<a class="sourceLine" id="cb7-13" title="13">metadata &lt;-<span class="st"> </span><span class="kw">data_frame</span>(subset_names, surface_values, reads_values, individual_id, surface_id, group_id, nir_id)</a></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" title="1"><span class="kw">library</span>(dplyr)</a>
+<a class="sourceLine" id="cb14-2" title="2"><span class="kw">library</span>(magrittr)</a>
+<a class="sourceLine" id="cb14-3" title="3"><span class="kw">library</span>(purrr)</a>
+<a class="sourceLine" id="cb14-4" title="4"></a>
+<a class="sourceLine" id="cb14-5" title="5">subset_names &lt;-<span class="st"> </span><span class="kw">sprintf</span>(<span class="st">&#39;subset%02d&#39;</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">3</span>)</a>
+<a class="sourceLine" id="cb14-6" title="6">surface_values &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;abaxial&#39;</span>, <span class="st">&#39;adaxial&#39;</span>, <span class="st">&#39;both&#39;</span>)</a>
+<a class="sourceLine" id="cb14-7" title="7">surface_id &lt;-<span class="st"> &#39;face&#39;</span></a>
+<a class="sourceLine" id="cb14-8" title="8">reads_values &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;all&#39;</span>, <span class="st">&#39;all&#39;</span>, <span class="st">&#39;mean&#39;</span>)</a>
+<a class="sourceLine" id="cb14-9" title="9">individual_id &lt;-<span class="st"> &#39;especimenid&#39;</span></a>
+<a class="sourceLine" id="cb14-10" title="10">group_id &lt;-<span class="st"> &#39;SP1&#39;</span></a>
+<a class="sourceLine" id="cb14-11" title="11">nir_id &lt;-<span class="st"> &#39;X&#39;</span></a>
+<a class="sourceLine" id="cb14-12" title="12"></a>
+<a class="sourceLine" id="cb14-13" title="13">metadata &lt;-<span class="st"> </span><span class="kw">data_frame</span>(subset_names, surface_values, reads_values, individual_id, surface_id, group_id, nir_id)</a></code></pre></div>
 <p>Now, let’s create several parameter files at once, using all columns from our object <code>metadata</code>. Each one of its columns, as you can see above, contain all necessary data to create our parameter files.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" title="1"><span class="kw">pwalk</span>(<span class="kw">list</span>(subset_names, surface_values, reads_values, individual_id, surface_id, group_id, nir_id), <span class="op">~</span><span class="kw">write_NIRparams</span>(<span class="dt">file =</span> ..<span class="dv">1</span>, <span class="dt">wd =</span> <span class="st">&#39;.&#39;</span>, <span class="dt">surface =</span> ..<span class="dv">2</span>, <span class="dt">reads =</span> ..<span class="dv">3</span>, <span class="dt">individual_id =</span> ..<span class="dv">4</span>, <span class="dt">surface_id =</span> ..<span class="dv">5</span>, <span class="dt">group_id =</span> ..<span class="dv">6</span>, <span class="dt">nir_id =</span> ..<span class="dv">7</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" title="1"><span class="kw">pwalk</span>(<span class="kw">list</span>(subset_names, surface_values, reads_values, individual_id, surface_id, group_id, nir_id), <span class="op">~</span><span class="kw">write_NIRparams</span>(<span class="dt">file =</span> ..<span class="dv">1</span>, <span class="dt">wd =</span> <span class="st">&#39;.&#39;</span>, <span class="dt">surface =</span> ..<span class="dv">2</span>, <span class="dt">reads =</span> ..<span class="dv">3</span>, <span class="dt">individual_id =</span> ..<span class="dv">4</span>, <span class="dt">surface_id =</span> ..<span class="dv">5</span>, <span class="dt">group_id =</span> ..<span class="dv">6</span>, <span class="dt">nir_id =</span> ..<span class="dv">7</span>))</a></code></pre></div>
 <p>The function <code>purrr::pwalk</code> takes a list of arguments and uses them as input for function ~NIRtools::write_NIRparams` whose result is having our three parameter files saved in our current working directory.</p>
 <div id="building-subsets-one-by-one" class="section level3">
 <h3>Building subsets one by one</h3>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" title="1">subset_files &lt;-<span class="st"> </span><span class="kw">list.files</span>(<span class="dt">pattern =</span> <span class="st">&#39;subset&#39;</span>)</a>
-<a class="sourceLine" id="cb9-2" title="2"><span class="co"># subset 01</span></a>
-<a class="sourceLine" id="cb9-3" title="3">subset01 &lt;-<span class="st"> </span><span class="kw">build_NIRdataset</span>(nir_data, subset_files[<span class="dv">1</span>])</a>
-<a class="sourceLine" id="cb9-4" title="4"><span class="co">#&gt; Variable `surface_id`: face</span></a>
-<a class="sourceLine" id="cb9-5" title="5"><span class="co">#&gt; Which `surface` was chosen: abaxial side</span></a>
-<a class="sourceLine" id="cb9-6" title="6"><span class="co">#&gt; Variable `reads`: all</span></a>
-<a class="sourceLine" id="cb9-7" title="7"><span class="co">#&gt; Building dataset: subset01.</span></a>
-<a class="sourceLine" id="cb9-8" title="8"><span class="co">#&gt; All reads from abaxial side grouped by variable `especimenid`</span></a>
-<a class="sourceLine" id="cb9-9" title="9"><span class="co"># subset 02</span></a>
-<a class="sourceLine" id="cb9-10" title="10">subset02 &lt;-<span class="st"> </span><span class="kw">build_NIRdataset</span>(nir_data, subset_files[<span class="dv">2</span>])</a>
-<a class="sourceLine" id="cb9-11" title="11"><span class="co">#&gt; Variable `surface_id`: face</span></a>
-<a class="sourceLine" id="cb9-12" title="12"><span class="co">#&gt; Which `surface` was chosen: adaxial side</span></a>
-<a class="sourceLine" id="cb9-13" title="13"><span class="co">#&gt; Variable `reads`: all</span></a>
-<a class="sourceLine" id="cb9-14" title="14"><span class="co">#&gt; Building dataset: subset02.</span></a>
-<a class="sourceLine" id="cb9-15" title="15"><span class="co">#&gt; All reads from adaxial side grouped by variable `especimenid`</span></a>
-<a class="sourceLine" id="cb9-16" title="16"><span class="co"># subset 03</span></a>
-<a class="sourceLine" id="cb9-17" title="17">subset03 &lt;-<span class="st"> </span><span class="kw">build_NIRdataset</span>(nir_data, subset_files[<span class="dv">3</span>])</a>
-<a class="sourceLine" id="cb9-18" title="18"><span class="co">#&gt; Variable `surface_id`: face</span></a>
-<a class="sourceLine" id="cb9-19" title="19"><span class="co">#&gt; Which `surface` was chosen: both sides</span></a>
-<a class="sourceLine" id="cb9-20" title="20"><span class="co">#&gt; Variable `reads`: mean</span></a>
-<a class="sourceLine" id="cb9-21" title="21"><span class="co">#&gt; Building dataset: subset03.</span></a>
-<a class="sourceLine" id="cb9-22" title="22"><span class="co">#&gt; Mean of reads from both sides grouped by variable `especimenid`</span></a></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" title="1">subset_files &lt;-<span class="st"> </span><span class="kw">list.files</span>(<span class="dt">pattern =</span> <span class="st">&#39;subset&#39;</span>)</a>
+<a class="sourceLine" id="cb16-2" title="2"><span class="co"># subset 01</span></a>
+<a class="sourceLine" id="cb16-3" title="3">subset01 &lt;-<span class="st"> </span><span class="kw">build_NIRdataset</span>(nir_data, subset_files[<span class="dv">1</span>])</a></code></pre></div>
+<pre><code>## Variable `surface_id`: face</code></pre>
+<pre><code>## Which `surface` was chosen: abaxial side</code></pre>
+<pre><code>## Variable `reads`: all</code></pre>
+<pre><code>## Building dataset: subset01.
+## All reads from abaxial side grouped by variable `especimenid`</code></pre>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" title="1"><span class="co"># subset 02</span></a>
+<a class="sourceLine" id="cb21-2" title="2">subset02 &lt;-<span class="st"> </span><span class="kw">build_NIRdataset</span>(nir_data, subset_files[<span class="dv">2</span>])</a></code></pre></div>
+<pre><code>## Variable `surface_id`: face</code></pre>
+<pre><code>## Which `surface` was chosen: adaxial side</code></pre>
+<pre><code>## Variable `reads`: all</code></pre>
+<pre><code>## Building dataset: subset02.
+## All reads from adaxial side grouped by variable `especimenid`</code></pre>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb26-1" title="1"><span class="co"># subset 03</span></a>
+<a class="sourceLine" id="cb26-2" title="2">subset03 &lt;-<span class="st"> </span><span class="kw">build_NIRdataset</span>(nir_data, subset_files[<span class="dv">3</span>])</a></code></pre></div>
+<pre><code>## Variable `surface_id`: face</code></pre>
+<pre><code>## Which `surface` was chosen: both sides</code></pre>
+<pre><code>## Variable `reads`: mean</code></pre>
+<pre><code>## Building dataset: subset03.
+## Mean of reads from both sides grouped by variable `especimenid`</code></pre>
 <p>Let’s have a look at them.</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" title="1"><span class="kw">dim</span>(subset01)</a>
-<a class="sourceLine" id="cb10-2" title="2"><span class="co">#&gt; [1]  270 1559</span></a></code></pre></div>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" title="1"><span class="kw">dim</span>(subset02)</a>
-<a class="sourceLine" id="cb11-2" title="2"><span class="co">#&gt; [1]  271 1559</span></a></code></pre></div>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" title="1"><span class="kw">dim</span>(subset03)</a>
-<a class="sourceLine" id="cb12-2" title="2"><span class="co">#&gt; [1]   74 1558</span></a></code></pre></div>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb31-1" title="1"><span class="kw">dim</span>(subset01)</a></code></pre></div>
+<pre><code>## [1]  270 1559</code></pre>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb33-1" title="1"><span class="kw">dim</span>(subset02)</a></code></pre></div>
+<pre><code>## [1]  271 1559</code></pre>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb35-1" title="1"><span class="kw">dim</span>(subset03)</a></code></pre></div>
+<pre><code>## [1]   74 1558</code></pre>
 <p>What if I do not remember which dataset refers to what? You have your parameter files to check. For example, what does subset03 mean?</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" title="1"><span class="kw">readLines</span>(<span class="st">&#39;subset03-NIR.txt&#39;</span>)</a>
-<a class="sourceLine" id="cb13-2" title="2"><span class="co">#&gt;  [1] &quot;# NIR dataset description - Dataset name and variables for its construction&quot;                                                                                                       </span></a>
-<a class="sourceLine" id="cb13-3" title="3"><span class="co">#&gt;  [2] &quot;subset03 ## [dataset_name]: Dataset name.&quot;                                                                                                                                         </span></a>
-<a class="sourceLine" id="cb13-4" title="4"><span class="co">#&gt;  [3] &quot;/Users/ricoperdiz/Documents/DOC/PROJETO_DOC/R/pkgs/NIRtools/vignettes ## [working_dir]: Location of working directory. If not provided, current working directory will be used one&quot;</span></a>
-<a class="sourceLine" id="cb13-5" title="5"><span class="co">#&gt;  [4] &quot;both ## [surface]: Which leaf surface (abaxial, adaxial, both)&quot;                                                                                                                    </span></a>
-<a class="sourceLine" id="cb13-6" title="6"><span class="co">#&gt;  [5] &quot;mean ## [reads]: Do all the reads will be taken into account (all, mean)?&quot;                                                                                                         </span></a>
-<a class="sourceLine" id="cb13-7" title="7"><span class="co">#&gt;  [6] &quot;           ## [nir_variables]: Which NIR variables will be used (all, subset)&quot;                                                                                                     </span></a>
-<a class="sourceLine" id="cb13-8" title="8"><span class="co">#&gt;  [7] &quot;           ## [subset_file]: Location of NIR variable subset file, in case option selected in `nir_variables` was `subset`&quot;                                                        </span></a>
-<a class="sourceLine" id="cb13-9" title="9"><span class="co">#&gt;  [8] &quot;especimenid ## [individual_id]: Which variable name corresponds to the individual?&quot;                                                                                                </span></a>
-<a class="sourceLine" id="cb13-10" title="10"><span class="co">#&gt;  [9] &quot;face ## [surface_id]: Which variable name corresponds to the leaf surface?&quot;                                                                                                        </span></a>
-<a class="sourceLine" id="cb13-11" title="11"><span class="co">#&gt; [10] &quot;SP1 ## [group_id]: Which name corresponds to the group category?&quot;                                                                                                                  </span></a>
-<a class="sourceLine" id="cb13-12" title="12"><span class="co">#&gt; [11] &quot;X ## [nir_id]: A string that can be used to grep column names containing NIR data. Default value is &#39;`X`, which precedes all columns with NIR data.&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb37-1" title="1"><span class="kw">readLines</span>(<span class="st">&#39;subset03-NIR.txt&#39;</span>)</a></code></pre></div>
+<pre><code>##  [1] &quot;# NIR dataset description - Dataset name and variables for its construction&quot;                                                                                                       
+##  [2] &quot;subset03 ## [dataset_name]: Dataset name.&quot;                                                                                                                                         
+##  [3] &quot;/Users/ricoperdiz/Documents/DOC/PROJETO_DOC/R/pkgs/NIRtools/vignettes ## [working_dir]: Location of working directory. If not provided, current working directory will be used one&quot;
+##  [4] &quot;both ## [surface]: Which leaf surface (abaxial, adaxial, both)&quot;                                                                                                                    
+##  [5] &quot;mean ## [reads]: Do all the reads will be taken into account (all, mean)?&quot;                                                                                                         
+##  [6] &quot;           ## [nir_variables]: Which NIR variables will be used (all, subset)&quot;                                                                                                     
+##  [7] &quot;           ## [subset_file]: Location of NIR variable subset file, in case option selected in `nir_variables` was `subset`&quot;                                                        
+##  [8] &quot;especimenid ## [individual_id]: Which variable name corresponds to the individual?&quot;                                                                                                
+##  [9] &quot;face ## [surface_id]: Which variable name corresponds to the leaf surface?&quot;                                                                                                        
+## [10] &quot;SP1 ## [group_id]: Which name corresponds to the group category?&quot;                                                                                                                  
+## [11] &quot;X ## [nir_id]: A string that can be used to grep column names containing NIR data. Default value is &#39;`X`, which precedes all columns with NIR data.&quot;</code></pre>
 <p>Or let’s have it as a dataframe.</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" title="1"><span class="kw">read_NIRparams</span>(<span class="st">&#39;subset03-NIR.txt&#39;</span>)</a>
-<a class="sourceLine" id="cb14-2" title="2"><span class="co">#&gt;    dataset_index dataset_name group_id individual_id nir_id nir_variables</span></a>
-<a class="sourceLine" id="cb14-3" title="3"><span class="co">#&gt; 1:             1     subset03      SP1   especimenid      X              </span></a>
-<a class="sourceLine" id="cb14-4" title="4"><span class="co">#&gt;    reads subset_file surface surface_id</span></a>
-<a class="sourceLine" id="cb14-5" title="5"><span class="co">#&gt; 1:  mean                both       face</span></a>
-<a class="sourceLine" id="cb14-6" title="6"><span class="co">#&gt;                                                              working_dir</span></a>
-<a class="sourceLine" id="cb14-7" title="7"><span class="co">#&gt; 1: /Users/ricoperdiz/Documents/DOC/PROJETO_DOC/R/pkgs/NIRtools/vignettes</span></a></code></pre></div>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb39-1" title="1"><span class="kw">read_NIRparams</span>(<span class="st">&#39;subset03-NIR.txt&#39;</span>)</a></code></pre></div>
+<pre><code>##    dataset_index dataset_name group_id individual_id nir_id nir_variables
+## 1:             1     subset03      SP1   especimenid      X              
+##    reads subset_file surface surface_id
+## 1:  mean                both       face
+##                                                              working_dir
+## 1: /Users/ricoperdiz/Documents/DOC/PROJETO_DOC/R/pkgs/NIRtools/vignettes</code></pre>
 </div>
 <div id="building-subsets-all-at-once" class="section level3">
 <h3>Building subsets all at once</h3>
 <p>Now, let’s use the parameter files to build all our subsets at once.</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" title="1">subsets &lt;-<span class="st"> </span><span class="kw">walk2</span>(<span class="kw">list</span>(nir_data), subset_files, <span class="op">~</span><span class="kw">build_NIRdataset</span>(<span class="dt">df =</span> .x, .y))</a>
-<a class="sourceLine" id="cb15-2" title="2"><span class="co">#&gt; Variable `surface_id`: face</span></a>
-<a class="sourceLine" id="cb15-3" title="3"><span class="co">#&gt; Which `surface` was chosen: abaxial side</span></a>
-<a class="sourceLine" id="cb15-4" title="4"><span class="co">#&gt; Variable `reads`: all</span></a>
-<a class="sourceLine" id="cb15-5" title="5"><span class="co">#&gt; Building dataset: subset01.</span></a>
-<a class="sourceLine" id="cb15-6" title="6"><span class="co">#&gt; All reads from abaxial side grouped by variable `especimenid`</span></a>
-<a class="sourceLine" id="cb15-7" title="7"><span class="co">#&gt; Variable `surface_id`: face</span></a>
-<a class="sourceLine" id="cb15-8" title="8"><span class="co">#&gt; Which `surface` was chosen: adaxial side</span></a>
-<a class="sourceLine" id="cb15-9" title="9"><span class="co">#&gt; Variable `reads`: all</span></a>
-<a class="sourceLine" id="cb15-10" title="10"><span class="co">#&gt; Building dataset: subset02.</span></a>
-<a class="sourceLine" id="cb15-11" title="11"><span class="co">#&gt; All reads from adaxial side grouped by variable `especimenid`</span></a>
-<a class="sourceLine" id="cb15-12" title="12"><span class="co">#&gt; Variable `surface_id`: face</span></a>
-<a class="sourceLine" id="cb15-13" title="13"><span class="co">#&gt; Which `surface` was chosen: both sides</span></a>
-<a class="sourceLine" id="cb15-14" title="14"><span class="co">#&gt; Variable `reads`: mean</span></a>
-<a class="sourceLine" id="cb15-15" title="15"><span class="co">#&gt; Building dataset: subset03.</span></a>
-<a class="sourceLine" id="cb15-16" title="16"><span class="co">#&gt; Mean of reads from both sides grouped by variable `especimenid`</span></a>
-<a class="sourceLine" id="cb15-17" title="17">subsets <span class="op">%&gt;%</span><span class="st"> </span>str</a>
-<a class="sourceLine" id="cb15-18" title="18"><span class="co">#&gt; List of 1</span></a>
-<a class="sourceLine" id="cb15-19" title="19"><span class="co">#&gt;  $ :Classes &#39;data.table&#39; and &#39;data.frame&#39;:   541 obs. of  1561 variables:</span></a>
-<a class="sourceLine" id="cb15-20" title="20"><span class="co">#&gt;   ..$ especimenid: num [1:541] 17 17 17 17 17 17 18 18 18 18 ...</span></a>
-<a class="sourceLine" id="cb15-21" title="21"><span class="co">#&gt;   ..$ SP1        : num [1:541] 4 4 4 4 4 4 8 8 8 8 ...</span></a>
-<a class="sourceLine" id="cb15-22" title="22"><span class="co">#&gt;   ..$ read       : chr [1:541] &quot;folha-1&quot; &quot;folha-1&quot; &quot;folha-2&quot; &quot;folha-2&quot; ...</span></a>
-<a class="sourceLine" id="cb15-23" title="23"><span class="co">#&gt;   ..$ face       : chr [1:541] &quot;abaxial&quot; &quot;adaxial&quot; &quot;abaxial&quot; &quot;adaxial&quot; ...</span></a>
-<a class="sourceLine" id="cb15-24" title="24"><span class="co">#&gt;   ..$ X10001.03  : num [1:541] 0.278 0.233 0.257 0.256 0.255 ...</span></a>
-<a class="sourceLine" id="cb15-25" title="25"><span class="co">#&gt;   ..$ X3999.64   : num [1:541] 0.653 0.67 0.642 0.634 0.635 ...</span></a>
-<a class="sourceLine" id="cb15-26" title="26"><span class="co">#&gt;   ..$ X4003.497  : num [1:541] 0.653 0.67 0.642 0.634 0.635 ...</span></a>
-<a class="sourceLine" id="cb15-27" title="27"><span class="co">#&gt;   ..$ X4007.354  : num [1:541] 0.653 0.67 0.642 0.634 0.635 ...</span></a>
-<a class="sourceLine" id="cb15-28" title="28"><span class="co">#&gt;   ..$ X4011.211  : num [1:541] 0.653 0.669 0.641 0.634 0.635 ...</span></a>
-<a class="sourceLine" id="cb15-29" title="29"><span class="co">#&gt;   ..$ X4015.068  : num [1:541] 0.652 0.668 0.64 0.633 0.634 ...</span></a>
-<a class="sourceLine" id="cb15-30" title="30"><span class="co">#&gt;   ..$ X4018.925  : num [1:541] 0.651 0.667 0.639 0.631 0.633 ...</span></a>
-<a class="sourceLine" id="cb15-31" title="31"><span class="co">#&gt;   ..$ X4022.781  : num [1:541] 0.649 0.664 0.637 0.629 0.631 ...</span></a>
-<a class="sourceLine" id="cb15-32" title="32"><span class="co">#&gt;   ..$ X4026.638  : num [1:541] 0.647 0.662 0.635 0.627 0.629 ...</span></a>
-<a class="sourceLine" id="cb15-33" title="33"><span class="co">#&gt;   ..$ X4030.495  : num [1:541] 0.644 0.659 0.632 0.625 0.626 ...</span></a>
-<a class="sourceLine" id="cb15-34" title="34"><span class="co">#&gt;   ..$ X4034.352  : num [1:541] 0.642 0.656 0.629 0.622 0.623 ...</span></a>
-<a class="sourceLine" id="cb15-35" title="35"><span class="co">#&gt;   ..$ X4038.209  : num [1:541] 0.638 0.653 0.626 0.619 0.62 ...</span></a>
-<a class="sourceLine" id="cb15-36" title="36"><span class="co">#&gt;   ..$ X4042.066  : num [1:541] 0.635 0.649 0.623 0.615 0.617 ...</span></a>
-<a class="sourceLine" id="cb15-37" title="37"><span class="co">#&gt;   ..$ X4045.923  : num [1:541] 0.632 0.645 0.619 0.612 0.613 ...</span></a>
-<a class="sourceLine" id="cb15-38" title="38"><span class="co">#&gt;   ..$ X4049.78   : num [1:541] 0.628 0.641 0.616 0.608 0.61 ...</span></a>
-<a class="sourceLine" id="cb15-39" title="39"><span class="co">#&gt;   ..$ X4053.637  : num [1:541] 0.625 0.637 0.612 0.604 0.606 ...</span></a>
-<a class="sourceLine" id="cb15-40" title="40"><span class="co">#&gt;   ..$ X4057.494  : num [1:541] 0.621 0.633 0.608 0.6 0.603 ...</span></a>
-<a class="sourceLine" id="cb15-41" title="41"><span class="co">#&gt;   ..$ X4061.351  : num [1:541] 0.617 0.629 0.604 0.596 0.599 ...</span></a>
-<a class="sourceLine" id="cb15-42" title="42"><span class="co">#&gt;   ..$ X4065.208  : num [1:541] 0.613 0.624 0.6 0.592 0.594 ...</span></a>
-<a class="sourceLine" id="cb15-43" title="43"><span class="co">#&gt;   ..$ X4069.065  : num [1:541] 0.609 0.619 0.595 0.588 0.59 ...</span></a>
-<a class="sourceLine" id="cb15-44" title="44"><span class="co">#&gt;   ..$ X4072.922  : num [1:541] 0.605 0.614 0.591 0.583 0.586 ...</span></a>
-<a class="sourceLine" id="cb15-45" title="45"><span class="co">#&gt;   ..$ X4076.779  : num [1:541] 0.601 0.609 0.587 0.579 0.581 ...</span></a>
-<a class="sourceLine" id="cb15-46" title="46"><span class="co">#&gt;   ..$ X4080.635  : num [1:541] 0.597 0.604 0.582 0.575 0.577 ...</span></a>
-<a class="sourceLine" id="cb15-47" title="47"><span class="co">#&gt;   ..$ X4084.492  : num [1:541] 0.593 0.599 0.578 0.571 0.573 ...</span></a>
-<a class="sourceLine" id="cb15-48" title="48"><span class="co">#&gt;   ..$ X4088.349  : num [1:541] 0.588 0.594 0.574 0.566 0.569 ...</span></a>
-<a class="sourceLine" id="cb15-49" title="49"><span class="co">#&gt;   ..$ X4092.206  : num [1:541] 0.585 0.59 0.57 0.563 0.565 ...</span></a>
-<a class="sourceLine" id="cb15-50" title="50"><span class="co">#&gt;   ..$ X4096.063  : num [1:541] 0.581 0.585 0.566 0.559 0.561 ...</span></a>
-<a class="sourceLine" id="cb15-51" title="51"><span class="co">#&gt;   ..$ X4099.92   : num [1:541] 0.577 0.581 0.562 0.555 0.557 ...</span></a>
-<a class="sourceLine" id="cb15-52" title="52"><span class="co">#&gt;   ..$ X4103.777  : num [1:541] 0.574 0.576 0.558 0.551 0.554 ...</span></a>
-<a class="sourceLine" id="cb15-53" title="53"><span class="co">#&gt;   ..$ X4107.634  : num [1:541] 0.57 0.572 0.555 0.547 0.55 ...</span></a>
-<a class="sourceLine" id="cb15-54" title="54"><span class="co">#&gt;   ..$ X4111.491  : num [1:541] 0.567 0.568 0.552 0.544 0.547 ...</span></a>
-<a class="sourceLine" id="cb15-55" title="55"><span class="co">#&gt;   ..$ X4115.348  : num [1:541] 0.564 0.565 0.549 0.541 0.544 ...</span></a>
-<a class="sourceLine" id="cb15-56" title="56"><span class="co">#&gt;   ..$ X4119.205  : num [1:541] 0.561 0.561 0.546 0.538 0.541 ...</span></a>
-<a class="sourceLine" id="cb15-57" title="57"><span class="co">#&gt;   ..$ X4123.062  : num [1:541] 0.558 0.558 0.543 0.535 0.538 ...</span></a>
-<a class="sourceLine" id="cb15-58" title="58"><span class="co">#&gt;   ..$ X4126.918  : num [1:541] 0.555 0.555 0.54 0.532 0.535 ...</span></a>
-<a class="sourceLine" id="cb15-59" title="59"><span class="co">#&gt;   ..$ X4130.775  : num [1:541] 0.553 0.552 0.537 0.53 0.533 ...</span></a>
-<a class="sourceLine" id="cb15-60" title="60"><span class="co">#&gt;   ..$ X4134.632  : num [1:541] 0.551 0.549 0.535 0.528 0.531 ...</span></a>
-<a class="sourceLine" id="cb15-61" title="61"><span class="co">#&gt;   ..$ X4138.489  : num [1:541] 0.549 0.547 0.533 0.526 0.529 ...</span></a>
-<a class="sourceLine" id="cb15-62" title="62"><span class="co">#&gt;   ..$ X4142.346  : num [1:541] 0.547 0.545 0.531 0.524 0.527 ...</span></a>
-<a class="sourceLine" id="cb15-63" title="63"><span class="co">#&gt;   ..$ X4146.203  : num [1:541] 0.545 0.543 0.53 0.522 0.525 ...</span></a>
-<a class="sourceLine" id="cb15-64" title="64"><span class="co">#&gt;   ..$ X4150.06   : num [1:541] 0.544 0.541 0.528 0.521 0.524 ...</span></a>
-<a class="sourceLine" id="cb15-65" title="65"><span class="co">#&gt;   ..$ X4153.917  : num [1:541] 0.543 0.54 0.527 0.52 0.522 ...</span></a>
-<a class="sourceLine" id="cb15-66" title="66"><span class="co">#&gt;   ..$ X4157.774  : num [1:541] 0.542 0.539 0.526 0.518 0.521 ...</span></a>
-<a class="sourceLine" id="cb15-67" title="67"><span class="co">#&gt;   ..$ X4161.631  : num [1:541] 0.541 0.538 0.525 0.518 0.521 ...</span></a>
-<a class="sourceLine" id="cb15-68" title="68"><span class="co">#&gt;   ..$ X4165.488  : num [1:541] 0.54 0.537 0.524 0.517 0.52 ...</span></a>
-<a class="sourceLine" id="cb15-69" title="69"><span class="co">#&gt;   ..$ X4169.345  : num [1:541] 0.54 0.537 0.524 0.517 0.52 ...</span></a>
-<a class="sourceLine" id="cb15-70" title="70"><span class="co">#&gt;   ..$ X4173.202  : num [1:541] 0.54 0.536 0.524 0.517 0.52 ...</span></a>
-<a class="sourceLine" id="cb15-71" title="71"><span class="co">#&gt;   ..$ X4177.059  : num [1:541] 0.54 0.536 0.524 0.517 0.52 ...</span></a>
-<a class="sourceLine" id="cb15-72" title="72"><span class="co">#&gt;   ..$ X4180.916  : num [1:541] 0.54 0.536 0.524 0.517 0.52 ...</span></a>
-<a class="sourceLine" id="cb15-73" title="73"><span class="co">#&gt;   ..$ X4184.772  : num [1:541] 0.54 0.536 0.524 0.517 0.52 ...</span></a>
-<a class="sourceLine" id="cb15-74" title="74"><span class="co">#&gt;   ..$ X4188.629  : num [1:541] 0.54 0.535 0.524 0.516 0.519 ...</span></a>
-<a class="sourceLine" id="cb15-75" title="75"><span class="co">#&gt;   ..$ X4192.486  : num [1:541] 0.539 0.535 0.524 0.516 0.519 ...</span></a>
-<a class="sourceLine" id="cb15-76" title="76"><span class="co">#&gt;   ..$ X4196.343  : num [1:541] 0.539 0.535 0.523 0.516 0.519 ...</span></a>
-<a class="sourceLine" id="cb15-77" title="77"><span class="co">#&gt;   ..$ X4200.2    : num [1:541] 0.539 0.534 0.523 0.516 0.519 ...</span></a>
-<a class="sourceLine" id="cb15-78" title="78"><span class="co">#&gt;   ..$ X4204.057  : num [1:541] 0.539 0.534 0.523 0.515 0.519 ...</span></a>
-<a class="sourceLine" id="cb15-79" title="79"><span class="co">#&gt;   ..$ X4207.914  : num [1:541] 0.539 0.534 0.523 0.515 0.519 ...</span></a>
-<a class="sourceLine" id="cb15-80" title="80"><span class="co">#&gt;   ..$ X4211.771  : num [1:541] 0.539 0.534 0.523 0.515 0.518 ...</span></a>
-<a class="sourceLine" id="cb15-81" title="81"><span class="co">#&gt;   ..$ X4215.628  : num [1:541] 0.539 0.534 0.523 0.515 0.518 ...</span></a>
-<a class="sourceLine" id="cb15-82" title="82"><span class="co">#&gt;   ..$ X4219.485  : num [1:541] 0.539 0.534 0.523 0.515 0.518 ...</span></a>
-<a class="sourceLine" id="cb15-83" title="83"><span class="co">#&gt;   ..$ X4223.342  : num [1:541] 0.539 0.535 0.523 0.515 0.519 ...</span></a>
-<a class="sourceLine" id="cb15-84" title="84"><span class="co">#&gt;   ..$ X4227.199  : num [1:541] 0.539 0.535 0.523 0.515 0.519 ...</span></a>
-<a class="sourceLine" id="cb15-85" title="85"><span class="co">#&gt;   ..$ X4231.056  : num [1:541] 0.539 0.536 0.523 0.516 0.519 ...</span></a>
-<a class="sourceLine" id="cb15-86" title="86"><span class="co">#&gt;   ..$ X4234.913  : num [1:541] 0.539 0.536 0.524 0.516 0.519 ...</span></a>
-<a class="sourceLine" id="cb15-87" title="87"><span class="co">#&gt;   ..$ X4238.77   : num [1:541] 0.54 0.537 0.524 0.516 0.52 ...</span></a>
-<a class="sourceLine" id="cb15-88" title="88"><span class="co">#&gt;   ..$ X4242.626  : num [1:541] 0.54 0.538 0.525 0.517 0.52 ...</span></a>
-<a class="sourceLine" id="cb15-89" title="89"><span class="co">#&gt;   ..$ X4246.483  : num [1:541] 0.541 0.539 0.525 0.518 0.521 ...</span></a>
-<a class="sourceLine" id="cb15-90" title="90"><span class="co">#&gt;   ..$ X4250.34   : num [1:541] 0.542 0.54 0.526 0.518 0.522 ...</span></a>
-<a class="sourceLine" id="cb15-91" title="91"><span class="co">#&gt;   ..$ X4254.197  : num [1:541] 0.542 0.54 0.526 0.519 0.522 ...</span></a>
-<a class="sourceLine" id="cb15-92" title="92"><span class="co">#&gt;   ..$ X4258.054  : num [1:541] 0.542 0.54 0.526 0.519 0.522 ...</span></a>
-<a class="sourceLine" id="cb15-93" title="93"><span class="co">#&gt;   ..$ X4261.911  : num [1:541] 0.542 0.54 0.526 0.518 0.522 ...</span></a>
-<a class="sourceLine" id="cb15-94" title="94"><span class="co">#&gt;   ..$ X4265.768  : num [1:541] 0.542 0.539 0.526 0.518 0.522 ...</span></a>
-<a class="sourceLine" id="cb15-95" title="95"><span class="co">#&gt;   ..$ X4269.625  : num [1:541] 0.541 0.539 0.526 0.518 0.522 ...</span></a>
-<a class="sourceLine" id="cb15-96" title="96"><span class="co">#&gt;   ..$ X4273.482  : num [1:541] 0.541 0.538 0.525 0.517 0.521 ...</span></a>
-<a class="sourceLine" id="cb15-97" title="97"><span class="co">#&gt;   ..$ X4277.339  : num [1:541] 0.54 0.537 0.525 0.517 0.521 ...</span></a>
-<a class="sourceLine" id="cb15-98" title="98"><span class="co">#&gt;   ..$ X4281.196  : num [1:541] 0.54 0.536 0.524 0.516 0.52 ...</span></a>
-<a class="sourceLine" id="cb15-99" title="99"><span class="co">#&gt;   ..$ X4285.053  : num [1:541] 0.539 0.536 0.523 0.515 0.519 ...</span></a>
-<a class="sourceLine" id="cb15-100" title="100"><span class="co">#&gt;   ..$ X4288.91   : num [1:541] 0.539 0.535 0.522 0.515 0.519 ...</span></a>
-<a class="sourceLine" id="cb15-101" title="101"><span class="co">#&gt;   ..$ X4292.767  : num [1:541] 0.538 0.534 0.522 0.514 0.518 ...</span></a>
-<a class="sourceLine" id="cb15-102" title="102"><span class="co">#&gt;   ..$ X4296.624  : num [1:541] 0.537 0.533 0.521 0.513 0.517 ...</span></a>
-<a class="sourceLine" id="cb15-103" title="103"><span class="co">#&gt;   ..$ X4300.48   : num [1:541] 0.536 0.533 0.52 0.512 0.516 ...</span></a>
-<a class="sourceLine" id="cb15-104" title="104"><span class="co">#&gt;   ..$ X4304.337  : num [1:541] 0.535 0.532 0.519 0.512 0.516 ...</span></a>
-<a class="sourceLine" id="cb15-105" title="105"><span class="co">#&gt;   ..$ X4308.194  : num [1:541] 0.535 0.532 0.519 0.511 0.515 ...</span></a>
-<a class="sourceLine" id="cb15-106" title="106"><span class="co">#&gt;   ..$ X4312.051  : num [1:541] 0.534 0.532 0.518 0.51 0.515 ...</span></a>
-<a class="sourceLine" id="cb15-107" title="107"><span class="co">#&gt;   ..$ X4315.908  : num [1:541] 0.534 0.532 0.518 0.51 0.515 ...</span></a>
-<a class="sourceLine" id="cb15-108" title="108"><span class="co">#&gt;   ..$ X4319.765  : num [1:541] 0.534 0.533 0.518 0.51 0.515 ...</span></a>
-<a class="sourceLine" id="cb15-109" title="109"><span class="co">#&gt;   ..$ X4323.622  : num [1:541] 0.534 0.533 0.518 0.51 0.515 ...</span></a>
-<a class="sourceLine" id="cb15-110" title="110"><span class="co">#&gt;   ..$ X4327.479  : num [1:541] 0.533 0.532 0.517 0.509 0.513 ...</span></a>
-<a class="sourceLine" id="cb15-111" title="111"><span class="co">#&gt;   ..$ X4331.336  : num [1:541] 0.532 0.531 0.516 0.508 0.512 ...</span></a>
-<a class="sourceLine" id="cb15-112" title="112"><span class="co">#&gt;   ..$ X4335.193  : num [1:541] 0.531 0.53 0.515 0.507 0.511 ...</span></a>
-<a class="sourceLine" id="cb15-113" title="113"><span class="co">#&gt;   ..$ X4339.05   : num [1:541] 0.53 0.528 0.513 0.506 0.51 ...</span></a>
-<a class="sourceLine" id="cb15-114" title="114"><span class="co">#&gt;   ..$ X4342.907  : num [1:541] 0.528 0.527 0.512 0.504 0.509 ...</span></a>
-<a class="sourceLine" id="cb15-115" title="115"><span class="co">#&gt;   ..$ X4346.764  : num [1:541] 0.527 0.525 0.511 0.503 0.507 ...</span></a>
-<a class="sourceLine" id="cb15-116" title="116"><span class="co">#&gt;   ..$ X4350.621  : num [1:541] 0.526 0.523 0.509 0.501 0.506 ...</span></a>
-<a class="sourceLine" id="cb15-117" title="117"><span class="co">#&gt;   ..$ X4354.478  : num [1:541] 0.524 0.521 0.508 0.5 0.505 ...</span></a>
-<a class="sourceLine" id="cb15-118" title="118"><span class="co">#&gt;   ..$ X4358.334  : num [1:541] 0.523 0.519 0.507 0.499 0.503 ...</span></a>
-<a class="sourceLine" id="cb15-119" title="119"><span class="co">#&gt;   .. [list output truncated]</span></a>
-<a class="sourceLine" id="cb15-120" title="120"><span class="co">#&gt;   ..- attr(*, &quot;.internal.selfref&quot;)=&lt;externalptr&gt;</span></a></code></pre></div>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb41-1" title="1">subsets &lt;-<span class="st"> </span><span class="kw">walk2</span>(<span class="kw">list</span>(nir_data), subset_files, <span class="op">~</span><span class="kw">build_NIRdataset</span>(<span class="dt">df =</span> .x, .y))</a></code></pre></div>
+<pre><code>## Variable `surface_id`: face</code></pre>
+<pre><code>## Which `surface` was chosen: abaxial side</code></pre>
+<pre><code>## Variable `reads`: all</code></pre>
+<pre><code>## Building dataset: subset01.
+## All reads from abaxial side grouped by variable `especimenid`</code></pre>
+<pre><code>## Variable `surface_id`: face</code></pre>
+<pre><code>## Which `surface` was chosen: adaxial side</code></pre>
+<pre><code>## Variable `reads`: all</code></pre>
+<pre><code>## Building dataset: subset02.
+## All reads from adaxial side grouped by variable `especimenid`</code></pre>
+<pre><code>## Variable `surface_id`: face</code></pre>
+<pre><code>## Which `surface` was chosen: both sides</code></pre>
+<pre><code>## Variable `reads`: mean</code></pre>
+<pre><code>## Building dataset: subset03.
+## Mean of reads from both sides grouped by variable `especimenid`</code></pre>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb54-1" title="1">subsets <span class="op">%&gt;%</span><span class="st"> </span>str</a></code></pre></div>
+<pre><code>## List of 1
+##  $ :Classes &#39;data.table&#39; and &#39;data.frame&#39;:   541 obs. of  1561 variables:
+##   ..$ especimenid: num [1:541] 17 17 17 17 17 17 18 18 18 18 ...
+##   ..$ SP1        : num [1:541] 4 4 4 4 4 4 8 8 8 8 ...
+##   ..$ read       : chr [1:541] &quot;folha-1&quot; &quot;folha-1&quot; &quot;folha-2&quot; &quot;folha-2&quot; ...
+##   ..$ face       : chr [1:541] &quot;abaxial&quot; &quot;adaxial&quot; &quot;abaxial&quot; &quot;adaxial&quot; ...
+##   ..$ X10001.03  : num [1:541] 0.278 0.233 0.257 0.256 0.255 ...
+##   ..$ X3999.64   : num [1:541] 0.653 0.67 0.642 0.634 0.635 ...
+##   ..$ X4003.497  : num [1:541] 0.653 0.67 0.642 0.634 0.635 ...
+##   ..$ X4007.354  : num [1:541] 0.653 0.67 0.642 0.634 0.635 ...
+##   ..$ X4011.211  : num [1:541] 0.653 0.669 0.641 0.634 0.635 ...
+##   ..$ X4015.068  : num [1:541] 0.652 0.668 0.64 0.633 0.634 ...
+##   ..$ X4018.925  : num [1:541] 0.651 0.667 0.639 0.631 0.633 ...
+##   ..$ X4022.781  : num [1:541] 0.649 0.664 0.637 0.629 0.631 ...
+##   ..$ X4026.638  : num [1:541] 0.647 0.662 0.635 0.627 0.629 ...
+##   ..$ X4030.495  : num [1:541] 0.644 0.659 0.632 0.625 0.626 ...
+##   ..$ X4034.352  : num [1:541] 0.642 0.656 0.629 0.622 0.623 ...
+##   ..$ X4038.209  : num [1:541] 0.638 0.653 0.626 0.619 0.62 ...
+##   ..$ X4042.066  : num [1:541] 0.635 0.649 0.623 0.615 0.617 ...
+##   ..$ X4045.923  : num [1:541] 0.632 0.645 0.619 0.612 0.613 ...
+##   ..$ X4049.78   : num [1:541] 0.628 0.641 0.616 0.608 0.61 ...
+##   ..$ X4053.637  : num [1:541] 0.625 0.637 0.612 0.604 0.606 ...
+##   ..$ X4057.494  : num [1:541] 0.621 0.633 0.608 0.6 0.603 ...
+##   ..$ X4061.351  : num [1:541] 0.617 0.629 0.604 0.596 0.599 ...
+##   ..$ X4065.208  : num [1:541] 0.613 0.624 0.6 0.592 0.594 ...
+##   ..$ X4069.065  : num [1:541] 0.609 0.619 0.595 0.588 0.59 ...
+##   ..$ X4072.922  : num [1:541] 0.605 0.614 0.591 0.583 0.586 ...
+##   ..$ X4076.779  : num [1:541] 0.601 0.609 0.587 0.579 0.581 ...
+##   ..$ X4080.635  : num [1:541] 0.597 0.604 0.582 0.575 0.577 ...
+##   ..$ X4084.492  : num [1:541] 0.593 0.599 0.578 0.571 0.573 ...
+##   ..$ X4088.349  : num [1:541] 0.588 0.594 0.574 0.566 0.569 ...
+##   ..$ X4092.206  : num [1:541] 0.585 0.59 0.57 0.563 0.565 ...
+##   ..$ X4096.063  : num [1:541] 0.581 0.585 0.566 0.559 0.561 ...
+##   ..$ X4099.92   : num [1:541] 0.577 0.581 0.562 0.555 0.557 ...
+##   ..$ X4103.777  : num [1:541] 0.574 0.576 0.558 0.551 0.554 ...
+##   ..$ X4107.634  : num [1:541] 0.57 0.572 0.555 0.547 0.55 ...
+##   ..$ X4111.491  : num [1:541] 0.567 0.568 0.552 0.544 0.547 ...
+##   ..$ X4115.348  : num [1:541] 0.564 0.565 0.549 0.541 0.544 ...
+##   ..$ X4119.205  : num [1:541] 0.561 0.561 0.546 0.538 0.541 ...
+##   ..$ X4123.062  : num [1:541] 0.558 0.558 0.543 0.535 0.538 ...
+##   ..$ X4126.918  : num [1:541] 0.555 0.555 0.54 0.532 0.535 ...
+##   ..$ X4130.775  : num [1:541] 0.553 0.552 0.537 0.53 0.533 ...
+##   ..$ X4134.632  : num [1:541] 0.551 0.549 0.535 0.528 0.531 ...
+##   ..$ X4138.489  : num [1:541] 0.549 0.547 0.533 0.526 0.529 ...
+##   ..$ X4142.346  : num [1:541] 0.547 0.545 0.531 0.524 0.527 ...
+##   ..$ X4146.203  : num [1:541] 0.545 0.543 0.53 0.522 0.525 ...
+##   ..$ X4150.06   : num [1:541] 0.544 0.541 0.528 0.521 0.524 ...
+##   ..$ X4153.917  : num [1:541] 0.543 0.54 0.527 0.52 0.522 ...
+##   ..$ X4157.774  : num [1:541] 0.542 0.539 0.526 0.518 0.521 ...
+##   ..$ X4161.631  : num [1:541] 0.541 0.538 0.525 0.518 0.521 ...
+##   ..$ X4165.488  : num [1:541] 0.54 0.537 0.524 0.517 0.52 ...
+##   ..$ X4169.345  : num [1:541] 0.54 0.537 0.524 0.517 0.52 ...
+##   ..$ X4173.202  : num [1:541] 0.54 0.536 0.524 0.517 0.52 ...
+##   ..$ X4177.059  : num [1:541] 0.54 0.536 0.524 0.517 0.52 ...
+##   ..$ X4180.916  : num [1:541] 0.54 0.536 0.524 0.517 0.52 ...
+##   ..$ X4184.772  : num [1:541] 0.54 0.536 0.524 0.517 0.52 ...
+##   ..$ X4188.629  : num [1:541] 0.54 0.535 0.524 0.516 0.519 ...
+##   ..$ X4192.486  : num [1:541] 0.539 0.535 0.524 0.516 0.519 ...
+##   ..$ X4196.343  : num [1:541] 0.539 0.535 0.523 0.516 0.519 ...
+##   ..$ X4200.2    : num [1:541] 0.539 0.534 0.523 0.516 0.519 ...
+##   ..$ X4204.057  : num [1:541] 0.539 0.534 0.523 0.515 0.519 ...
+##   ..$ X4207.914  : num [1:541] 0.539 0.534 0.523 0.515 0.519 ...
+##   ..$ X4211.771  : num [1:541] 0.539 0.534 0.523 0.515 0.518 ...
+##   ..$ X4215.628  : num [1:541] 0.539 0.534 0.523 0.515 0.518 ...
+##   ..$ X4219.485  : num [1:541] 0.539 0.534 0.523 0.515 0.518 ...
+##   ..$ X4223.342  : num [1:541] 0.539 0.535 0.523 0.515 0.519 ...
+##   ..$ X4227.199  : num [1:541] 0.539 0.535 0.523 0.515 0.519 ...
+##   ..$ X4231.056  : num [1:541] 0.539 0.536 0.523 0.516 0.519 ...
+##   ..$ X4234.913  : num [1:541] 0.539 0.536 0.524 0.516 0.519 ...
+##   ..$ X4238.77   : num [1:541] 0.54 0.537 0.524 0.516 0.52 ...
+##   ..$ X4242.626  : num [1:541] 0.54 0.538 0.525 0.517 0.52 ...
+##   ..$ X4246.483  : num [1:541] 0.541 0.539 0.525 0.518 0.521 ...
+##   ..$ X4250.34   : num [1:541] 0.542 0.54 0.526 0.518 0.522 ...
+##   ..$ X4254.197  : num [1:541] 0.542 0.54 0.526 0.519 0.522 ...
+##   ..$ X4258.054  : num [1:541] 0.542 0.54 0.526 0.519 0.522 ...
+##   ..$ X4261.911  : num [1:541] 0.542 0.54 0.526 0.518 0.522 ...
+##   ..$ X4265.768  : num [1:541] 0.542 0.539 0.526 0.518 0.522 ...
+##   ..$ X4269.625  : num [1:541] 0.541 0.539 0.526 0.518 0.522 ...
+##   ..$ X4273.482  : num [1:541] 0.541 0.538 0.525 0.517 0.521 ...
+##   ..$ X4277.339  : num [1:541] 0.54 0.537 0.525 0.517 0.521 ...
+##   ..$ X4281.196  : num [1:541] 0.54 0.536 0.524 0.516 0.52 ...
+##   ..$ X4285.053  : num [1:541] 0.539 0.536 0.523 0.515 0.519 ...
+##   ..$ X4288.91   : num [1:541] 0.539 0.535 0.522 0.515 0.519 ...
+##   ..$ X4292.767  : num [1:541] 0.538 0.534 0.522 0.514 0.518 ...
+##   ..$ X4296.624  : num [1:541] 0.537 0.533 0.521 0.513 0.517 ...
+##   ..$ X4300.48   : num [1:541] 0.536 0.533 0.52 0.512 0.516 ...
+##   ..$ X4304.337  : num [1:541] 0.535 0.532 0.519 0.512 0.516 ...
+##   ..$ X4308.194  : num [1:541] 0.535 0.532 0.519 0.511 0.515 ...
+##   ..$ X4312.051  : num [1:541] 0.534 0.532 0.518 0.51 0.515 ...
+##   ..$ X4315.908  : num [1:541] 0.534 0.532 0.518 0.51 0.515 ...
+##   ..$ X4319.765  : num [1:541] 0.534 0.533 0.518 0.51 0.515 ...
+##   ..$ X4323.622  : num [1:541] 0.534 0.533 0.518 0.51 0.515 ...
+##   ..$ X4327.479  : num [1:541] 0.533 0.532 0.517 0.509 0.513 ...
+##   ..$ X4331.336  : num [1:541] 0.532 0.531 0.516 0.508 0.512 ...
+##   ..$ X4335.193  : num [1:541] 0.531 0.53 0.515 0.507 0.511 ...
+##   ..$ X4339.05   : num [1:541] 0.53 0.528 0.513 0.506 0.51 ...
+##   ..$ X4342.907  : num [1:541] 0.528 0.527 0.512 0.504 0.509 ...
+##   ..$ X4346.764  : num [1:541] 0.527 0.525 0.511 0.503 0.507 ...
+##   ..$ X4350.621  : num [1:541] 0.526 0.523 0.509 0.501 0.506 ...
+##   ..$ X4354.478  : num [1:541] 0.524 0.521 0.508 0.5 0.505 ...
+##   ..$ X4358.334  : num [1:541] 0.523 0.519 0.507 0.499 0.503 ...
+##   .. [list output truncated]
+##   ..- attr(*, &quot;.internal.selfref&quot;)=&lt;externalptr&gt;</code></pre>
 <p>The result of using function <code>walk2</code> is a list of dataframes, each one with the desired subset.</p>
 <p>Another option, and easier to deal with, in my opinion, would be to have our parameter files stored as a dataframe, and then create a column in it that would contain our subsets. Let’s take a look below to see how it is done.</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" title="1">nir_params &lt;-<span class="st"> </span><span class="kw">map_dfr</span>(subset_files, read_NIRparams)</a></code></pre></div>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb56-1" title="1">nir_params &lt;-<span class="st"> </span><span class="kw">map_dfr</span>(subset_files, read_NIRparams)</a></code></pre></div>
 <p>At last, let’s have some magic. Let’s create a column called <code>data</code> in <code>nir_params</code> and inside this column, we will store our subset in it. This is called a nested dataframe.</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" title="1">nested_df &lt;-</a>
-<a class="sourceLine" id="cb17-2" title="2"><span class="st">  </span>nir_params <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb17-3" title="3"><span class="st">  </span><span class="kw">mutate</span>(</a>
-<a class="sourceLine" id="cb17-4" title="4">    <span class="dt">main_dataset =</span> <span class="kw">list</span>(nir_data),</a>
-<a class="sourceLine" id="cb17-5" title="5">    <span class="dt">data =</span> <span class="kw">map2</span>(main_dataset, subset_files, <span class="op">~</span><span class="kw">build_NIRdataset</span>(<span class="dt">df =</span> .x, .y))</a>
-<a class="sourceLine" id="cb17-6" title="6">  )</a>
-<a class="sourceLine" id="cb17-7" title="7"><span class="co">#&gt; Variable `surface_id`: face</span></a>
-<a class="sourceLine" id="cb17-8" title="8"><span class="co">#&gt; Which `surface` was chosen: abaxial side</span></a>
-<a class="sourceLine" id="cb17-9" title="9"><span class="co">#&gt; Variable `reads`: all</span></a>
-<a class="sourceLine" id="cb17-10" title="10"><span class="co">#&gt; Building dataset: subset01.</span></a>
-<a class="sourceLine" id="cb17-11" title="11"><span class="co">#&gt; All reads from abaxial side grouped by variable `especimenid`</span></a>
-<a class="sourceLine" id="cb17-12" title="12"><span class="co">#&gt; Variable `surface_id`: face</span></a>
-<a class="sourceLine" id="cb17-13" title="13"><span class="co">#&gt; Which `surface` was chosen: adaxial side</span></a>
-<a class="sourceLine" id="cb17-14" title="14"><span class="co">#&gt; Variable `reads`: all</span></a>
-<a class="sourceLine" id="cb17-15" title="15"><span class="co">#&gt; Building dataset: subset02.</span></a>
-<a class="sourceLine" id="cb17-16" title="16"><span class="co">#&gt; All reads from adaxial side grouped by variable `especimenid`</span></a>
-<a class="sourceLine" id="cb17-17" title="17"><span class="co">#&gt; Variable `surface_id`: face</span></a>
-<a class="sourceLine" id="cb17-18" title="18"><span class="co">#&gt; Which `surface` was chosen: both sides</span></a>
-<a class="sourceLine" id="cb17-19" title="19"><span class="co">#&gt; Variable `reads`: mean</span></a>
-<a class="sourceLine" id="cb17-20" title="20"><span class="co">#&gt; Building dataset: subset03.</span></a>
-<a class="sourceLine" id="cb17-21" title="21"><span class="co">#&gt; Mean of reads from both sides grouped by variable `especimenid`</span></a></code></pre></div>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb57-1" title="1">nested_df &lt;-</a>
+<a class="sourceLine" id="cb57-2" title="2"><span class="st">  </span>nir_params <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb57-3" title="3"><span class="st">  </span><span class="kw">mutate</span>(</a>
+<a class="sourceLine" id="cb57-4" title="4">    <span class="dt">main_dataset =</span> <span class="kw">list</span>(nir_data),</a>
+<a class="sourceLine" id="cb57-5" title="5">    <span class="dt">data =</span> <span class="kw">map2</span>(main_dataset, subset_files, <span class="op">~</span><span class="kw">build_NIRdataset</span>(<span class="dt">df =</span> .x, .y))</a>
+<a class="sourceLine" id="cb57-6" title="6">  )</a></code></pre></div>
+<pre><code>## Variable `surface_id`: face</code></pre>
+<pre><code>## Which `surface` was chosen: abaxial side</code></pre>
+<pre><code>## Variable `reads`: all</code></pre>
+<pre><code>## Building dataset: subset01.
+## All reads from abaxial side grouped by variable `especimenid`</code></pre>
+<pre><code>## Variable `surface_id`: face</code></pre>
+<pre><code>## Which `surface` was chosen: adaxial side</code></pre>
+<pre><code>## Variable `reads`: all</code></pre>
+<pre><code>## Building dataset: subset02.
+## All reads from adaxial side grouped by variable `especimenid`</code></pre>
+<pre><code>## Variable `surface_id`: face</code></pre>
+<pre><code>## Which `surface` was chosen: both sides</code></pre>
+<pre><code>## Variable `reads`: mean</code></pre>
+<pre><code>## Building dataset: subset03.
+## Mean of reads from both sides grouped by variable `especimenid`</code></pre>
 <p>Let’s check our nested dataframe.</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" title="1"><span class="co"># subset 01</span></a>
-<a class="sourceLine" id="cb18-2" title="2"><span class="kw">dim</span>(nested_df<span class="op">$</span>data[[<span class="dv">1</span>]])</a>
-<a class="sourceLine" id="cb18-3" title="3"><span class="co">#&gt; [1]  270 1559</span></a></code></pre></div>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" title="1"><span class="co"># subset 02</span></a>
-<a class="sourceLine" id="cb19-2" title="2"><span class="kw">dim</span>(nested_df<span class="op">$</span>data[[<span class="dv">2</span>]])</a>
-<a class="sourceLine" id="cb19-3" title="3"><span class="co">#&gt; [1]  271 1559</span></a></code></pre></div>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" title="1"><span class="co"># subset 03</span></a>
-<a class="sourceLine" id="cb20-2" title="2"><span class="kw">dim</span>(nested_df<span class="op">$</span>data[[<span class="dv">3</span>]])</a>
-<a class="sourceLine" id="cb20-3" title="3"><span class="co">#&gt; [1]   74 1558</span></a></code></pre></div>
+<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb70-1" title="1"><span class="co"># subset 01</span></a>
+<a class="sourceLine" id="cb70-2" title="2"><span class="kw">dim</span>(nested_df<span class="op">$</span>data[[<span class="dv">1</span>]])</a></code></pre></div>
+<pre><code>## [1]  270 1559</code></pre>
+<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb72-1" title="1"><span class="co"># subset 02</span></a>
+<a class="sourceLine" id="cb72-2" title="2"><span class="kw">dim</span>(nested_df<span class="op">$</span>data[[<span class="dv">2</span>]])</a></code></pre></div>
+<pre><code>## [1]  271 1559</code></pre>
+<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb74-1" title="1"><span class="co"># subset 03</span></a>
+<a class="sourceLine" id="cb74-2" title="2"><span class="kw">dim</span>(nested_df<span class="op">$</span>data[[<span class="dv">3</span>]])</a></code></pre></div>
+<pre><code>## [1]   74 1558</code></pre>
 <p>Notice that the values are exacly as the ones shown by the objects <code>subset01</code>, <code>subset02</code>, and <code>subset03</code>.</p>
 </div>
 </div>
