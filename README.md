@@ -1,7 +1,21 @@
 # NIRtools
 
-This is a package for dealing with Near Infra Red data.
+This is a package for dealing with Near infrared data.
 
-# How it works
+# What is NIR?
 
-Take a read at vignette.
+Read this [paper](http://www.scielo.br/scielo.php?script=sci_arttext&pid=S0103-50532003000200006).
+
+# How to install
+
+It is easy to install. Make sure that you have package `devtools` installed in your computer.
+
+```
+install.packages("devtools")
+```
+
+Then, install NIRtools using the following command:
+
+```
+devtools::install_github("ricoperdiz/NIRtools")
+```

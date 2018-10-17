@@ -1,11 +1,3 @@
-## ----setup, include = FALSE, cache = TRUE--------------------------------
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>"
-)
-library(NIRtools)
-library(data.table)
-
 ## ------------------------------------------------------------------------
 head(nir_data)[,1:10]
 
