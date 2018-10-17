@@ -17,5 +17,11 @@ install.packages("devtools")
 Then, install NIRtools using the following command:
 
 ```
-devtools::install_github("ricoperdiz/NIRtools")
+devtools::install_github("ricoperdiz/NIRtools", build_vignettes = TRUE)
+```
+
+After installing NIRtools, type the command below to see the vignette with NIRtools tutorial.
+
+```
+vignette("NIRTools_tutorial", package = "NIRtools")
 ```
