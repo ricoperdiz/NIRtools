@@ -14,23 +14,26 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
-library(NIRtools)
-library(data.table)
 ```
+
 # Overview
 
-NIRTools was specifically designed to help plant taxonomist and ecologists in documenting and building NIR spectra datasets from a source in an easy way.
+NIRTools was specifically designed to help plant taxonomist and ecologists in documenting and building near infrared (NIR) spectroscopy subsets from a dataset based on parameter files that will serve as a metadata of each subset.
 
 
-## What is NIR?
+# What is NIR?
 
-To be constructed.
+Read this [paper](http://www.scielo.br/scielo.php?script=sci_arttext&pid=S0103-50532003000200006).
 
 # Installation
 
-<!-- You can install NIRtools by using `devtools::install_github()` function. -->
+You can install the development version from GitHub with the package `devtools`
 
-To be constructed.
+```
+install.packages("devtools")
+library(devtools)
+devtools::install_github("ricoperdiz/NIRtools", build_vignettes = TRUE)
+```
 
 # Quick start
 
@@ -39,6 +42,7 @@ Let's take a look at our example dataset and use it to build our first subset.
 First, load the package and check the first rows of it.
 
 ```{r}
+library(NIRtools)
 head(nir_data)[,1:10]
 ```
 
@@ -71,7 +75,7 @@ readLines('test-NIR.txt')
 
 After having our parameter file specification done, you can use function `read_NIRparams` to have your parameter file read as a dataframe.
 
-```{r, eval = FALSE}
+```{r}
 read_NIRparams('test-NIR.txt')
 ```
 
@@ -115,7 +119,6 @@ group_id <- 'SP1'
 nir_id <- 'X'
 
 metadata <- data_frame(subset_names, surface_values, reads_values, individual_id, surface_id, group_id, nir_id)
-
 ```
 
 Now, let's create several parameter files at once, using all columns from our object `metadata`. Each one of its columns, as you can see above, contain all necessary data to create our parameter files.

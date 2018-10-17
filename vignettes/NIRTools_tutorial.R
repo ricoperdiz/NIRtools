@@ -1,4 +1,11 @@
+## ----setup, include = FALSE, cache = TRUE--------------------------------
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+
 ## ------------------------------------------------------------------------
+library(NIRtools)
 head(nir_data)[,1:10]
 
 ## ---- eval = FALSE-------------------------------------------------------
@@ -16,8 +23,8 @@ head(nir_data)[,1:10]
 ## ------------------------------------------------------------------------
 readLines('test-NIR.txt')
 
-## ---- eval = FALSE-------------------------------------------------------
-#  read_NIRparams('test-NIR.txt')
+## ------------------------------------------------------------------------
+read_NIRparams('test-NIR.txt')
 
 ## ---- cache = TRUE-------------------------------------------------------
 subset01 <- build_NIRdataset(df = nir_data, params_file = 'test-NIR.txt', wd = '.')
@@ -39,7 +46,6 @@ group_id <- 'SP1'
 nir_id <- 'X'
 
 metadata <- data_frame(subset_names, surface_values, reads_values, individual_id, surface_id, group_id, nir_id)
-
 
 ## ---- eval = FALSE-------------------------------------------------------
 #  pwalk(list(subset_names, surface_values, reads_values, individual_id, surface_id, group_id, nir_id), ~write_NIRparams(file = ..1, wd = '.', surface = ..2, reads = ..3, individual_id = ..4, surface_id = ..5, group_id = ..6, nir_id = ..7))
