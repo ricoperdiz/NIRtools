@@ -1,13 +1,14 @@
 Package: NIRtools
 Type: Package
-Title: Tools to deal with Near infrared spectrum data.
+Title: Tools to deal with near infrared (NIR) spectrocospy data.
 Version: 0.1.9001
-Author: Ricardo de Oliveira Perdiz
-Maintainer: Ricardo de Oliveira Perdiz <ricoperdiz@gmail.com>
-Description:
+Authors@R: person("Ricardo", "de Oliveira Perdiz", email = "ricoperdiz@gmail.com", role = c("aut", "cre"), comment = c(ORCID = "0000-0002-2333-6549"))
+Description: 
     Build NIR parameter files;
-    Build NIR datasets based on parameters files
+    Build NIR subsets based on parameters files and a dataset.
 License: GPL-3
+URL: https://github.com/ricoperdiz/NIRtools
+BugReports: https://github.com/ricoperdiz/NIRtools/issues
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 6.1.0

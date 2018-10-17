@@ -1,22 +1,22 @@
 # NIRtools
+**************
 
-This is a package for dealing with Near infrared data.
+# Overview
+
+NIRTools was specifically designed to help plant taxonomist and ecologists in documenting and building near infrared (NIR) spectroscopy subsets from a dataset based on parameter files that will serve as a metadata of each subset.
 
 # What is NIR?
 
 Read this [paper](http://www.scielo.br/scielo.php?script=sci_arttext&pid=S0103-50532003000200006).
 
-# How to install
+# Installation
+**************
 
-It is easy to install. Make sure that you have package `devtools` installed in your computer.
+You can install the development version from GitHub with the package `devtools`
 
 ```
 install.packages("devtools")
-```
-
-Then, install NIRtools using the following command:
-
-```
+library(devtools)
 devtools::install_github("ricoperdiz/NIRtools", build_vignettes = TRUE)
 ```
 
