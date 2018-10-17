@@ -1,7 +1,7 @@
 Package: NIRtools
 Type: Package
 Title: Tools to deal with Near infrared spectrum data.
-Version: 0.1.0
+Version: 0.1.9001
 Author: Ricardo de Oliveira Perdiz
 Maintainer: Ricardo de Oliveira Perdiz <ricoperdiz@gmail.com>
 Description:
