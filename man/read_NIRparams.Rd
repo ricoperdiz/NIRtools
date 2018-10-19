@@ -9,6 +9,13 @@ read_NIRparams(file)
 \arguments{
 \item{file}{A path to a file.}
 }
+\value{
+A data.frame
+}
 \description{
 Read NIR parameters file from disk
+}
+\examples{
+# Input file on vignette folder
+read_NIRparams('test-NIR.txt')
 }

@@ -13,6 +13,15 @@
 #'
 #' @return A message that indicates the file has been saved to disk.
 #' @export
+#' @examples
+#' # Write to disk a parameter file
+#' write_NIRparams(file = 'test', wd = getwd(), reads = 'mean', surface = 'abaxial', nir_variables = 'all', surface_id = 'face', individual_id = 'especimenid', group_id = 'SP1', nir_id = 'X')
+#'
+#' # Read parameter file called "test" with function `read_NIRparams()`. It returns a data.frame
+#' read_NIRparams('test-NIR.txt')
+#'
+#' # You can also check parameter file with funciont `readLines()`
+#' readLines('test-NIR.txt')
 write_NIRparams <- function(file = "", wd = '.', surface = "", reads = "", nir_variables = "", subset_file = "", individual_id = "", surface_id = "", group_id = "", nir_id = "X") {
 
 
@@ -115,7 +124,7 @@ write_NIRparams <- function(file = "", wd = '.', surface = "", reads = "", nir_v
 #' @param save_txt If you want to save a text delimited file with final result, just use TRUE instead. Default value is FALSE.
 #' @param wd Working directory. Default value points to current working directory.
 #' @return A dataframe.
-#' @import data.table
+#' @importFrom data.table as.data.table dcast fwrite melt
 #' @export
 build_NIRdataset <- function(dframe, params_file, save_RDS = FALSE, save_txt = FALSE, wd = '.') {
 
@@ -196,7 +205,7 @@ build_NIRdataset <- function(dframe, params_file, save_RDS = FALSE, save_txt = F
 
     # subset data for only surface of interest
     dframe_tbl_surfaceFiltered <-
-      subset(dframe_tbl, get(surface_id) == surface)
+      data.table::subset(dframe_tbl, get(surface_id) == surface)
 
     ## All reads
     if(reads == 'all') {
@@ -244,21 +253,25 @@ build_NIRdataset <- function(dframe, params_file, save_RDS = FALSE, save_txt = F
 #'
 #' @param file A path to a file.
 #'
-#' @return
-#' @import data.table
-#' @import stringr
-#' @import tidyr
+#' @return A data.frame
+#'
+#' @importFrom data.table dcast setDT
+#' @importFrom stringr str_trim
+#' @importFrom tidyr separate
 #' @export
+#' @examples
+#' # Input file on vignette folder
+#' read_NIRparams('test-NIR.txt')
 read_NIRparams <- function(file) {
 
   file_text <-
     data.frame(text = readLines(file))
   file_text_sbset <-
-    subset(file_text, grepl('##', text))
+    data.table::subset(file_text, grepl('##', text))
   parameters_separated <-
-    tidyr::separate(file_text_sbset, text, into = c('value', 'key', 'definition'), sep = paste(c('## ', '\\: '), collapse = '|'))
+    separate(file_text_sbset, text, into = c('value', 'key', 'definition'), sep = paste(c('## ', '\\: '), collapse = '|'))
 
-  data.table::setDT(parameters_separated)
+  setDT(parameters_separated)
 
   parameters <-
     parameters_separated[,list(value, key)]
@@ -278,4 +291,42 @@ read_NIRparams <- function(file) {
   return(parameters)
 
 
+}
+
+#' Read near infrared (NIR) spectroscopy data in raw format
+#'
+#' @param file A path to a file containing near infrared (NIR) spectroscopy raw data. This means that it expects to be a file with 1557 rows, in which first column contains identification of spectrum number, and second column the NIR absorbance.
+#'
+#' @return A data.frame in `wide` format in which each row contains 1557 columns of near infrared spectroscopy data.
+#' @importFrom tidyr spread
+#' @importFrom data.table fread
+#' @export
+#' @examples
+#'
+#' # read file with raw data
+#' nir_raw <- read_NIRraw('data/nir_raw.csv')
+#' # check first rows and 5 first columns of data
+#' dim(nir_raw)
+#' names(nir_raw)
+#' head(nir_raw)[,1:10]
+read_NIRraw <- function(file, add_nir_id = TRUE) {
+
+  nir_raw <- fread(file, header = FALSE, blank.lines.skip = TRUE)
+  message(paste0('Raw NIR file dimension:\n', paste(dim(nir_raw), collapse = ' ')))
+
+  if(dim(nir_raw)[2] != 2) {
+    stop('Raw NIR file does not have two columns. Please, check your data to see if it really contains two columns only.')
+  }
+
+  names(nir_raw) <- c('key', 'value')
+
+  if(add_nir_id == TRUE) {
+    message("Adding letter 'X' before NIR spectra")
+    nir_raw[, key := paste0('X', key)]
+  }
+
+  nir_raw_spread <-
+    spread(as.data.frame(nir_raw), key, value)
+
+  return(nir_raw_spread)
 }
