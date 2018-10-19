@@ -35,3 +35,13 @@ A message that indicates the file has been saved to disk.
 \description{
 Write NIR parameters file to disk
 }
+\examples{
+# Write to disk a parameter file
+write_NIRparams(file = 'test', wd = getwd(), reads = 'mean', surface = 'abaxial', nir_variables = 'all', surface_id = 'face', individual_id = 'especimenid', group_id = 'SP1', nir_id = 'X')
+
+# Read parameter file called "test" with function `read_NIRparams()`. It returns a data.frame
+read_NIRparams('test-NIR.txt')
+
+# You can also check parameter file with funciont `readLines()`
+readLines('test-NIR.txt')
+}
