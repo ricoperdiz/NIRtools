@@ -133,9 +133,8 @@ build_NIRdataset <- function(dframe, params_file, save_RDS = FALSE, save_txt = F
   #### wd ####
   if(wd == '.') {
     wd <- getwd()
-  } else {
-    wd <- nir_params$working_dir
   }
+
   params_file_path <- paste0(wd, '/', params_file)
   dframe_tbl <- as.data.table(dframe)
 
@@ -173,7 +172,7 @@ build_NIRdataset <- function(dframe, params_file, save_RDS = FALSE, save_txt = F
     message(paste0('Which `surface` was chosen: ', surface, ' sides'))
 
     ## All reads
-    if(reads == 'All') {
+    if(reads == 'all') {
 
       message(paste0('Variable `reads`: ', reads))
       message(paste0('Building dataset: ', dataset_name, '.\nAll reads from both surfaces grouped by variable `', individual_id, '`'))
@@ -205,7 +204,7 @@ build_NIRdataset <- function(dframe, params_file, save_RDS = FALSE, save_txt = F
 
     # subset data for only surface of interest
     dframe_tbl_surfaceFiltered <-
-      data.table::subset(dframe_tbl, get(surface_id) == surface)
+      subset(dframe_tbl, get(surface_id) == surface)
 
     ## All reads
     if(reads == 'all') {
@@ -267,7 +266,7 @@ read_NIRparams <- function(file) {
   file_text <-
     data.frame(text = readLines(file))
   file_text_sbset <-
-    data.table::subset(file_text, grepl('##', text))
+    subset(file_text, grepl('##', text))
   parameters_separated <-
     separate(file_text_sbset, text, into = c('value', 'key', 'definition'), sep = paste(c('## ', '\\: '), collapse = '|'))
 
