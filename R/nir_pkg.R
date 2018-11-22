@@ -90,7 +90,7 @@ write_NIRparams <- function(file = "", wd = '.', surface = "", reads = "", nir_v
   }
 
 
-  params_file <- paste0(file_name, '-NIR.txt')
+  params_file <- paste0(file_name, '-NIRparams.txt')
   file_full <- paste0(wd, '/', params_file)
 
 
