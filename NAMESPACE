@@ -3,6 +3,7 @@
 export(build_NIRdataset)
 export(read_NIRparams)
 export(read_NIRraw)
+export(read_dirNIRraw)
 export(write_NIRparams)
 importFrom(data.table,as.data.table)
 importFrom(data.table,dcast)
