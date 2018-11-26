@@ -142,6 +142,7 @@ build_NIRdataset <- function(dframe, params_file, save_RDS = FALSE, save_txt = F
   dataset_name <- nir_params$dataset_name
   individual_id <- nir_params$individual_id
   individual_id_pos <- which(names(dframe_tbl) == individual_id)
+  group_id <- nir_params$group_id
   nir_id <- nir_params$nir_id
   nir_cols <- grep(nir_id, names(dframe_tbl))
   nir_cols_names <- grep(nir_id, names(dframe_tbl), value = TRUE)
@@ -166,6 +167,10 @@ build_NIRdataset <- function(dframe, params_file, save_RDS = FALSE, save_txt = F
     stop('Supplied variable `surface_id` is not present in `dframe`. You must supply a correct value for it!')
   }
 
+  if(group_id == "" | is.na(group_id)) {
+    message('\n\n\n######## Variable `group_id` is empty ########\n\n\n')
+  }
+
 
   ## Both surfaces
   if(surface == 'both') {
@@ -177,24 +182,42 @@ build_NIRdataset <- function(dframe, params_file, save_RDS = FALSE, save_txt = F
       message(paste0('Variable `reads`: ', reads))
       message(paste0('Building dataset: ', dataset_name, '.\nAll reads from both surfaces grouped by variable `', individual_id, '`'))
 
-      dframe_res <-
-        dframe_tbl[, .SD, .SDcols = c(individual_id, surface_id, nir_cols_names)]
-
-    }
-
-    ## Only mean of reads
+      if(group_id == "" | is.na(group_id)) {
+        dframe_res <-
+          dframe_tbl[, .SD, .SDcols = c(individual_id, surface_id, nir_cols_names)]
+        } else {
+          message(paste0('Variable `group_id`: ', group_id))
+          dframe_res <-
+            dframe_tbl[, .SD, .SDcols = c(individual_id, group_id, surface_id, nir_cols_names)]
+        }
+      }
+        ## Only mean of reads
     if(reads == 'mean') {
 
       message(paste0('Variable `reads`: ', reads))
       message(paste0('Building dataset: ', dataset_name, '.\nMean of reads from both sides grouped by variable `', nir_params$individual_id, '`'))
 
-      dframe_tbl_melted <-
-        melt(dframe_tbl, id.vars = individual_id, measure.vars = nir_cols)
-      dframe_long <-
-        dframe_tbl_melted[,list(mean=mean(value)), by = c(individual_id, 'variable')]
+      if(group_id == "" | is.na(group_id)) {
+        dframe_tbl_melted <-
+          melt(dframe_tbl, id.vars = individual_id, measure.vars = nir_cols)
 
-      dframe_res <-
-        dcast(dframe_long, ... ~ variable, value.var = 'mean')
+        dframe_long <-
+          dframe_tbl_melted[,list(mean=mean(value)), by = c(individual_id, 'variable')]
+
+        dframe_res <-
+          dcast(dframe_long, ... ~ variable, value.var = 'mean')
+
+      } else {
+        message(paste0('Variable `group_id`: ', group_id))
+          dframe_tbl_melted <-
+            melt(dframe_tbl, id.vars = c(individual_id, group_id), measure.vars = nir_cols)
+
+          dframe_long <-
+            dframe_tbl_melted[,list(mean=mean(value)), by = c(individual_id, group_id, 'variable')]
+
+          dframe_res <-
+            dcast(dframe_long, ... ~ variable, value.var = 'mean')
+          }
     }
   }
 
@@ -211,9 +234,15 @@ build_NIRdataset <- function(dframe, params_file, save_RDS = FALSE, save_txt = F
       message(paste0('Variable `reads`: ', reads))
       message(paste0('Building dataset: ', dataset_name, '.\nAll reads from ', surface,' side grouped by variable `', individual_id, '`'))
 
-      dframe_res <-
+      if(group_id == "" | is.na(group_id)) {
+        dframe_res <-
         dframe_tbl_surfaceFiltered[, .SD, .SDcols = c(individual_id,surface_id, nir_cols_names)]
 
+        } else {
+          message(paste0('Variable `group_id`: ', group_id))
+          dframe_res <-
+        dframe_tbl_surfaceFiltered[, .SD, .SDcols = c(individual_id, group_id, surface_id, nir_cols_names)]
+        }
     }
 
     ## Only mean of reads
@@ -222,14 +251,30 @@ build_NIRdataset <- function(dframe, params_file, save_RDS = FALSE, save_txt = F
       message(paste0('Variable `reads`: ', reads))
       message(paste0('Building dataset: ', dataset_name, '.\nMean of reads from both sides grouped by variable `', nir_params$individual_id, '`'))
 
-      dframe_tbl_surfaceFiltered_melted <-
-        melt(dframe_tbl_surfaceFiltered, id.vars = individual_id, measure.vars = nir_cols_names)
-      dframe_long <-
-        dframe_tbl_surfaceFiltered_melted[ , list(mean=mean(value)), by = c(individual_id, 'variable')]
-      dframe_res <-
-        dcast(dframe_long, ... ~ variable, value.var = 'mean')
+      if(group_id == "" | is.na(group_id)) {
+        dframe_tbl_surfaceFiltered_melted <-
+          melt(dframe_tbl_surfaceFiltered, id.vars = individual_id, measure.vars = nir_cols_names)
+        dframe_long <-
+          dframe_tbl_surfaceFiltered_melted[ , list(mean=mean(value)), by = c(individual_id, 'variable')]
+        dframe_res <-
+          dcast(dframe_long, ... ~ variable, value.var = 'mean')
+
+      } else {
+        message(paste0('Variable `group_id`: ', group_id))
+
+        dframe_tbl_surfaceFiltered_melted <-
+          melt(dframe_tbl_surfaceFiltered, id.vars = c(individual_id, group_id), measure.vars = nir_cols_names)
+
+        dframe_long <-
+          dframe_tbl_surfaceFiltered_melted[ , list(mean = mean(value)), by = c(individual_id, group_id, 'variable')]
+
+        dframe_res <-
+          dcast(dframe_long, ... ~ variable, value.var = 'mean')
+      }
     }
+
   }
+
 
   if(save_RDS == TRUE) {
     message(paste0('Saving object dframe_res as .RDS file'))
