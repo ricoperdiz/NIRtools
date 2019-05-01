@@ -122,20 +122,13 @@ write_NIRparams <- function(file = "", wd = '.', surface = "", reads = "", nir_v
 #' @param params_file A path for a NIR parameter file.
 #' @param save_RDS If you want to save a .RDS file with final result, just use TRUE instead. Default value is FALSE.
 #' @param save_txt If you want to save a text delimited file with final result, just use TRUE instead. Default value is FALSE.
-#' @param wd Working directory. Default value points to current working directory.
 #' @return A dataframe.
 #' @importFrom data.table as.data.table dcast fwrite melt
 #' @export
-build_NIRdataset <- function(dframe, params_file, save_RDS = FALSE, save_txt = FALSE, wd = '.') {
+build_NIRdataset <- function(dframe, params_file_path, save_RDS = FALSE, save_txt = FALSE) {
 
   stopifnot(is.data.frame(dframe))
 
-  #### wd ####
-  if(wd == '.') {
-    wd <- getwd()
-  }
-
-  params_file_path <- paste0(wd, '/', params_file)
   dframe_tbl <- as.data.table(dframe)
 
   nir_params <- read_NIRparams(params_file_path)
@@ -149,8 +142,7 @@ build_NIRdataset <- function(dframe, params_file, save_RDS = FALSE, save_txt = F
   reads <- nir_params$reads
   surface <- nir_params$surface
   surface_id <- nir_params$surface_id
-
-
+  wd <- nir_params$working_dir
 
   #### If statements ####
   if(individual_id == "") {
@@ -195,7 +187,7 @@ build_NIRdataset <- function(dframe, params_file, save_RDS = FALSE, save_txt = F
     if(reads == 'mean') {
 
       message(paste0('Variable `reads`: ', reads))
-      message(paste0('Building dataset: ', dataset_name, '.\nMean of reads from both sides grouped by variable `', nir_params$individual_id, '`'))
+      message(paste0('Building dataset: ', dataset_name, '.\nMean of reads from both sides grouped by variable `', individual_id, '`'))
 
       if(group_id == "" | is.na(group_id)) {
         dframe_tbl_melted <-
@@ -249,7 +241,7 @@ build_NIRdataset <- function(dframe, params_file, save_RDS = FALSE, save_txt = F
     if(reads == 'mean') {
 
       message(paste0('Variable `reads`: ', reads))
-      message(paste0('Building dataset: ', dataset_name, '.\nMean of reads from both sides grouped by variable `', nir_params$individual_id, '`'))
+      message(paste0('Building dataset: ', dataset_name, '.\nMean of reads from both sides grouped by variable `', individual_id, '`'))
 
       if(group_id == "" | is.na(group_id)) {
         dframe_tbl_surfaceFiltered_melted <-
@@ -279,13 +271,13 @@ build_NIRdataset <- function(dframe, params_file, save_RDS = FALSE, save_txt = F
   if(save_RDS == TRUE) {
     message(paste0('Saving object dframe_res as .RDS file'))
 
-    saveRDS(dframe_res, file = paste0(wd, nir_params$dataset_name, '.RDS'))
+    saveRDS(dframe_res, file = paste0(wd, '/', dataset_name, '.RDS'))
   }
 
   if(save_txt == TRUE) {
     message(paste0('Saving object dframe_res as .txt file'))
 
-    fwrite(dframe_res, file = paste0(wd, nir_params$dataset_name, '.txt'), sep= '\t')
+    fwrite(dframe_res, file = paste0(wd, '/', dataset_name, '.txt'), sep= '\t')
   }
 
   # return data.frame with results
