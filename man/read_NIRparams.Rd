@@ -17,5 +17,5 @@ Read NIR parameters file from disk
 }
 \examples{
 # Input file on vignette folder
-read_NIRparams('test-NIR.txt')
+read_NIRparams("test-NIR.txt")
 }
