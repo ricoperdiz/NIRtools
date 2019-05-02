@@ -14,5 +14,10 @@ LazyData: true
 RoxygenNote: 6.1.1
 Depends: data.table, stringr, tidyr
 Imports: data.table, stringr, tidyr
-Suggests: dplyr, knitr, purrr, rmarkdown
+Suggests: 
+    dplyr,
+    knitr,
+    purrr,
+    rmarkdown,
+    testthat
 VignetteBuilder: knitr
