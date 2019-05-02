@@ -6,7 +6,8 @@
 \usage{
 write_NIRparams(file = "", wd = ".", surface = "", reads = "",
   nir_variables = "", subset_file = "", individual_id = "",
-  surface_id = "", group_id = "", nir_id = "X")
+  individual_list = NULL, surface_id = "", group_id = "",
+  nir_id = "X")
 }
 \arguments{
 \item{file}{Dataset name.}
@@ -23,6 +24,8 @@ write_NIRparams(file = "", wd = ".", surface = "", reads = "",
 
 \item{individual_id}{Which variable name corresponds to the individual?}
 
+\item{individual_list}{Location of a file containing list of specimens to subset data when building datasets with `build_NIRdataset` function.}
+
 \item{surface_id}{Which variable name corresponds to the leaf surface?}
 
 \item{group_id}{Which variable name corresponds to the group category?}
@@ -37,11 +40,11 @@ Write NIR parameters file to disk
 }
 \examples{
 # Write to disk a parameter file
-write_NIRparams(file = 'test', wd = getwd(), reads = 'mean', surface = 'abaxial', nir_variables = 'all', surface_id = 'face', individual_id = 'especimenid', group_id = 'SP1', nir_id = 'X')
+write_NIRparams(file = "test", wd = getwd(), reads = "mean", surface = "abaxial", nir_variables = "all", surface_id = "face", individual_id = "especimenid", individual_list = NULL, group_id = "SP1", nir_id = "X")
 
 # Read parameter file called "test" with function `read_NIRparams()`. It returns a data.frame
-read_NIRparams('test-NIR.txt')
+read_NIRparams("test-NIR.txt")
 
 # You can also check parameter file with funciont `readLines()`
-readLines('test-NIR.txt')
+readLines("test-NIR.txt")
 }

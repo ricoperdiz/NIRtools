@@ -18,9 +18,9 @@ Read near infrared (NIR) spectroscopy data in raw format
 \examples{
 
 # read file with raw data
-nir_raw <- read_NIRraw('data/nir_raw.csv')
+nir_raw <- read_NIRraw("data/nir_raw.csv")
 # check first rows and 5 first columns of data
 dim(nir_raw)
 names(nir_raw)
-head(nir_raw)[,1:10]
+head(nir_raw)[, 1:10]
 }
