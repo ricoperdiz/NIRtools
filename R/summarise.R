@@ -1,6 +1,15 @@
+#' Summarise NIR datasets
+#'
+#' @param dframe Raw NIR data.
+#' @param params_file_path Location of NIR parameter file.
+#'
+#' @return
+#' @importFrom data.table data.table
+#' @export
+#'
+#' @examples
 summarise_NIRdataset <- function(dframe, params_file_path) {
-
-stopifnot(is.data.frame(dframe))
+  stopifnot(is.data.frame(dframe))
 
   dframe_tbl <- as.data.table(dframe)
 
@@ -51,5 +60,4 @@ stopifnot(is.data.frame(dframe))
     `N variables` = n_variables
   )
   return(res)
-
 }
