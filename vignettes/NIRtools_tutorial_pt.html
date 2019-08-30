@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<meta name="author" content="Ricardo de Oliveira Perdiz" />
+
+<meta name="date" content="2019-08-30" />
+
+<title>NIRtools - Português</title>
+
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css" data-origin="pandoc">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#header {
+text-align: center;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">NIRtools - Português</h1>
+<h4 class="author">Ricardo de Oliveira Perdiz</h4>
+<h4 class="date">2019-08-30</h4>
+
+
+
+<div id="panorama-geral" class="section level1">
+<h1>Panorama geral</h1>
+<p>NIRTools foi especificamente desenhado para auxiliar botânicos e ecólogos em documentar e construir conjuntos de dados de NIR a partir de arquivos contendo especificações de parâmetros que servem também como metadado de cada conjunto de dados gerado no pacote.</p>
+</div>
+<div id="o-que-e-o-nir" class="section level1">
+<h1>O que é o NIR?</h1>
+<p>Leia este <a href="http://www.scielo.br/scielo.php?script=sci_arttext&amp;pid=S0103-50532003000200006">artigo</a>.</p>
+</div>
+<div id="instalacao" class="section level1">
+<h1>Instalação</h1>
+<p>You can install the development version from GitHub with the package <code>devtools</code></p>
+<pre><code>install.packages(&quot;devtools&quot;)
+library(devtools)
+devtools::install_github(&quot;ricoperdiz/NIRtools&quot;, build_vignettes = TRUE)</code></pre>
+</div>
+<div id="guia-rapido" class="section level1">
+<h1>Guia rápido</h1>
+<p>Vamos trabalhar com o conjunto de dados que vem com o pacote. Após carregar o pacote na área de trabalho, o conjunto de dados fica disponível. Ele chama-se <code>nir_data</code>.</p>
+<p>Primeiro, carregue o pacote e cheque as primeiras linhas dos dados.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1"><span class="kw">library</span>(NIRtools)</a>
+<a class="sourceLine" id="cb2-2" title="2"><span class="kw">head</span>(nir_data)[,<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>]</a></code></pre></div>
+<pre><code>##    especimenid SP1    read    face X10001.03  X3999.64 X4003.497 X4007.354
+## 1:          17   4 folha-1 abaxial 0.2778664 0.6532890 0.6533827 0.6532058
+## 2:          17   4 folha-1 adaxial 0.2327851 0.6699212 0.6699399 0.6695617
+## 3:          17   4 folha-2 abaxial 0.2567553 0.6419270 0.6419497 0.6416439
+## 4:          17   4 folha-2 adaxial 0.2555278 0.6343970 0.6343604 0.6339911
+## 5:          17   4 folha-3 abaxial 0.2547329 0.6351578 0.6353651 0.6350956
+## 6:          17   4 folha-3 adaxial 0.2304880 0.6802652 0.6802475 0.6799131
+##    X4011.211 X4015.068
+## 1: 0.6527848 0.6518375
+## 2: 0.6689490 0.6678685
+## 3: 0.6412423 0.6403816
+## 4: 0.6335653 0.6326041
+## 5: 0.6345941 0.6338017
+## 6: 0.6793467 0.6782958</code></pre>
+<p>We have a column <code>especimenid</code> that specifies the sample id number, a columm <code>SP1</code> that specifies our sample identity (in this case, it is the number of the species, a hypothetical number); a column <code>read</code> that specifies the leaf/leaflet id, that is, for each leaf/leaflet, we have a different value; a column <code>face</code> that specifies which surface was used to obtain the data; and at least, a group of columns that starts with letter <em>X</em> and that refer to NIR spectra.</p>
+<p>There are samples that have more than one read per surface. So, suppose we want to create a subset that contains only read means for both surfaces and containing all NIR spectra variables, that is, for each specimen, we would calculate mean for all reads per surface per NIR spectra variable. Our first step would be to create a parameter file that will contain all specifications of it. Let’s use the function <code>write_NIRparams</code>.</p>
+<p>In this example, my first subset will be called <code>test</code>, and I will use mean of reads, only abaxial surface, and I will inform which column names refer to surface(<code>face</code>), individual (<code>especimenid</code>), and species/group (<code>SP1</code>).</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1"><span class="kw">write_NIRparams</span>(</a>
+<a class="sourceLine" id="cb4-2" title="2">  <span class="dt">file =</span> <span class="st">&#39;test&#39;</span>,</a>
+<a class="sourceLine" id="cb4-3" title="3">  <span class="dt">wd =</span> <span class="kw">getwd</span>(),</a>
+<a class="sourceLine" id="cb4-4" title="4">  <span class="dt">reads =</span> <span class="st">&#39;mean&#39;</span>,</a>
+<a class="sourceLine" id="cb4-5" title="5">  <span class="dt">surface =</span> <span class="st">&#39;abaxial&#39;</span>,</a>
+<a class="sourceLine" id="cb4-6" title="6">  <span class="dt">nir_variables =</span> <span class="st">&#39;all&#39;</span>,</a>
+<a class="sourceLine" id="cb4-7" title="7">  <span class="dt">surface_id =</span> <span class="st">&#39;face&#39;</span>,</a>
+<a class="sourceLine" id="cb4-8" title="8">  <span class="dt">individual_id =</span> <span class="st">&#39;especimenid&#39;</span>,</a>
+<a class="sourceLine" id="cb4-9" title="9">  <span class="dt">group_id =</span> <span class="st">&#39;SP1&#39;</span>,</a>
+<a class="sourceLine" id="cb4-10" title="10">  <span class="dt">nir_id =</span> <span class="st">&#39;X&#39;</span>)</a></code></pre></div>
+<p>After executing the function, a message will appear confirming the action and telling where the file has been saved.</p>
+<p>Let’s take a look at this file.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1"><span class="kw">readLines</span>(<span class="st">&#39;test-NIRparams.txt&#39;</span>)</a></code></pre></div>
+<pre><code>##  [1] &quot;# NIR dataset description - Dataset name and variables for its construction&quot;                                                                                                       
+##  [2] &quot;test ## [dataset_name]: Dataset name.&quot;                                                                                                                                             
+##  [3] &quot;/Users/ricoperdiz/Documents/DOC/PROJETO_DOC/R/pkgs/NIRtools/vignettes ## [working_dir]: Location of working directory. If not provided, current working directory will be used one&quot;
+##  [4] &quot;abaxial ## [surface]: Which leaf surface (abaxial, adaxial, both)&quot;                                                                                                                 
+##  [5] &quot;mean ## [reads]: Do all the reads will be taken into account (all, mean)?&quot;                                                                                                         
+##  [6] &quot;all ## [nir_variables]: Which NIR variables will be used (all, subset)&quot;                                                                                                            
+##  [7] &quot;           ## [subset_file]: Location of NIR variable subset file, in case option selected in `nir_variables` was `subset`&quot;                                                        
+##  [8] &quot;especimenid ## [individual_id]: Which variable name corresponds to the individual?&quot;                                                                                                
+##  [9] &quot;           ## [individual_list]: Location of a file containing list of specimens to subset data when building datasets with `build_NIRdataset` function.&quot;                          
+## [10] &quot;face ## [surface_id]: Which variable name corresponds to the leaf surface?&quot;                                                                                                        
+## [11] &quot;SP1 ## [group_id]: Which name corresponds to the group category?&quot;                                                                                                                  
+## [12] &quot;X ## [nir_id]: A string that can be used to grep column names containing NIR data. Default value is &#39;`X`, which precedes all columns with NIR data.&quot;</code></pre>
+<p>After having our parameter file specification done, you can use function <code>read_NIRparams</code> to have your parameter file read as a dataframe.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" title="1"><span class="kw">read_NIRparams</span>(<span class="st">&#39;test-NIRparams.txt&#39;</span>)</a></code></pre></div>
+<pre><code>##    dataset_index dataset_name group_id individual_id individual_list
+## 1:             1         test      SP1   especimenid                
+##    nir_id nir_variables reads subset_file surface surface_id
+## 1:      X           all  mean             abaxial       face
+##                                                              working_dir
+## 1: /Users/ricoperdiz/Documents/DOC/PROJETO_DOC/R/pkgs/NIRtools/vignettes</code></pre>
+<p>At last, let’s use the parameter file to build a subset based on our data file. For that, let’s use function <code>build_NIRdataset</code></p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" title="1">subset01 &lt;-<span class="st"> </span><span class="kw">build_NIRdataset</span>(<span class="dt">dframe =</span> nir_data, <span class="dt">params_file_path =</span> <span class="st">&#39;test-NIRparams.txt&#39;</span>, <span class="dt">save_txt =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<pre><code>## Variable `surface_id`: face</code></pre>
+<pre><code>## Which `surface` was chosen: abaxial side</code></pre>
+<pre><code>## Variable `reads`: mean</code></pre>
+<pre><code>## Building dataset: test.
+## Mean of reads from both sides grouped by variable `especimenid`</code></pre>
+<pre><code>## Variable `group_id`: SP1</code></pre>
+<pre><code>## Saving object dframe_res as .txt file</code></pre>
+<p>Note that you can also choose to save a RDS and/or a txt file with this subset, you just need to choose <code>TRUE</code> instead of the default option <code>FALSE</code>.</p>
+<p>Let’s check our subset01.</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" title="1"><span class="kw">head</span>(subset01)[,<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>]</a></code></pre></div>
+<pre><code>##    especimenid SP1 X10001.03  X3999.64 X4003.497 X4007.354 X4011.211
+## 1:           1   1 0.2726848 0.5870106 0.5873088 0.5872404 0.5871257
+## 2:           2   1 0.2669050 0.6696110 0.6696059 0.6692295 0.6688587
+## 3:           3   1 0.2676881 0.6619618 0.6620807 0.6618708 0.6614516
+## 4:           4   1 0.2482224 0.6593646 0.6593484 0.6591898 0.6588389
+## 5:           5   1 0.2880839 0.6449743 0.6449506 0.6447369 0.6445321
+## 6:           6   1 0.2572176 0.6149731 0.6151043 0.6149442 0.6147412
+##    X4015.068 X4018.925 X4022.781
+## 1: 0.5866435 0.5857780 0.5845048
+## 2: 0.6681104 0.6668576 0.6653342
+## 3: 0.6606935 0.6596471 0.6580762
+## 4: 0.6581174 0.6571161 0.6554641
+## 5: 0.6439594 0.6429325 0.6415167
+## 6: 0.6141836 0.6133114 0.6119306</code></pre>
+</div>
+<div id="tutorial" class="section level1">
+<h1>Tutorial</h1>
+<p>After our brief quick start, let’s take a deeper look at NIRtools functionality.</p>
+<p>Suppose you want to build many subsets at once, with different combinations of values for reads and surfaces.</p>
+<p>In this example, I will make use of a few packages of <a href="https://www.tidyverse.org/">tidyverse</a>. I suggest you to learn how to use these packages because they are easy to manipulate and make reading R code easier.</p>
+<div id="using-parameter-file" class="section level2">
+<h2>Using parameter file</h2>
+<p>First, let’s create a vector of subset names.</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" title="1"><span class="kw">library</span>(dplyr)</a></code></pre></div>
+<pre><code>## 
+## Attaching package: &#39;dplyr&#39;</code></pre>
+<pre><code>## The following objects are masked from &#39;package:data.table&#39;:
+## 
+##     between, first, last</code></pre>
+<pre><code>## The following objects are masked from &#39;package:stats&#39;:
+## 
+##     filter, lag</code></pre>
+<pre><code>## The following objects are masked from &#39;package:base&#39;:
+## 
+##     intersect, setdiff, setequal, union</code></pre>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" title="1"><span class="kw">library</span>(magrittr)</a></code></pre></div>
+<pre><code>## 
+## Attaching package: &#39;magrittr&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:tidyr&#39;:
+## 
+##     extract</code></pre>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb26-1" title="1"><span class="kw">library</span>(purrr)</a></code></pre></div>
+<pre><code>## 
+## Attaching package: &#39;purrr&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:magrittr&#39;:
+## 
+##     set_names</code></pre>
+<pre><code>## The following object is masked from &#39;package:data.table&#39;:
+## 
+##     transpose</code></pre>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb30-1" title="1">subset_names &lt;-<span class="st"> </span><span class="kw">sprintf</span>(<span class="st">&#39;subset%02d&#39;</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">3</span>)</a>
+<a class="sourceLine" id="cb30-2" title="2">surface_values &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;abaxial&#39;</span>, <span class="st">&#39;adaxial&#39;</span>, <span class="st">&#39;both&#39;</span>)</a>
+<a class="sourceLine" id="cb30-3" title="3">surface_id &lt;-<span class="st"> &#39;face&#39;</span></a>
+<a class="sourceLine" id="cb30-4" title="4">reads_values &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;all&#39;</span>, <span class="st">&#39;all&#39;</span>, <span class="st">&#39;mean&#39;</span>)</a>
+<a class="sourceLine" id="cb30-5" title="5">individual_id &lt;-<span class="st"> &#39;especimenid&#39;</span></a>
+<a class="sourceLine" id="cb30-6" title="6">group_id &lt;-<span class="st"> &#39;SP1&#39;</span></a>
+<a class="sourceLine" id="cb30-7" title="7">nir_id &lt;-<span class="st"> &#39;X&#39;</span></a>
+<a class="sourceLine" id="cb30-8" title="8"></a>
+<a class="sourceLine" id="cb30-9" title="9">metadata &lt;-<span class="st"> </span><span class="kw">data_frame</span>(subset_names, surface_values, reads_values, individual_id, surface_id, group_id, nir_id)</a></code></pre></div>
+<pre><code>## Warning: `data_frame()` is deprecated, use `tibble()`.
+## This warning is displayed once per session.</code></pre>
+<p>Now, let’s create several parameter files at once, using all columns from our object <code>metadata</code>. Each one of its columns, as you can see above, contain all necessary data to create our parameter files.</p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb32-1" title="1"><span class="kw">pwalk</span>(<span class="kw">list</span>(subset_names, surface_values, reads_values, individual_id, surface_id, group_id, nir_id), <span class="op">~</span><span class="kw">write_NIRparams</span>(<span class="dt">file =</span> ..<span class="dv">1</span>, <span class="dt">wd =</span> <span class="st">&#39;.&#39;</span>, <span class="dt">surface =</span> ..<span class="dv">2</span>, <span class="dt">reads =</span> ..<span class="dv">3</span>, <span class="dt">individual_id =</span> ..<span class="dv">4</span>, <span class="dt">surface_id =</span> ..<span class="dv">5</span>, <span class="dt">group_id =</span> ..<span class="dv">6</span>, <span class="dt">nir_id =</span> ..<span class="dv">7</span>))</a></code></pre></div>
+<p>The function <code>purrr::pwalk</code> takes a list of arguments and uses them as input for function ~NIRtools::write_NIRparams` whose result is having our three parameter files saved in our current working directory.</p>
+<div id="building-subsets-one-by-one" class="section level3">
+<h3>Building subsets one by one</h3>
+<p>In construction.</p>
+</div>
+</div>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

@@ -1,20 +1,9 @@
-# Set colors for my plots
-cores_pre <-
-  data.table::data.table(
-    species = c("aracss", "aracsl", "calass", "calasl", "eleg", "lept","ling", "tepu", "outg"),
-    # species = c("aracss", "aracsl", "calass", "calasl", "eleg", "lept", "linguipetalum", "tepu", "heptaphyllum"),
-    # cores = c("#A6CEE3", "#1F78B4", "#B2DF8A", "#33A02C", "#FB9A99", "#E31A1C", "#FDBF6F", "#FF7F00", "#CAB2D6", "#6A3D9A", "#FFFF99", "#B15928")
-    cores = c("#1B9E77", "#D95F02", "#7570B3", "#E7298A", "#66A61E", "#E6AB02", "#A6761D", "#666666", "black")
-  )
-cores <- as.character(cores_pre$cores)
-names(cores) <- cores_pre$species
-cores
 #' Cria uma funcao que seleciona 1 spectro aleatorio para cada uind
 #'
 #' @param x
 #' @param tb
 #' @param id
-#'
+#' @author Alberto Vicentini (INPA), \email{alberto.vicentini@@inpa.gov.br}
 #' @return
 #' @export
 #'
@@ -30,7 +19,7 @@ pegaespectro <- function(x, tb, id) {
 #' @param x
 #' @param dd
 #' @param ind
-#'
+#' @author Alberto Vicentini (INPA), \email{alberto.vicentini@@inpa.gov.br}
 #' @return
 #' @export
 #'
@@ -42,134 +31,6 @@ pegateste <- function(x, dd, ind, teste_n = 0.3) {
   return(xx)
 }
 
-#' LDA Leave One Out
-#'
-#' @param df
-#' @param nir_params_path A path that points to a NIR parameter file.
-#' @param save.csv
-#'
-#' @return
-#' @export
-#'
-#' @examples
-lda_loo <- function(df, nir_params_path, save.csv = FALSE) {
-
-  # converte para data.frame
-  dad <- as.data.frame(df)
-  cat(paste0("Dimensoes dos dados: ", dim(dad)), sep = "\n")
-
-  # indice das colunas que correspondem aos dados NIR
-  cls <- grep("X", colnames(dad), ignore.case = F)
-
-  # IMPLEMENTANDO O LEAVE ONE OUT (deixe um de fora)
-  res.loo <- NULL # objeto para salvar os resultados
-
-  # pega dados do nir_params_file
-  nir_params <- read_NIRparams(nir_params_path)
-  nome_grupo <- nir_params$dataset_name
-  categoria <- nir_params$group_id
-  colunaind <- nir_params$individual_id
-  wd <- paste0(nir_params$working_dir, "/")
-
-  # para cada individuo (linha em dad), faz o teste
-  for (i in 1:nrow(dad)) {
-    # i = 1
-    individuo <- dad[i, colunaind]
-
-    # seleciona os dados do individuo sendo testado
-    teste <- dad[i, cls]
-    teste.sp <- dad[i, categoria]
-
-    # seleciona os demais individuos como modelo
-    modelo <- dad[-i, cls]
-    modelo.sp <- dad[-i, categoria]
-
-    # fazer modelo discriminante
-    meuLDA <- lda(modelo, grouping = modelo.sp)
-    predicao <- predict(meuLDA, teste)
-
-    p <- as.vector(predicao$posterior)
-    names(p) <- colnames(predicao$posterior)
-
-    pc <- names(p[p > 0.95]) # classes preditas com valor de p<=0.05
-    cl <- as.vector(predicao$class) # classe predita
-    pv <- p[cl] # valor de p da classe predita
-    if (length(pc) > 0) {
-      if (pc == teste.sp) {
-        acerto <- "acertou significativo"
-      } else {
-        acerto <- "errou significativo"
-      }
-    } else {
-      if (cl == teste.sp) {
-        acerto <- "acertou não significativo"
-      } else {
-        acerto <- "errou não significativo"
-      }
-    }
-
-    rr <-
-      data.frame(
-        Individuo = individuo,
-        Classe = teste.sp,
-        Posterior = round(predicao$posterior, 2),
-        Acerto = acerto,
-        PreditoComo = names(pv),
-        stringsAsFactors = F
-      )
-    res.loo <- rbind(res.loo, rr)
-
-    cat(glue::glue(
-      "Amostra {ind}-{nrow(dad)}, individuo {individuo} {teste_sp} predito {predicao} p={pv}% {acerto_perc}",
-      ind = i,
-      dad = dad,
-      individuo = individuo,
-      teste_sp = teste.sp,
-      predicao = cl,
-      pv = (round(pv, 2) * 100),
-      acerto_perc = toupper(acerto)
-    ),
-    sep = "\n"
-    )
-  }
-
-  # Tabela com resultados por amostra
-  PorAmostra <- data.frame(EspectroTestado = rownames(res.loo), res.loo, stringsAsFactors = F)
-
-  # Resultados resumidos
-  tb <- table(res.loo$Acerto)
-  # em porcentagem
-  tbb <- round((tb / sum(tb)) * 100, 1)
-  # Tabela com resumo
-  resumo <- as.data.frame(cbind(Tipo = names(tb), N.Individuos = tb, Porcentagem = tbb))
-
-  # salva os resultados
-  if (save.csv == TRUE) {
-    if (wd == ".") {
-      save_where <- ""
-      message("Working directory: ", getwd())
-    } else {
-      save_where <- wd
-      message("Working directory: ", wd)
-    }
-    # resultado da loo
-    write.table(res.loo, paste0(save_where, "lda_tabelaLOO_GERAL_dataset-", nome_grupo, ".csv"), sep = "\t", row.names = FALSE)
-    # tabela de resultados por Amostra
-    write.table(PorAmostra, paste0(save_where, "lda_tabelaLOO_poramostra_dataset-", nome_grupo, ".csv"), sep = "\t", row.names = FALSE)
-    # Tabela com resumo
-    write.table(resumo, paste0(save_where, "lda_tabelaLOO_resumo_dataset-", nome_grupo, ".csv"), sep = "\t", row.names = FALSE)
-  }
-
-  resultado <-
-    list(
-      geral = res.loo,
-      PorAmostra = PorAmostra,
-      resumo = rr
-    )
-
-  return(resultado)
-}
-
 #' Executa LDA 70-30 por padrão
 #'
 #' @param df
@@ -177,9 +38,8 @@ lda_loo <- function(df, nir_params_path, save.csv = FALSE) {
 #' @param colunaind
 #' @param aleatorizacao
 #' @param teste_n
-#'
+#' @author Alberto Vicentini (INPA), \email{alberto.vicentini@@inpa.gov.br}
 #' @return
-#' @importFrom NIRtools read_NIRparams
 #' @export
 #'
 #' @examples
@@ -287,38 +147,12 @@ lda_lab <- function(df, nir_params_path, aleatorizacao, teste_n = 0.3) {
 
   return(resultado_geral)
 }
-# plota matriz de confusao usando o ggplot e o pacote caret
-#' Title
-#'
-#' @param por_amostra
-#'
-#' @return
-#' @export
-#'
-#' @examples
-confusao <- function(por_amostra) {
-
-  ## Checar se colocamos o observado no eixo X ou Y
-  ## De qualquer forma, colocar uma coluna OU linha com o TOTAL de individuos
-  ## para facilitar no entendimento
-  xtab <- table(por_amostra$Classe, por_amostra$PreditoComo)
-
-  cm <- caret::confusionMatrix(xtab)
-  tabela_conf <- as.data.frame(cm$table)
-
-  ggplot(data = tabela_conf, aes(x = Var2, y = Var1), size = 5) +
-    geom_tile(aes(fill = as.factor(Freq)), color = "white", size = 5) +
-    geom_text(aes(label = sprintf("%1.0f", Freq)), vjust = 1, size = 5) +
-    xlab("Predito") + ylab("Observado") +
-    theme_bw() +
-    theme(legend.position = "none")
-}
 
 #' Gera um resumo dos dados da LDA 70-30 a partir do resultado gerado pela função beto_lda7.
 #'
 #' @param resultado.bruto
 #' @param acertosporpermutacao
-#'
+#' @author Alberto Vicentini (INPA), \email{alberto.vicentini@@inpa.gov.br}
 #' @return
 #' @export
 #'
@@ -398,7 +232,7 @@ lda_lab_plot <- function(train_set, train_model, train_spp, col = FALSE, color_p
 #'
 #' @param df
 #' @param wd
-#'
+#' @author Ricardo de Oliveira Perdiz, \email{ricardoperdiz@@yahoo.com}; Alberto Vicentini (INPA), \email{alberto.vicentini@@inpa.gov.br}
 #' @return
 #' @export
 #'
@@ -448,7 +282,7 @@ lda_lab_batch <- function(df, aleatorizacao, teste_n = NULL) {
 #' @param save.pdf
 #' @param save.RDS
 #' @param wd
-#'
+#' @author Ricardo de Oliveira Perdiz, \email{ricardoperdiz@@yahoo.com}; Alberto Vicentini (INPA), \email{alberto.vicentini@@inpa.gov.br}
 #' @return
 #' @export
 #'
@@ -477,84 +311,12 @@ save_lda <- function(lda_lab_list, save.pdf = TRUE, save.RDS = TRUE, wd = NULL) 
   }
 }
 
-#' Plota matriz de confusão
-#'
-#' @param matriz matrix com colnames e rownames
-#' @param bg.cols matrix com valores de cores para background das células
-#' @param txt.cols matrix com valores de cores para o texto dos valores das células
-#' @param valcex cex do texto dos valores das células
-#' @param cexaxis cex do texto dos eixos = nomes de colunas e linhas
-#'
-#' @return
-#' @export
-#'
-#' @examples
-plotamatriz <- function(matriz, bg.cols = NULL, txt.cols = NULL, valcex = 1, cexaxis = 1) {
-  # matriz = mt2_cp
-  tb <- matriz
-  if (any(colnames(matriz) == "%CP")) {
-    rm_col <- which(colnames(matriz) == "%CP")
-    tb <- round(matriz[, -rm_col] / rowSums(matriz[, -rm_col]), 2) * 100
-    tb <- cbind(tb, "%CP" = matriz[, rm_col])
-    tb
-  } else {
-    tb <- round(matriz / rowSums(matriz), 2) * 100
-  }
-  tb
-  if (is.null(bg.cols)) {
-    bg.cols <- matriz
-    txt.cols <- matriz
-    # se for 0 % é branco
-    bg.cols[tb == 0] <- gray(level = 1)
-    txt.cols[tb == 0] <- gray(level = 1)
-    # se for ENTRE 0 e 60% é cinza claro
-    bg.cols[tb > 0 & tb <= 60] <- gray(level = 0.8)
-    txt.cols[tb > 0 & tb <= 60] <- gray(level = 0)
-    # se for entre 60 e 80% um pouco mais escuro
-    bg.cols[tb > 60 & tb <= 80] <- gray(level = 0.6)
-    txt.cols[tb > 60 & tb <= 80] <- gray(level = 0)
-    # se for entre 80 e 95% um pouco mais escuro
-    bg.cols[tb > 80 & tb <= 95] <- gray(level = 0.4)
-    txt.cols[tb > 80 & tb <= 95] <- gray(level = 1)
-    # se for MAIOR que 95% o fundo é preto e o texto branco
-    bg.cols[tb > 95] <- gray(level = 0)
-    txt.cols[tb > 95] <- gray(level = 1)
-    # one for 0 coloca NA, isso não é plotado
-    tb[tb == 0] <- NA
-  }
-  # plota uma matriz vazia
-  xx <- 1:ncol(tb)
-  yy <- seq(1, nrow(tb), length.out = length(xx))
-  plot(xx, yy, type = "n", xaxt = "n", yaxt = "n", xlab = "", ylab = "", pty = "m", xlim = c(0.5, max(xx) + .5), ylim = c(0.5, max(yy) + 0.5))
-  ## ax <- yy[1:(length(yy)-1)]+(diff(yy)/2)
-  ## ay <- xx[1:(length(xx)-1)]+(diff(xx)/2)
-  ay <- 1:ncol(tb)
-  ax <- 1:nrow(tb)
-  abline(v = ay, h = ax, lty = "dotted", lwd = 0.5)
-  nn <- rownames(tb)
-  nncl <- colnames(tb)
-  for (l in 1:nrow(tb)) {
-    for (cc in 1:ncol(tb)) {
-      cl <- bg.cols[l, cc]
-      txtc <- txt.cols[l, cc]
-      val <- matriz[l, cc]
-      if (!is.na(val)) {
-        rect(xleft = cc - 0.5, ybottom = l - 0.5, xright = cc + 0.5, ytop = l + 0.5, density = -1, border = NA, col = cl)
-        text(cc, l, labels = val, cex = valcex, col = txtc)
-      }
-    }
-  }
-  axis(side = 3, at = ay, labels = colnames(tb), cex.axis = cexaxis, las = 2)
-  axis(side = 2, at = ax, labels = rownames(tb), cex.axis = cexaxis, las = 2)
-}
-
-
 #' Faz LDA LOO em batch
 #'
 #' @param df
 #' @param wd
 #' @param times
-#'
+#' @author Ricardo de Oliveira Perdiz, \email{ricardoperdiz@@yahoo.com}; Alberto Vicentini (INPA), \email{alberto.vicentini@@inpa.gov.br}
 #' @return
 #' @export
 #'
@@ -640,35 +402,6 @@ visualiza_res_modelos <- function(resultado_bruto) {
   res <- data.frame(species = species, certainty = certainty)
 
   return(res)
-}
-
-#' Plota matriz de confusão, estilo LABOTAM
-#'
-#' @param xtab
-#' @param add_CP
-#' @return
-#' @export
-#'
-#' @examples
-confusao_lab <- function(xtab, add_CP = FALSE) {
-  mt <- xtab
-  mt2 <- as.matrix.data.frame(xtab)
-  rownames(mt2) <- rownames(mt)
-  colnames(mt2) <- colnames(mt)
-  mt2
-  if (add_CP == TRUE) {
-    mt2_cp <- cbind(mt2, "%CP" = round(diag(mt2) / rowSums(mt2), 2) * 100)
-    mt2_cp
-    rn_cp <- sort(rownames(mt2_cp), decreasing = T)
-    mt2_cp <- mt2_cp[rn_cp, ]
-    mt2_cp
-    return(plotamatriz(mt2_cp))
-  } else {
-    rn <- sort(rownames(mt2), decreasing = T)
-    mt2 <- mt2[rn, ]
-    mt2
-    return(plotamatriz(mt2))
-  }
 }
 
 #' Prepara dados para PCA
@@ -915,7 +648,7 @@ run_NIRA <- function(dataset, nir_params_path, outfig = ".", run_analysis = c("p
 #' Save Near Infra Red Analysis (NIRA) results
 #'
 #' @param file_output
-#'
+#' @author Ricardo de Oliveira Perdiz, \email{ricardoperdiz@@yahoo.com}
 #' @return
 #' @export
 #'
@@ -951,12 +684,13 @@ save_NIRAresults <- function(file_output = "", run_NIRA = FALSE) {
 #' @export
 #'
 #' @examples
-test_pred_lda_loo <- function(nir_data, nir_params_path_predict, nir_params_path_model, add_to_model = FALSE, save.csv = FALSE) {
+test_pred_lda_loo <- function(nir_data, nir_params_path_predict, nir_params_path_model, df_with_names, add_to_model = FALSE, save.csv = FALSE) {
 
   #
-  # nir_params_path_model = "./data/cap01/nir_datasets/PASC_test02D_mean_both_all-NIRparams.txt"
-  # nir_params_path_predict =  './data/cap01/nir_datasets/PASC_predict_test02E_mean_both_all-NIRparams.txt'
+  # nir_params_path_model = "/Users/ricoperdiz/Documents/DOC/PROJETO_DOC/Dados_Complexo_Aracouchini/thesis/data/cap01/nir_datasets/PASC_test02D_mean_both_all-NIRparams.txt"
+  # nir_params_path_predict =  '/Users/ricoperdiz/Documents/DOC/PROJETO_DOC/Dados_Complexo_Aracouchini/thesis/data/cap01/nir_datasets/PASC_predict_test02E_mean_both_all-NIRparams.txt'
   # add_to_model = TRUE
+
 
   #           MODELO                #
   # pega dados do nir_params_file
@@ -974,7 +708,9 @@ test_pred_lda_loo <- function(nir_data, nir_params_path_predict, nir_params_path
       dframe = nir_data,
       params_file_path = nir_params_path_model
     ) %>%
-    as.data.frame(.)
+    as.data.frame(.) %>%
+    dplyr::select(-SP1) %>%
+    left_join(., dplyr::select(df_with_names, especimenid, SP1))
   message("Number of rows: ", dim(modelo)[1])
   message("Number of columns: ", dim(modelo)[2])
   message("#--------------------#\n")

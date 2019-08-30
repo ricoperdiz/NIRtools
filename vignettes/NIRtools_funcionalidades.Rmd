@@ -1,0 +1,113 @@
+---
+title: "NIRtools - Português"
+author: "Ricardo de Oliveira Perdiz"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{NIRtools}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE, cache = TRUE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+# Funcionalidades com conjunto de dados de exemplo
+
+Vamos trabalhar com o conjunto de dados que vem com o pacote. Após carregar o pacote na área de trabalho, o conjunto de dados fica disponível. Ele chama-se `nir_data`. Chequemos as primeiras linhas dos dados.
+
+```{r}
+library(NIRtools)
+head(nir_data)[,1:10]
+```
+
+Neste conjunto de dados, cada coluna possui um significado:
+
+* `especimenid` - coluna identificadora da amostra;
+
+* `SP1` - coluna de determinação da amostra. Neste conjunto de dados, para exemplificar, utilizamos números. Aqui pode haver epítetos específicos, nomes de espécies etc;
+
+* `read`  - face utilizada para leitura dos dados NIR. Este conjunto de dados é proveniente de plantas com flores, logo, utilizamos faces das folhas/folíolos para obter as leituras;
+
+* colunas que começam _X_ - conjunto de dados referentes ao espectro NIR.
+
+# Escrevendo metadados
+
+O metadado é um arquivo de texto em que estão especificados todos os parâmetros para se criar um subconjunto de dados NIR. Para isso, fazemos uso da função `write_NIRparams`.
+
+Neste exemplo, meu subconjunto se chamará `test`, eu utilizarei a *MÉDIA* das leituras (argumento `mean`no parâmetro **reads**) e apenas a face *abaxial* (argumento `abaxial` no parâmetro **surface**) das folhas. Também informo qual o nome da coluna para reconhecer a amostra (argumento `especimenid` no parâmetro **individual_id**) e o táxon (argumento `SP1` no parâmetro **group_id**).
+
+```{r, eval = FALSE}
+write_NIRparams(
+  file = 'test',
+  wd = getwd(),
+  reads = 'mean',
+  surface = 'abaxial',
+  nir_variables = 'all',
+  surface_id = 'face',
+  individual_id = 'especimenid',
+  group_id = 'SP1',
+  nir_id = 'X')
+```
+
+Ao executar a função, uma messagem aparece confirmando a ação e informando onde o arquivo foi salvo.
+
+Olhemos este arquivo
+
+```{r}
+readLines('test-NIRparams.txt')
+```
+
+Após a criação do arquivo, você pode gerar um dataframe com este metadado utilizando a função `read_NIRparams`.
+
+```{r}
+read_NIRparams('test-NIRparams.txt')
+```
+
+
+# Construindo um subconjunto de dados NIR
+
+Para construir um subconjunto de dados NIR, vamos utilizar a função `build_NIRdataset`.
+
+## Subset01
+
+```{r, cache = TRUE}
+subset01 <- build_NIRdataset(df = nir_data, params_file = 'test-NIRparams.txt')
+```
+
+Chequemos nosso subconjunto `subset01`
+
+```{r}
+head(subset01)[,1:10]
+```
+## Subset02
+
+Vamos fazer um novo subconjunto, desta vez utilizando ambas as faces (argumento `both` no parâmetro **surface**).
+
+```{r, eval = FALSE}
+write_NIRparams(
+  file = 'test02',
+  wd = getwd(),
+  reads = 'mean',
+  surface = 'both',
+  nir_variables = 'all',
+  surface_id = 'face',
+  individual_id = 'especimenid',
+  group_id = 'SP1',
+  nir_id = 'X')
+```
+
+```{r, cache = TRUE}
+subset02 <- build_NIRdataset(df = nir_data, params_file = 'test02-NIRparams.txt')
+```
+
+```{r}
+head(subset02)[,1:10]
+```
+
+
+Restante em construção.
