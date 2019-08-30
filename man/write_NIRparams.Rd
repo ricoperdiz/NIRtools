@@ -45,6 +45,6 @@ write_NIRparams(file = "test", wd = getwd(), reads = "mean", surface = "abaxial"
 # Read parameter file called "test" with function `read_NIRparams()`. It returns a data.frame
 read_NIRparams("test-NIR.txt")
 
-# You can also check parameter file with funciont `readLines()`
+# You can also check parameter file with function `readLines()`
 readLines("test-NIR.txt")
 }

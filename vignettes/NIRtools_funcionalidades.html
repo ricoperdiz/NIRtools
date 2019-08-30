@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<meta name="author" content="Ricardo de Oliveira Perdiz" />
+
+<meta name="date" content="2019-08-30" />
+
+<title>NIRtools - Português</title>
+
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css" data-origin="pandoc">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#header {
+text-align: center;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">NIRtools - Português</h1>
+<h4 class="author">Ricardo de Oliveira Perdiz</h4>
+<h4 class="date">2019-08-30</h4>
+
+
+
+<div id="funcionalidades-com-conjunto-de-dados-de-exemplo" class="section level1">
+<h1>Funcionalidades com conjunto de dados de exemplo</h1>
+<p>Vamos trabalhar com o conjunto de dados que vem com o pacote. Após carregar o pacote na área de trabalho, o conjunto de dados fica disponível. Ele chama-se <code>nir_data</code>. Chequemos as primeiras linhas dos dados.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="kw">library</span>(NIRtools)</a>
+<a class="sourceLine" id="cb1-2" title="2"><span class="kw">head</span>(nir_data)[,<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>]</a>
+<a class="sourceLine" id="cb1-3" title="3"><span class="co">#&gt;    especimenid SP1    read    face X10001.03  X3999.64 X4003.497 X4007.354</span></a>
+<a class="sourceLine" id="cb1-4" title="4"><span class="co">#&gt; 1:          17   4 folha-1 abaxial 0.2778664 0.6532890 0.6533827 0.6532058</span></a>
+<a class="sourceLine" id="cb1-5" title="5"><span class="co">#&gt; 2:          17   4 folha-1 adaxial 0.2327851 0.6699212 0.6699399 0.6695617</span></a>
+<a class="sourceLine" id="cb1-6" title="6"><span class="co">#&gt; 3:          17   4 folha-2 abaxial 0.2567553 0.6419270 0.6419497 0.6416439</span></a>
+<a class="sourceLine" id="cb1-7" title="7"><span class="co">#&gt; 4:          17   4 folha-2 adaxial 0.2555278 0.6343970 0.6343604 0.6339911</span></a>
+<a class="sourceLine" id="cb1-8" title="8"><span class="co">#&gt; 5:          17   4 folha-3 abaxial 0.2547329 0.6351578 0.6353651 0.6350956</span></a>
+<a class="sourceLine" id="cb1-9" title="9"><span class="co">#&gt; 6:          17   4 folha-3 adaxial 0.2304880 0.6802652 0.6802475 0.6799131</span></a>
+<a class="sourceLine" id="cb1-10" title="10"><span class="co">#&gt;    X4011.211 X4015.068</span></a>
+<a class="sourceLine" id="cb1-11" title="11"><span class="co">#&gt; 1: 0.6527848 0.6518375</span></a>
+<a class="sourceLine" id="cb1-12" title="12"><span class="co">#&gt; 2: 0.6689490 0.6678685</span></a>
+<a class="sourceLine" id="cb1-13" title="13"><span class="co">#&gt; 3: 0.6412423 0.6403816</span></a>
+<a class="sourceLine" id="cb1-14" title="14"><span class="co">#&gt; 4: 0.6335653 0.6326041</span></a>
+<a class="sourceLine" id="cb1-15" title="15"><span class="co">#&gt; 5: 0.6345941 0.6338017</span></a>
+<a class="sourceLine" id="cb1-16" title="16"><span class="co">#&gt; 6: 0.6793467 0.6782958</span></a></code></pre></div>
+<p>Neste conjunto de dados, cada coluna possui um significado:</p>
+<ul>
+<li><p><code>especimenid</code> - coluna identificadora da amostra;</p></li>
+<li><p><code>SP1</code> - coluna de determinação da amostra. Neste conjunto de dados, para exemplificar, utilizamos números. Aqui pode haver epítetos específicos, nomes de espécies etc;</p></li>
+<li><p><code>read</code> - face utilizada para leitura dos dados NIR. Este conjunto de dados é proveniente de plantas com flores, logo, utilizamos faces das folhas/folíolos para obter as leituras;</p></li>
+<li><p>colunas que começam <em>X</em> - conjunto de dados referentes ao espectro NIR.</p></li>
+</ul>
+</div>
+<div id="escrevendo-metadados" class="section level1">
+<h1>Escrevendo metadados</h1>
+<p>O metadado é um arquivo de texto em que estão especificados todos os parâmetros para se criar um subconjunto de dados NIR. Para isso, fazemos uso da função <code>write_NIRparams</code>.</p>
+<p>Neste exemplo, meu subconjunto se chamará <code>test</code>, eu utilizarei a <em>MÉDIA</em> das leituras (argumento <code>mean</code>no parâmetro <strong>reads</strong>) e apenas a face <em>abaxial</em> (argumento <code>abaxial</code> no parâmetro <strong>surface</strong>) das folhas. Também informo qual o nome da coluna para reconhecer a amostra (argumento <code>especimenid</code> no parâmetro <strong>individual_id</strong>) e o táxon (argumento <code>SP1</code> no parâmetro <strong>group_id</strong>).</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1"><span class="kw">write_NIRparams</span>(</a>
+<a class="sourceLine" id="cb2-2" title="2">  <span class="dt">file =</span> <span class="st">&#39;test&#39;</span>,</a>
+<a class="sourceLine" id="cb2-3" title="3">  <span class="dt">wd =</span> <span class="kw">getwd</span>(),</a>
+<a class="sourceLine" id="cb2-4" title="4">  <span class="dt">reads =</span> <span class="st">&#39;mean&#39;</span>,</a>
+<a class="sourceLine" id="cb2-5" title="5">  <span class="dt">surface =</span> <span class="st">&#39;abaxial&#39;</span>,</a>
+<a class="sourceLine" id="cb2-6" title="6">  <span class="dt">nir_variables =</span> <span class="st">&#39;all&#39;</span>,</a>
+<a class="sourceLine" id="cb2-7" title="7">  <span class="dt">surface_id =</span> <span class="st">&#39;face&#39;</span>,</a>
+<a class="sourceLine" id="cb2-8" title="8">  <span class="dt">individual_id =</span> <span class="st">&#39;especimenid&#39;</span>,</a>
+<a class="sourceLine" id="cb2-9" title="9">  <span class="dt">group_id =</span> <span class="st">&#39;SP1&#39;</span>,</a>
+<a class="sourceLine" id="cb2-10" title="10">  <span class="dt">nir_id =</span> <span class="st">&#39;X&#39;</span>)</a></code></pre></div>
+<p>Ao executar a função, uma messagem aparece confirmando a ação e informando onde o arquivo foi salvo.</p>
+<p>Olhemos este arquivo</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1"><span class="kw">readLines</span>(<span class="st">&#39;test-NIRparams.txt&#39;</span>)</a>
+<a class="sourceLine" id="cb3-2" title="2"><span class="co">#&gt;  [1] &quot;# NIR dataset description - Dataset name and variables for its construction&quot;                                                                                                       </span></a>
+<a class="sourceLine" id="cb3-3" title="3"><span class="co">#&gt;  [2] &quot;test ## [dataset_name]: Dataset name.&quot;                                                                                                                                             </span></a>
+<a class="sourceLine" id="cb3-4" title="4"><span class="co">#&gt;  [3] &quot;/Users/ricoperdiz/Documents/DOC/PROJETO_DOC/R/pkgs/NIRtools/vignettes ## [working_dir]: Location of working directory. If not provided, current working directory will be used one&quot;</span></a>
+<a class="sourceLine" id="cb3-5" title="5"><span class="co">#&gt;  [4] &quot;abaxial ## [surface]: Which leaf surface (abaxial, adaxial, both)&quot;                                                                                                                 </span></a>
+<a class="sourceLine" id="cb3-6" title="6"><span class="co">#&gt;  [5] &quot;mean ## [reads]: Do all the reads will be taken into account (all, mean)?&quot;                                                                                                         </span></a>
+<a class="sourceLine" id="cb3-7" title="7"><span class="co">#&gt;  [6] &quot;all ## [nir_variables]: Which NIR variables will be used (all, subset)&quot;                                                                                                            </span></a>
+<a class="sourceLine" id="cb3-8" title="8"><span class="co">#&gt;  [7] &quot;           ## [subset_file]: Location of NIR variable subset file, in case option selected in `nir_variables` was `subset`&quot;                                                        </span></a>
+<a class="sourceLine" id="cb3-9" title="9"><span class="co">#&gt;  [8] &quot;especimenid ## [individual_id]: Which variable name corresponds to the individual?&quot;                                                                                                </span></a>
+<a class="sourceLine" id="cb3-10" title="10"><span class="co">#&gt;  [9] &quot;           ## [individual_list]: Location of a file containing list of specimens to subset data when building datasets with `build_NIRdataset` function.&quot;                          </span></a>
+<a class="sourceLine" id="cb3-11" title="11"><span class="co">#&gt; [10] &quot;face ## [surface_id]: Which variable name corresponds to the leaf surface?&quot;                                                                                                        </span></a>
+<a class="sourceLine" id="cb3-12" title="12"><span class="co">#&gt; [11] &quot;SP1 ## [group_id]: Which name corresponds to the group category?&quot;                                                                                                                  </span></a>
+<a class="sourceLine" id="cb3-13" title="13"><span class="co">#&gt; [12] &quot;X ## [nir_id]: A string that can be used to grep column names containing NIR data. Default value is &#39;`X`, which precedes all columns with NIR data.&quot;</span></a></code></pre></div>
+<p>Após a criação do arquivo, você pode gerar um dataframe com este metadado utilizando a função <code>read_NIRparams</code>.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1"><span class="kw">read_NIRparams</span>(<span class="st">&#39;test-NIRparams.txt&#39;</span>)</a>
+<a class="sourceLine" id="cb4-2" title="2"><span class="co">#&gt;    dataset_index dataset_name group_id individual_id individual_list</span></a>
+<a class="sourceLine" id="cb4-3" title="3"><span class="co">#&gt; 1:             1         test      SP1   especimenid                </span></a>
+<a class="sourceLine" id="cb4-4" title="4"><span class="co">#&gt;    nir_id nir_variables reads subset_file surface surface_id</span></a>
+<a class="sourceLine" id="cb4-5" title="5"><span class="co">#&gt; 1:      X           all  mean             abaxial       face</span></a>
+<a class="sourceLine" id="cb4-6" title="6"><span class="co">#&gt;                                                              working_dir</span></a>
+<a class="sourceLine" id="cb4-7" title="7"><span class="co">#&gt; 1: /Users/ricoperdiz/Documents/DOC/PROJETO_DOC/R/pkgs/NIRtools/vignettes</span></a></code></pre></div>
+</div>
+<div id="construindo-um-subconjunto-de-dados-nir" class="section level1">
+<h1>Construindo um subconjunto de dados NIR</h1>
+<p>Para construir um subconjunto de dados NIR, vamos utilizar a função <code>build_NIRdataset</code>.</p>
+<div id="subset01" class="section level2">
+<h2>Subset01</h2>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1">subset01 &lt;-<span class="st"> </span><span class="kw">build_NIRdataset</span>(<span class="dt">df =</span> nir_data, <span class="dt">params_file =</span> <span class="st">&#39;test-NIRparams.txt&#39;</span>)</a>
+<a class="sourceLine" id="cb5-2" title="2"><span class="co">#&gt; Variable `surface_id`: face</span></a>
+<a class="sourceLine" id="cb5-3" title="3"><span class="co">#&gt; Which `surface` was chosen: abaxial side</span></a>
+<a class="sourceLine" id="cb5-4" title="4"><span class="co">#&gt; Variable `reads`: mean</span></a>
+<a class="sourceLine" id="cb5-5" title="5"><span class="co">#&gt; Building dataset: test.</span></a>
+<a class="sourceLine" id="cb5-6" title="6"><span class="co">#&gt; Mean of reads from both sides grouped by variable `especimenid`</span></a>
+<a class="sourceLine" id="cb5-7" title="7"><span class="co">#&gt; Variable `group_id`: SP1</span></a></code></pre></div>
+<p>Chequemos nosso subconjunto <code>subset01</code></p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" title="1"><span class="kw">head</span>(subset01)[,<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>]</a>
+<a class="sourceLine" id="cb6-2" title="2"><span class="co">#&gt;    especimenid SP1 X10001.03  X3999.64 X4003.497 X4007.354 X4011.211</span></a>
+<a class="sourceLine" id="cb6-3" title="3"><span class="co">#&gt; 1:           1   1 0.2726848 0.5870106 0.5873088 0.5872404 0.5871257</span></a>
+<a class="sourceLine" id="cb6-4" title="4"><span class="co">#&gt; 2:           2   1 0.2669050 0.6696110 0.6696059 0.6692295 0.6688587</span></a>
+<a class="sourceLine" id="cb6-5" title="5"><span class="co">#&gt; 3:           3   1 0.2676881 0.6619618 0.6620807 0.6618708 0.6614516</span></a>
+<a class="sourceLine" id="cb6-6" title="6"><span class="co">#&gt; 4:           4   1 0.2482224 0.6593646 0.6593484 0.6591898 0.6588389</span></a>
+<a class="sourceLine" id="cb6-7" title="7"><span class="co">#&gt; 5:           5   1 0.2880839 0.6449743 0.6449506 0.6447369 0.6445321</span></a>
+<a class="sourceLine" id="cb6-8" title="8"><span class="co">#&gt; 6:           6   1 0.2572176 0.6149731 0.6151043 0.6149442 0.6147412</span></a>
+<a class="sourceLine" id="cb6-9" title="9"><span class="co">#&gt;    X4015.068 X4018.925 X4022.781</span></a>
+<a class="sourceLine" id="cb6-10" title="10"><span class="co">#&gt; 1: 0.5866435 0.5857780 0.5845048</span></a>
+<a class="sourceLine" id="cb6-11" title="11"><span class="co">#&gt; 2: 0.6681104 0.6668576 0.6653342</span></a>
+<a class="sourceLine" id="cb6-12" title="12"><span class="co">#&gt; 3: 0.6606935 0.6596471 0.6580762</span></a>
+<a class="sourceLine" id="cb6-13" title="13"><span class="co">#&gt; 4: 0.6581174 0.6571161 0.6554641</span></a>
+<a class="sourceLine" id="cb6-14" title="14"><span class="co">#&gt; 5: 0.6439594 0.6429325 0.6415167</span></a>
+<a class="sourceLine" id="cb6-15" title="15"><span class="co">#&gt; 6: 0.6141836 0.6133114 0.6119306</span></a></code></pre></div>
+</div>
+<div id="subset02" class="section level2">
+<h2>Subset02</h2>
+<p>Vamos fazer um novo subconjunto, desta vez utilizando ambas as faces (argumento <code>both</code> no parâmetro <strong>surface</strong>).</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" title="1"><span class="kw">write_NIRparams</span>(</a>
+<a class="sourceLine" id="cb7-2" title="2">  <span class="dt">file =</span> <span class="st">&#39;test02&#39;</span>,</a>
+<a class="sourceLine" id="cb7-3" title="3">  <span class="dt">wd =</span> <span class="kw">getwd</span>(),</a>
+<a class="sourceLine" id="cb7-4" title="4">  <span class="dt">reads =</span> <span class="st">&#39;mean&#39;</span>,</a>
+<a class="sourceLine" id="cb7-5" title="5">  <span class="dt">surface =</span> <span class="st">&#39;both&#39;</span>,</a>
+<a class="sourceLine" id="cb7-6" title="6">  <span class="dt">nir_variables =</span> <span class="st">&#39;all&#39;</span>,</a>
+<a class="sourceLine" id="cb7-7" title="7">  <span class="dt">surface_id =</span> <span class="st">&#39;face&#39;</span>,</a>
+<a class="sourceLine" id="cb7-8" title="8">  <span class="dt">individual_id =</span> <span class="st">&#39;especimenid&#39;</span>,</a>
+<a class="sourceLine" id="cb7-9" title="9">  <span class="dt">group_id =</span> <span class="st">&#39;SP1&#39;</span>,</a>
+<a class="sourceLine" id="cb7-10" title="10">  <span class="dt">nir_id =</span> <span class="st">&#39;X&#39;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" title="1">subset02 &lt;-<span class="st"> </span><span class="kw">build_NIRdataset</span>(<span class="dt">df =</span> nir_data, <span class="dt">params_file =</span> <span class="st">&#39;test02-NIRparams.txt&#39;</span>)</a>
+<a class="sourceLine" id="cb8-2" title="2"><span class="co">#&gt; Variable `surface_id`: face</span></a>
+<a class="sourceLine" id="cb8-3" title="3"><span class="co">#&gt; Which `surface` was chosen: both sides</span></a>
+<a class="sourceLine" id="cb8-4" title="4"><span class="co">#&gt; Variable `reads`: mean</span></a>
+<a class="sourceLine" id="cb8-5" title="5"><span class="co">#&gt; Building dataset: test02.</span></a>
+<a class="sourceLine" id="cb8-6" title="6"><span class="co">#&gt; Mean of reads from both sides grouped by variable `especimenid`</span></a>
+<a class="sourceLine" id="cb8-7" title="7"><span class="co">#&gt; Variable `group_id`: SP1</span></a></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" title="1"><span class="kw">head</span>(subset02)[,<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>]</a>
+<a class="sourceLine" id="cb9-2" title="2"><span class="co">#&gt;    especimenid SP1 X10001.03  X3999.64 X4003.497 X4007.354 X4011.211</span></a>
+<a class="sourceLine" id="cb9-3" title="3"><span class="co">#&gt; 1:           1   1 0.2599106 0.5810801 0.5813474 0.5812861 0.5812135</span></a>
+<a class="sourceLine" id="cb9-4" title="4"><span class="co">#&gt; 2:           2   1 0.2643849 0.6727196 0.6726557 0.6722576 0.6718191</span></a>
+<a class="sourceLine" id="cb9-5" title="5"><span class="co">#&gt; 3:           3   1 0.2692274 0.6714775 0.6715040 0.6711789 0.6707220</span></a>
+<a class="sourceLine" id="cb9-6" title="6"><span class="co">#&gt; 4:           4   1 0.2506153 0.6645653 0.6645202 0.6642521 0.6638795</span></a>
+<a class="sourceLine" id="cb9-7" title="7"><span class="co">#&gt; 5:           5   1 0.2817538 0.6469909 0.6469435 0.6467069 0.6464015</span></a>
+<a class="sourceLine" id="cb9-8" title="8"><span class="co">#&gt; 6:           6   1 0.2563845 0.6278212 0.6279209 0.6277134 0.6274998</span></a>
+<a class="sourceLine" id="cb9-9" title="9"><span class="co">#&gt;    X4015.068 X4018.925 X4022.781</span></a>
+<a class="sourceLine" id="cb9-10" title="10"><span class="co">#&gt; 1: 0.5807843 0.5799292 0.5786439</span></a>
+<a class="sourceLine" id="cb9-11" title="11"><span class="co">#&gt; 2: 0.6710882 0.6699309 0.6683125</span></a>
+<a class="sourceLine" id="cb9-12" title="12"><span class="co">#&gt; 3: 0.6699373 0.6688422 0.6673328</span></a>
+<a class="sourceLine" id="cb9-13" title="13"><span class="co">#&gt; 4: 0.6631782 0.6620963 0.6605075</span></a>
+<a class="sourceLine" id="cb9-14" title="14"><span class="co">#&gt; 5: 0.6457620 0.6447588 0.6433793</span></a>
+<a class="sourceLine" id="cb9-15" title="15"><span class="co">#&gt; 6: 0.6269050 0.6259752 0.6246121</span></a></code></pre></div>
+<p>Restante em construção.</p>
+</div>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

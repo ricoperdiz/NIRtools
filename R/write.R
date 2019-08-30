@@ -21,7 +21,7 @@
 #' # Read parameter file called "test" with function `read_NIRparams()`. It returns a data.frame
 #' read_NIRparams("test-NIR.txt")
 #'
-#' # You can also check parameter file with funciont `readLines()`
+#' # You can also check parameter file with function `readLines()`
 #' readLines("test-NIR.txt")
 write_NIRparams <- function(file = "", wd = ".", surface = "", reads = "", nir_variables = "", subset_file = "", individual_id = "", individual_list = NULL, surface_id = "", group_id = "", nir_id = "X") {
   surface_var <- c("abaxial", "adaxial", "both")
@@ -81,7 +81,7 @@ write_NIRparams <- function(file = "", wd = ".", surface = "", reads = "", nir_v
   #### individual_list ####
   if (!is.null(individual_list)) {
     if (file.access(individual_list) != 0) {
-      stop("If supplied, `individual_list` must be apath to a file containing a specimen identifier, one per line.")
+      stop("If supplied, `individual_list` must be a path to a file containing a specimen identifier, one per line.")
     }
   } else {
     individual_list <- "          "

@@ -1,0 +1,134 @@
+---
+title: "NIRtools - Português"
+author: "Ricardo de Oliveira Perdiz"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{NIRtools}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE, cache = TRUE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+# Panorama geral
+
+NIRTools foi especificamente desenhado para auxiliar botânicos e ecólogos em documentar e construir conjuntos de dados de NIR a partir de arquivos contendo especificações de parâmetros que servem também como metadado de cada conjunto de dados gerado no pacote.
+
+
+# O que é o NIR?
+
+Leia este [artigo](http://www.scielo.br/scielo.php?script=sci_arttext&pid=S0103-50532003000200006).
+
+# Instalação
+
+You can install the development version from GitHub with the package `devtools`
+
+```
+install.packages("devtools")
+library(devtools)
+devtools::install_github("ricoperdiz/NIRtools", build_vignettes = TRUE)
+```
+
+# Guia rápido
+
+Vamos trabalhar com o conjunto de dados que vem com o pacote. Após carregar o pacote na área de trabalho, o conjunto de dados fica disponível. Ele chama-se `nir_data`.
+
+Primeiro, carregue o pacote e cheque as primeiras linhas dos dados.
+
+```{r}
+library(NIRtools)
+head(nir_data)[,1:10]
+```
+
+We have a column `especimenid` that specifies the sample id number, a columm `SP1` that specifies our sample identity (in this case, it is the number of the species, a hypothetical number); a column `read` that specifies the leaf/leaflet id, that is, for each leaf/leaflet, we have a different value; a column `face` that specifies which surface was used to obtain the data; and at least, a group of columns that starts with letter _X_ and that refer to NIR spectra.
+
+There are samples that have more than one read per surface. So, suppose we want to create a subset that contains only read means for both surfaces and containing all NIR spectra variables, that is, for each specimen, we would calculate mean for all reads per surface per NIR spectra variable. Our first step would be to create a parameter file that will contain all specifications of it. Let's use the function `write_NIRparams`.
+
+In this example, my first subset will be called `test`, and  I will use mean of reads, only abaxial surface, and I will inform which column names refer to surface(`face`), individual (`especimenid`), and species/group (`SP1`).
+
+```{r, eval = FALSE}
+write_NIRparams(
+  file = 'test',
+  wd = getwd(),
+  reads = 'mean',
+  surface = 'abaxial',
+  nir_variables = 'all',
+  surface_id = 'face',
+  individual_id = 'especimenid',
+  group_id = 'SP1',
+  nir_id = 'X')
+```
+
+After executing the function, a message will appear confirming the action and telling where the file has been saved.
+
+Let's take a look at this file.
+
+```{r}
+readLines('test-NIRparams.txt')
+```
+
+After having our parameter file specification done, you can use function `read_NIRparams` to have your parameter file read as a dataframe.
+
+```{r}
+read_NIRparams('test-NIRparams.txt')
+```
+
+At last, let's use the parameter file to build a subset based on our data file. For that, let's use function `build_NIRdataset`
+
+```{r, cache = TRUE}
+subset01 <- build_NIRdataset(dframe = nir_data, params_file_path = 'test-NIRparams.txt', save_txt = TRUE)
+```
+
+Note that you can also choose to save a RDS and/or a txt file with this subset, you just need to choose `TRUE` instead of the default option `FALSE`.
+
+Let's check our subset01.
+
+```{r}
+head(subset01)[,1:10]
+```
+
+# Tutorial
+
+After our brief quick start, let's take a deeper look at NIRtools functionality.
+
+Suppose you want to build many subsets at once, with different combinations of values for reads and surfaces.
+
+In this example, I will make use of a few packages of [tidyverse](https://www.tidyverse.org/). I suggest you to learn how to use these packages because they are easy to manipulate and make reading R code easier.
+
+## Using parameter file
+
+First, let's create a vector of subset names.
+
+```{r, cache = TRUE}
+library(dplyr)
+library(magrittr)
+library(purrr)
+
+subset_names <- sprintf('subset%02d', 1:3)
+surface_values <- c('abaxial', 'adaxial', 'both')
+surface_id <- 'face'
+reads_values <- c('all', 'all', 'mean')
+individual_id <- 'especimenid'
+group_id <- 'SP1'
+nir_id <- 'X'
+
+metadata <- data_frame(subset_names, surface_values, reads_values, individual_id, surface_id, group_id, nir_id)
+```
+
+Now, let's create several parameter files at once, using all columns from our object `metadata`. Each one of its columns, as you can see above, contain all necessary data to create our parameter files.
+
+```{r, eval = FALSE}
+pwalk(list(subset_names, surface_values, reads_values, individual_id, surface_id, group_id, nir_id), ~write_NIRparams(file = ..1, wd = '.', surface = ..2, reads = ..3, individual_id = ..4, surface_id = ..5, group_id = ..6, nir_id = ..7))
+```
+
+The function `purrr::pwalk` takes a list of arguments and uses them as input for function ~NIRtools::write_NIRparams` whose result is having our three parameter files saved in our current working directory.
+
+### Building subsets one by one
+
+In construction.
