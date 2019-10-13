@@ -1,7 +1,7 @@
 #' Plota matriz de confusão, estilo LABOTAM
 #'
 #' @param xtab
-#' @param add_CP
+#' @param add_CP Adiciona a taxa de predições corretas? Padrão é não adicionar.
 #' @return
 #' @export
 #'
@@ -12,13 +12,22 @@ confusao_lab <- function(xtab, add_CP = FALSE) {
   rownames(mt2) <- rownames(mt)
   colnames(mt2) <- colnames(mt)
   mt2
+
   if (add_CP == TRUE) {
-    mt2_cp <- cbind(mt2, "%CP" = round(diag(mt2) / rowSums(mt2), 2) * 100)
-    mt2_cp
-    rn_cp <- sort(rownames(mt2_cp), decreasing = T)
-    mt2_cp <- mt2_cp[rn_cp, ]
-    mt2_cp
-    return(plotamatriz(mt2_cp))
+    if( !length(diag(mt2)) == ncol(mt2) ) {
+      mt2_cp <- cbind(mt2, "%CP" = round(diag(mt2) / rowSums(mt2), 2) * 100)
+      mt2_cp
+      rn_cp <- sort(rownames(mt2_cp), decreasing = T)
+      mt2_cp <- mt2_cp[rn_cp, ]
+      mt2_cp
+      return(plotamatriz(mt2_cp))
+    } else {
+      colunas_valores <- which(colnames(mt2)  %in% row.names(mt2))
+      porcentagem <- diag(mt2[,colunas_valores]/rowSums(mt2))
+
+      mt2_cp <- cbind(mt2, "%CP" =  round(porcentagem, 2) * 100)
+      return(plotamatriz(mt2_cp))
+    }
   } else {
     rn <- sort(rownames(mt2), decreasing = T)
     mt2 <- mt2[rn, ]
