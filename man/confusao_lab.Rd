@@ -6,6 +6,9 @@
 \usage{
 confusao_lab(xtab, add_CP = FALSE)
 }
+\arguments{
+\item{add_CP}{Adiciona a taxa de predições corretas? Padrão é não adicionar.}
+}
 \description{
 Plota matriz de confusão, estilo LABOTAM
 }
