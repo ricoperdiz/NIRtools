@@ -1,11 +1,22 @@
 #' Plota matriz de confusão, estilo LABOTAM
 #'
-#' @param xtab
-#' @param add_CP Adiciona a taxa de predições corretas? Padrão é não adicionar.
-#' @return
+#' @param xtab Tabela cruzamento de dados observados versus dados preditos.
+#' @param add_CP Vetor lógico que, se TRUE, adiciona a taxa de predição correta como última coluna da matrix, dispondo os valores em porcentagem. Comportamento padrão é não adicionar essa coluna.
+#'
+#' @author Alberto Vicentini, \email{vicentini.beto@@gmail.com}; Ricardo O. Perdiz, \email{ricoperdiz@@gmail.com}
+#'
+#' @return Um plot.
+#'
 #' @export
 #'
 #' @examples
+#' observado <- factor(sample(letters[1:10], 200, replace = TRUE), levels = letters[1:10])
+#' predito <- factor(sample(letters[1:10], 200, replace = TRUE), levels = letters[1:10])
+#' dad <- data.frame(observ = observado, pre = predito)
+#' # com predicao correta como ultima coluna
+#' confusao_lab(table(dad$observ, dad$pre), add_CP = TRUE)
+#' # sem predicao correta como ultima coluna
+#' confusao_lab(table(dad$observ, dad$pre), add_CP = FALSE)
 confusao_lab <- function(xtab, add_CP = FALSE) {
 
   mt <- xtab
@@ -41,21 +52,22 @@ confusao_lab <- function(xtab, add_CP = FALSE) {
   }
 }
 
-# plota matriz de confusao usando o ggplot e o pacote caret
-#' Title
+#' Plota matriz de confusao, versão 2
 #'
-#' @param por_amostra
+#' @param xtab Tabela cruzamento de dados observados versus dados preditos.
 #'
-#' @return
-#' @export
+#' @author Ricardo O. Perdiz, \email{ricoperdiz@@gmail.com}
+#'
+#' @return Um plot.
+#'
 #'
 #' @examples
-confusao <- function(por_amostra) {
+confusao <- function(xtab) {
 
   ## Checar se colocamos o observado no eixo X ou Y
   ## De qualquer forma, colocar uma coluna OU linha com o TOTAL de individuos
   ## para facilitar no entendimento
-  xtab <- table(por_amostra$Classe, por_amostra$PreditoComo)
+  #  <- table(por_amostra$Classe, por_amostra$PreditoComo)
 
   cm <- caret::confusionMatrix(xtab)
   tabela_conf <- as.data.frame(cm$table)
@@ -76,7 +88,9 @@ confusao <- function(por_amostra) {
 #' @param valcex cex do texto dos valores das células
 #' @param cexaxis cex do texto dos eixos = nomes de colunas e linhas
 #'
-#' @author Alberto Vicentini (INPA)
+#' @author Alberto Vicentini, \email{vicentini.beto@@gmail.com}
+#'
+#' @return Um plot.
 #' @return
 #' @export
 #'
