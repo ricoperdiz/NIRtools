@@ -7,6 +7,7 @@
 #'
 #' @examples
 confusao_lab <- function(xtab, add_CP = FALSE) {
+
   mt <- xtab
   mt2 <- as.matrix.data.frame(xtab)
   rownames(mt2) <- rownames(mt)
@@ -14,7 +15,7 @@ confusao_lab <- function(xtab, add_CP = FALSE) {
   mt2
 
   if (add_CP == TRUE) {
-    if( !length(diag(mt2)) == ncol(mt2) ) {
+    if( length(diag(mt2)) == ncol(mt2) ) {
       mt2_cp <- cbind(mt2, "%CP" = round(diag(mt2) / rowSums(mt2), 2) * 100)
       mt2_cp
       rn_cp <- sort(rownames(mt2_cp), decreasing = T)
@@ -26,6 +27,10 @@ confusao_lab <- function(xtab, add_CP = FALSE) {
       porcentagem <- diag(mt2[,colunas_valores]/rowSums(mt2))
 
       mt2_cp <- cbind(mt2, "%CP" =  round(porcentagem, 2) * 100)
+      mt2_cp
+      rn_cp <- sort(rownames(mt2_cp), decreasing = T)
+      mt2_cp <- mt2_cp[rn_cp, ]
+      mt2_cp
       return(plotamatriz(mt2_cp))
     }
   } else {
