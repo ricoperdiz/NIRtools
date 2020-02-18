@@ -159,14 +159,14 @@ build_NIRdataset <- function(dframe, params_file_path, save_RDS = FALSE, save_tx
   # If individual_list is specified, then it will be used to filter dframe_res
 
   if (individual_list != '') {
-    ind_list <- scan(individual_list)
+    ind_list <- scan(individual_list, what = "character")
     if (!is.vector(ind_list)) {
       stop('Variable `individual_list` must point to a file containing list of specimens and it must return a vector.')
     }
 
     dframe_res_filtered <- subset(dframe_res, get(individual_id)  %in%  ind_list)
     # return data.frame with results
-  return(dframe_res_filtered)
+    return(dframe_res_filtered)
   } else {
     # return data.frame with results
     return(dframe_res)
