@@ -535,7 +535,6 @@ run_NIRA <- function(dataset, nir_params_path, outfig = ".", run_analysis = c("p
 
     col_legend <- NULL
     for (i in seq_along(especies)) {
-      # i = 1
       cat_plot <- filter(plot_raw, SP1 == especies[i])
       if (especies[i] %in% names(col_p)) {
         pos_cor <- which(names(col_p) == especies[i])
@@ -547,7 +546,7 @@ run_NIRA <- function(dataset, nir_params_path, outfig = ".", run_analysis = c("p
         col_legend <- c(col_legend, cores2[i])
       }
     }
-    legend("topright", legend = especies, pch = 13, col = col_legend)
+    legend("topright", legend = especies, pch = 16, cex = 0.5, col = col_legend)
     dev.off()
   }
 
