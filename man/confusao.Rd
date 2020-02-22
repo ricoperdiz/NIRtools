@@ -2,13 +2,19 @@
 % Please edit documentation in R/confusion_matrix.R
 \name{confusao}
 \alias{confusao}
-\title{Title}
+\title{Plota matriz de confusao, versão 2}
 \usage{
-confusao(por_amostra)
+confusao(xtab)
 }
 \arguments{
-\item{por_amostra}{}
+\item{xtab}{Tabela cruzamento de dados observados versus dados preditos.}
+}
+\value{
+Um plot.
 }
 \description{
-Title
+Plota matriz de confusao, versão 2
+}
+\author{
+Ricardo O. Perdiz, \email{ricoperdiz@gmail.com}
 }

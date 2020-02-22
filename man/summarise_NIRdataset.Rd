@@ -11,6 +11,9 @@ summarise_NIRdataset(dframe, params_file_path)
 
 \item{params_file_path}{Location of NIR parameter file.}
 }
+\value{
+
+}
 \description{
 Summarise NIR datasets
 }

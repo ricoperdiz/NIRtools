@@ -4,8 +4,7 @@
 \alias{build_NIRdataset}
 \title{Build NIR dataset based on a parameters file.}
 \usage{
-build_NIRdataset(dframe, params_file_path, save_RDS = FALSE,
-  save_txt = FALSE)
+build_NIRdataset(dframe, params_file_path, save_RDS = FALSE, save_txt = FALSE)
 }
 \arguments{
 \item{dframe}{A dataframe in long format, that is, each NIR variable must be stored in its own column, and other columns containing identifications for individuals, and leaf surface, at least.}

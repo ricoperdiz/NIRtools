@@ -4,11 +4,20 @@
 \alias{test_pred_lda_loo}
 \title{Predict identity of a group of samples based on a model}
 \usage{
-test_pred_lda_loo(nir_data, nir_params_path_predict, nir_params_path_model,
-  df_with_names, add_to_model = FALSE, save.csv = FALSE)
+test_pred_lda_loo(
+  nir_data,
+  nir_params_path_predict,
+  nir_params_path_model,
+  df_with_names,
+  add_to_model = FALSE,
+  save.csv = FALSE
+)
 }
 \arguments{
 \item{save.csv}{}
+}
+\value{
+
 }
 \description{
 Predict identity of a group of samples based on a model

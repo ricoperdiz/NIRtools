@@ -6,6 +6,9 @@
 \usage{
 pegateste(x, dd, ind, teste_n = 0.3)
 }
+\value{
+
+}
 \description{
 Cria uma funcao que seleciona 1 spectro aleatorio para cada uind
 }

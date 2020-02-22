@@ -6,6 +6,9 @@
 \usage{
 save_NIRAresults(file_output = "", run_NIRA = FALSE)
 }
+\value{
+
+}
 \description{
 Save Near Infra Red Analysis (NIRA) results
 }

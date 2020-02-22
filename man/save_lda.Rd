@@ -6,6 +6,9 @@
 \usage{
 save_lda(lda_lab_list, save.pdf = TRUE, save.RDS = TRUE, wd = NULL)
 }
+\value{
+
+}
 \description{
 Salva o resultado da LDA 70-30 (padrão) na forma de um pdf com histograma, e o conjunto de dados em um RDS.
 }

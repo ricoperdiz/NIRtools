@@ -6,6 +6,9 @@
 \usage{
 lda_loo_batch(df, times = 1, dataset_name = NULL, wd = wd)
 }
+\value{
+
+}
 \description{
 Faz LDA LOO em batch
 }

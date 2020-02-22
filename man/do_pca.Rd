@@ -9,6 +9,9 @@ do_pca(prep_pca_df)
 \arguments{
 \item{prep_pca_df}{}
 }
+\value{
+
+}
 \description{
 Roda PCA
 }

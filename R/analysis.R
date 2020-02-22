@@ -456,14 +456,17 @@ do_pca <- function(prep_pca_df) {
 #' @export
 #'
 #' @examples
-run_NIRA <- function(dataset, nir_params_path, outfig = ".", run_analysis = c("plot_raw", "PCA", "PCA_plot", "LDA", "LDA_plot", "LOO", "LOO_plot"), aleatorizacao = 200, save.csv = TRUE, add_CP = FALSE, use_date = FALSE, col_p = cores, use_col = TRUE, outgroup = "") {
+run_NIRA <- function(dataset, nir_params_path, outfig = ".", run_analysis = c("plot_raw", "PCA", "PCA_plot", "LDA", "LDA_plot", "LOO", "LOO_plot"), aleatorizacao = 200, save.csv = TRUE, add_CP = FALSE, use_date = FALSE, col_p = cores, use_col = FALSE, outgroup = "") {
   # run_analysis = 'LL'
+  # run_analysis = 'plot_raw'
   # if (run_analysis  %in% c('plot_raw', 'PCA', 'LDA', 'LOO'))
   # stop('Only values allowed in `run_analysis` are "PCA", "LDA", and "LOO"')
   # dataset = dad
   # nir_params_path = nir_params_path
-  # outfig = "./figure/cap01"
+  # outfig = "./figures"
   # aleatorizacao = 1
+  # use_date = TRUE
+  # outgroup  = ""
   # run_analysis = c("plot_raw", "PCA", 'PCA_plot', "LDA", "LDA_plot", "LOO", "LOO_plot")
   #
 
@@ -482,6 +485,11 @@ run_NIRA <- function(dataset, nir_params_path, outfig = ".", run_analysis = c("p
     outfig_name <- paste0(outfig, "/NIR_", dataset_name)
   }
   ## ------------------------------------------------------------------------
+  # Vetor de cores automatico
+  # cores2 <-
+  cores2 <- randomcoloR::distinctColorPalette(length(sort(unique(dad[[group_id]]))))
+
+  ## ------------------------------------------------------------------------
   # Espectros brutos por especie
   ####### prepara variaveis
   if ("plot_raw" %in% run_analysis) {
@@ -493,7 +501,7 @@ run_NIRA <- function(dataset, nir_params_path, outfig = ".", run_analysis = c("p
         columns = grep("X", names(dad), value = TRUE)
       ) %>%
       mutate_at("key", ~ gsub("X", "", .x) %>%
-        as.numeric()) %>%
+                  as.numeric()) %>%
       group_by(SP1, key) %>%
       summarise(
         value = mean(value)
@@ -510,10 +518,10 @@ run_NIRA <- function(dataset, nir_params_path, outfig = ".", run_analysis = c("p
     xlab.en <- parse(text = "Wavenumber (cm^-1)")
     ylab.en <- "Absorbance"
     png(paste0(outfig_name, "_SpeciesSpectra.png"),
-      res = 600,
-      width = 13.8,
-      height = 10,
-      units = "cm"
+        res = 600,
+        width = 13.8,
+        height = 10,
+        units = "cm"
     )
     plot(plot_raw$key, plot_raw$value, type = "n", xlab = xlab.en, ylab = ylab.en)
     if (outgroup != "") {
@@ -524,9 +532,10 @@ run_NIRA <- function(dataset, nir_params_path, outfig = ".", run_analysis = c("p
     } else {
       especies <- plot_raw$SP1 %>% unique() %>% sort()
     }
-    cores2 <- c(brewer.pal(8, "Dark2"), "black")
+
     col_legend <- NULL
     for (i in seq_along(especies)) {
+      # i = 1
       cat_plot <- filter(plot_raw, SP1 == especies[i])
       if (especies[i] %in% names(col_p)) {
         pos_cor <- which(names(col_p) == especies[i])
@@ -538,7 +547,7 @@ run_NIRA <- function(dataset, nir_params_path, outfig = ".", run_analysis = c("p
         col_legend <- c(col_legend, cores2[i])
       }
     }
-    legend("topright", legend = especies, pch = 16, col = col_legend)
+    legend("topright", legend = especies, pch = 13, col = col_legend)
     dev.off()
   }
 

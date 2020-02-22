@@ -9,6 +9,9 @@ visualiza_res_modelos(resultado_bruto)
 \arguments{
 \item{resultado_bruto}{}
 }
+\value{
+
+}
 \description{
 Tabela com resultados de acertos por espécie da LDA
 }
