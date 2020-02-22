@@ -14,7 +14,7 @@ run_NIRA(
   add_CP = FALSE,
   use_date = FALSE,
   col_p = cores,
-  use_col = TRUE,
+  use_col = FALSE,
   outgroup = ""
 )
 }
