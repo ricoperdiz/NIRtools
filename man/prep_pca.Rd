@@ -6,6 +6,9 @@
 \usage{
 prep_pca(df, var_grp, var_color_grp = NULL)
 }
+\value{
+
+}
 \description{
 Prepara dados para PCA
 }

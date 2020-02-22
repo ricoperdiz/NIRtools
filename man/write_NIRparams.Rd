@@ -4,10 +4,19 @@
 \alias{write_NIRparams}
 \title{Write NIR parameters file to disk}
 \usage{
-write_NIRparams(file = "", wd = ".", surface = "", reads = "",
-  nir_variables = "", subset_file = "", individual_id = "",
-  individual_list = NULL, surface_id = "", group_id = "",
-  nir_id = "X")
+write_NIRparams(
+  file = "",
+  wd = ".",
+  surface = "",
+  reads = "",
+  nir_variables = "",
+  subset_file = "",
+  individual_id = "",
+  individual_list = NULL,
+  surface_id = "",
+  group_id = "",
+  nir_id = "X"
+)
 }
 \arguments{
 \item{file}{Dataset name.}

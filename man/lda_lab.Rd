@@ -6,6 +6,9 @@
 \usage{
 lda_lab(df, nir_params_path, aleatorizacao, teste_n = 0.3)
 }
+\value{
+
+}
 \description{
 Executa LDA 70-30 por padrão
 }

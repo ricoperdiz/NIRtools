@@ -4,8 +4,7 @@
 \alias{plotamatriz}
 \title{Plota matriz de confusão}
 \usage{
-plotamatriz(matriz, bg.cols = NULL, txt.cols = NULL, valcex = 1,
-  cexaxis = 1)
+plotamatriz(matriz, bg.cols = NULL, txt.cols = NULL, valcex = 1, cexaxis = 1)
 }
 \arguments{
 \item{matriz}{matrix com colnames e rownames}
@@ -18,9 +17,14 @@ plotamatriz(matriz, bg.cols = NULL, txt.cols = NULL, valcex = 1,
 
 \item{cexaxis}{cex do texto dos eixos = nomes de colunas e linhas}
 }
+\value{
+Um plot.
+
+
+}
 \description{
 Plota matriz de confusão
 }
 \author{
-Alberto Vicentini (INPA)
+Alberto Vicentini, \email{vicentini.beto@gmail.com}
 }

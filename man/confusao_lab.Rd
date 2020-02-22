@@ -7,8 +7,25 @@
 confusao_lab(xtab, add_CP = FALSE)
 }
 \arguments{
-\item{add_CP}{Adiciona a taxa de predições corretas? Padrão é não adicionar.}
+\item{xtab}{Tabela cruzamento de dados observados versus dados preditos.}
+
+\item{add_CP}{Vetor lógico que, se TRUE, adiciona a taxa de predição correta como última coluna da matrix, dispondo os valores em porcentagem. Comportamento padrão é não adicionar essa coluna.}
+}
+\value{
+Um plot.
 }
 \description{
 Plota matriz de confusão, estilo LABOTAM
+}
+\examples{
+observado <- factor(sample(letters[1:10], 200, replace = TRUE), levels = letters[1:10])
+predito <- factor(sample(letters[1:10], 200, replace = TRUE), levels = letters[1:10])
+dad <- data.frame(observ = observado, pre = predito)
+# com predicao correta como ultima coluna
+confusao_lab(table(dad$observ, dad$pre), add_CP = TRUE)
+# sem predicao correta como ultima coluna
+confusao_lab(table(dad$observ, dad$pre), add_CP = FALSE)
+}
+\author{
+Alberto Vicentini, \email{vicentini.beto@gmail.com}; Ricardo O. Perdiz, \email{ricoperdiz@gmail.com}
 }

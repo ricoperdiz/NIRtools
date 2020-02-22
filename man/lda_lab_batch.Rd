@@ -6,6 +6,9 @@
 \usage{
 lda_lab_batch(df, aleatorizacao, teste_n = NULL)
 }
+\value{
+
+}
 \description{
 Executa LDA 70-30 padrão em um for loop. Apropriado para listas de data.frames.
 }

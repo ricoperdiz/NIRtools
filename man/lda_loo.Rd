@@ -11,6 +11,9 @@ lda_loo(df, nir_params_path, save.csv = FALSE)
 
 \item{save.csv}{}
 }
+\value{
+
+}
 \description{
 LDA Leave One Out
 }

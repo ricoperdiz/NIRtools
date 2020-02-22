@@ -4,11 +4,13 @@
 \alias{lda_lab_plot}
 \title{Plota resultado de uma LDA LOO.}
 \usage{
-lda_lab_plot(train_set, train_model, train_spp, col = FALSE,
-  color_p = "")
+lda_lab_plot(train_set, train_model, train_spp, col = FALSE, color_p = "")
 }
 \arguments{
 \item{train_model}{}
+}
+\value{
+
 }
 \description{
 Copiado desta [postagem](https://www.r-bloggers.com/linear-quadratic-and-regularized-discriminant-analysis/).

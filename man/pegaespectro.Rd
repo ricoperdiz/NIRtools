@@ -6,6 +6,9 @@
 \usage{
 pegaespectro(x, tb, id)
 }
+\value{
+
+}
 \description{
 Cria uma funcao que seleciona 1 spectro aleatorio para cada uind
 }

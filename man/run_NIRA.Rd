@@ -4,11 +4,22 @@
 \alias{run_NIRA}
 \title{Run Near Infra Red Analysis (NIRA) and plot results}
 \usage{
-run_NIRA(dataset, nir_params_path, outfig = ".",
-  run_analysis = c("plot_raw", "PCA", "PCA_plot", "LDA", "LDA_plot",
-  "LOO", "LOO_plot"), aleatorizacao = 200, save.csv = TRUE,
-  add_CP = FALSE, use_date = FALSE, col_p = cores, use_col = TRUE,
-  outgroup = "")
+run_NIRA(
+  dataset,
+  nir_params_path,
+  outfig = ".",
+  run_analysis = c("plot_raw", "PCA", "PCA_plot", "LDA", "LDA_plot", "LOO", "LOO_plot"),
+  aleatorizacao = 200,
+  save.csv = TRUE,
+  add_CP = FALSE,
+  use_date = FALSE,
+  col_p = cores,
+  use_col = TRUE,
+  outgroup = ""
+)
+}
+\value{
+
 }
 \description{
 Run Near Infra Red Analysis (NIRA) and plot results

@@ -6,6 +6,9 @@
 \usage{
 resumo_lda(resultado.bruto, acertosporpermutacao)
 }
+\value{
+
+}
 \description{
 Gera um resumo dos dados da LDA 70-30 a partir do resultado gerado pela função beto_lda7.
 }
