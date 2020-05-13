@@ -1,4 +1,4 @@
-#' Cria uma funcao que seleciona 1 spectro aleatorio para cada uind
+#' Cria uma funcao que seleciona 1 espectro aleatorio para cada uind
 #'
 #' @param x
 #' @param tb
@@ -33,9 +33,8 @@ pegateste <- function(x, dd, ind, teste_n = 0.3) {
 
 #' Executa LDA 70-30 por padrão
 #'
-#' @param df
-#' @param categoria
-#' @param colunaind
+#' @param df Um dataframe
+#' @param nir_params_path Um arquivo de parâmetros
 #' @param aleatorizacao
 #' @param teste_n
 #' @author Alberto Vicentini (INPA), \email{alberto.vicentini@@inpa.gov.br}
@@ -230,8 +229,9 @@ lda_lab_plot <- function(train_set, train_model, train_spp, col = FALSE, color_p
 
 #' Executa LDA 70-30 padrão em um for loop. Apropriado para listas de data.frames.
 #'
-#' @param df
-#' @param wd
+#' @param df Um dataframe.
+#' @param aleatorizacao
+#' @param teste_n
 #' @author Ricardo de Oliveira Perdiz, \email{ricardoperdiz@@yahoo.com}; Alberto Vicentini (INPA), \email{alberto.vicentini@@inpa.gov.br}
 #' @return
 #' @export
@@ -262,7 +262,7 @@ lda_lab_batch <- function(df, aleatorizacao, teste_n = NULL) {
     nome_grupo <- df$dataset_name[[i]]
 
     # executa
-    lda_res <- lda_lab(df = df$data[[i]], nome_grupo = nome_grupo, categoria = categoria, colunaind = colunaind, aleatorizacao = aleatorizacao, teste_n = 0.3)
+    lda_res <- lda_lab(df = df$data[[i]], nir_params_path, aleatorizacao = aleatorizacao, teste_n = 0.3)
     acertosporpermutacao <- lda_res$acertosporpermutacao
     resultado.bruto <- lda_res$resultado.bruto
 
@@ -444,7 +444,7 @@ do_pca <- function(prep_pca_df) {
   return(pca_res)
 }
 
-#' Run Near Infra Red Analysis (NIRA) and plot results
+#' Roda análises NIR (NIRA) e plota resultados
 #'
 #' @param dataset
 #' @param nir_params_path
@@ -452,11 +452,13 @@ do_pca <- function(prep_pca_df) {
 #' @param run_analysis
 #' @param aleatorizacao
 #' @param add_CP
+#' @author Ricardo de Oliveira Perdiz, \email{ricardoperdiz@@yahoo.com}; Alberto Vicentini (INPA), \email{alberto.vicentini@@inpa.gov.br}
 #' @return
 #' @export
 #'
 #' @examples
 run_NIRA <- function(dataset, nir_params_path, outfig = ".", run_analysis = c("plot_raw", "PCA", "PCA_plot", "LDA", "LDA_plot", "LOO", "LOO_plot"), aleatorizacao = 200, save.csv = TRUE, add_CP = FALSE, use_date = FALSE, col_p = cores, use_col = FALSE, outgroup = "") {
+
   # run_analysis = 'LL'
   # run_analysis = 'plot_raw'
   # if (run_analysis  %in% c('plot_raw', 'PCA', 'LDA', 'LOO'))
@@ -653,7 +655,7 @@ run_NIRA <- function(dataset, nir_params_path, outfig = ".", run_analysis = c("p
   return(res_list)
 }
 
-#' Save Near Infra Red Analysis (NIRA) results
+#' Salva o resultado das análises NIR (NIRA)
 #'
 #' @param file_output
 #' @author Ricardo de Oliveira Perdiz, \email{ricardoperdiz@@yahoo.com}
@@ -687,6 +689,7 @@ save_NIRAresults <- function(file_output = "", run_NIRA = FALSE) {
 #' @param nir_params_path_model
 #' @param add_to_model
 #' @param save.csv
+#' @author Ricardo de Oliveira Perdiz, \email{ricardoperdiz@@yahoo.com};
 #'
 #' @return
 #' @export
