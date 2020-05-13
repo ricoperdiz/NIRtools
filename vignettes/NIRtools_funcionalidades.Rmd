@@ -1,10 +1,10 @@
 ---
-title: "NIRtools - Português"
+title: "NIRtools - funcionalidades"
 author: "Ricardo de Oliveira Perdiz"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{NIRtools}
+  %\VignetteIndexEntry{NIRtools - funcionalidades}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
