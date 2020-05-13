@@ -146,13 +146,38 @@ build_NIRdataset <- function(dframe, params_file_path, save_RDS = FALSE, save_tx
 
   if (save_RDS == TRUE) {
     message(paste0("Saving object dframe_res as .RDS file"))
-
+    cd <- getwd()
+    # Check current directory - is it different from wd?
+    if (wd != cd) {
+      message(glue::glue("Working directory pointed by params_file is different than current directory.\n
+                         Working diretory in params_file: {wd}\n
+                         Current directory: {cd}\n
+                         File will be saved then in current directory.",
+                         wd = wd,
+                         cd = cd))
+      wd <- cd
+      saveRDS(dframe_res, file = paste0(wd, dataset_name, ".RDS"))
+    }
+    # If not different, then use wd from params file
     saveRDS(dframe_res, file = paste0(wd, "/", dataset_name, ".RDS"))
+
   }
 
   if (save_txt == TRUE) {
     message(paste0("Saving object dframe_res as .txt file"))
-
+    cd <- getwd()
+    # Check current directory - is it different from wd?
+    if (wd != cd) {
+      message(glue::glue("Working directory pointed by params_file is different than current directory.\n
+                         Working diretory in params_file: {wd}\n
+                         Current directory: {cd}\n
+                         File will be saved then in current directory.",
+                         wd = wd,
+                         cd = cd))
+      wd <- cd
+      fwrite(dframe_res, file = paste0(wd, dataset_name, ".txt"), sep = "\t")
+    }
+    # If not different, then use wd from params file
     fwrite(dframe_res, file = paste0(wd, "/", dataset_name, ".txt"), sep = "\t")
   }
 
