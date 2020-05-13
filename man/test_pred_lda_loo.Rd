@@ -13,12 +13,12 @@ test_pred_lda_loo(
   save.csv = FALSE
 )
 }
-\arguments{
-\item{save.csv}{}
-}
 \value{
 
 }
 \description{
 Predict identity of a group of samples based on a model
+}
+\author{
+Ricardo de Oliveira Perdiz, \email{ricardoperdiz@yahoo.com};
 }

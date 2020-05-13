@@ -6,6 +6,9 @@
 \usage{
 lda_lab_batch(df, aleatorizacao, teste_n = NULL)
 }
+\arguments{
+\item{df}{Um dataframe.}
+}
 \value{
 
 }

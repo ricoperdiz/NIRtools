@@ -27,12 +27,12 @@ Leia este [artigo](http://www.scielo.br/scielo.php?script=sci_arttext&pid=S0103-
 
 # Instalação
 
-You can install the development version from GitHub with the package `devtools`
+You can install the development version from GitHub with the package `remotes`
 
 ```
-install.packages("devtools")
-library(devtools)
-devtools::install_github("ricoperdiz/NIRtools", build_vignettes = TRUE)
+install.packages("remotes")
+library(remotes)
+remotes::install_github("ricoperdiz/NIRtools", build_vignettes = TRUE)
 ```
 
 # Guia rápido

@@ -18,13 +18,13 @@ Para mais detalhes, [leia este trabalho](http://www.scielo.br/scielo.php?script=
 # Instalação
 **************
 
-Você pode instalar esta versão em desenvolvimento por meio do pacote `devtools`. 
+Você pode instalar esta versão em desenvolvimento por meio do pacote `remotes`. 
 <!--You can install the development version from GitHub with the package `devtools`-->
 
 ```
-install.packages("devtools")
-library(devtools)
-devtools::install_github("ricoperdiz/NIRtools", build_vignettes = TRUE)
+install.packages("remotes")
+library(remotes)
+remotes::install_github("ricoperdiz/NIRtools", build_vignettes = TRUE)
 ```
 
 Após instalar o NIRtools, digite o comando abaixo para ver o arquivo contendo o tutorial do pacote.

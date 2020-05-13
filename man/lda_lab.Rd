@@ -6,6 +6,11 @@
 \usage{
 lda_lab(df, nir_params_path, aleatorizacao, teste_n = 0.3)
 }
+\arguments{
+\item{df}{Um dataframe}
+
+\item{nir_params_path}{Um arquivo de parâmetros}
+}
 \value{
 
 }

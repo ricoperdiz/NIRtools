@@ -2,7 +2,7 @@
 % Please edit documentation in R/analysis.R
 \name{run_NIRA}
 \alias{run_NIRA}
-\title{Run Near Infra Red Analysis (NIRA) and plot results}
+\title{Roda análises NIR (NIRA) e plota resultados}
 \usage{
 run_NIRA(
   dataset,
@@ -22,5 +22,8 @@ run_NIRA(
 
 }
 \description{
-Run Near Infra Red Analysis (NIRA) and plot results
+Roda análises NIR (NIRA) e plota resultados
+}
+\author{
+Ricardo de Oliveira Perdiz, \email{ricardoperdiz@yahoo.com}; Alberto Vicentini (INPA), \email{alberto.vicentini@inpa.gov.br}
 }

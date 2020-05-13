@@ -2,7 +2,7 @@
 % Please edit documentation in R/analysis.R
 \name{pegaespectro}
 \alias{pegaespectro}
-\title{Cria uma funcao que seleciona 1 spectro aleatorio para cada uind}
+\title{Cria uma funcao que seleciona 1 espectro aleatorio para cada uind}
 \usage{
 pegaespectro(x, tb, id)
 }
@@ -10,7 +10,7 @@ pegaespectro(x, tb, id)
 
 }
 \description{
-Cria uma funcao que seleciona 1 spectro aleatorio para cada uind
+Cria uma funcao que seleciona 1 espectro aleatorio para cada uind
 }
 \author{
 Alberto Vicentini (INPA), \email{alberto.vicentini@inpa.gov.br}
