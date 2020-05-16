@@ -27,13 +27,20 @@ Read this [paper](http://www.scielo.br/scielo.php?script=sci_arttext&pid=S0103-5
 
 # Installation
 
-You can install the development version from GitHub with the package `devtools`
+You can install the development version from GitHub with the package `remotes`
 
+```{r, eval = FALSE}
+install.packages("remotes")
+library(remotes)
+remotes::install_github("ricoperdiz/NIRtools"")
 ```
-install.packages("devtools")
-library(devtools)
-devtools::install_github("ricoperdiz/NIRtools", build_vignettes = TRUE)
+
+If you want the vignettes installed, then:
+
+```{r}
+remotes::install_github("ricoperdiz/NIRtools", build_vignettes = TRUE)
 ```
+
 
 # Quick start
 
@@ -41,7 +48,7 @@ Let's take a look at our example dataset and use it to build our first subset.
 
 First, load the package and check the first rows of it.
 
-```{r}
+```{r, eval = FALSE}
 library(NIRtools)
 head(nir_data)[,1:10]
 ```
@@ -55,7 +62,7 @@ In this example, my first subset will be called `test`, and  I will use mean of 
 ```{r, eval = FALSE}
 write_NIRparams(
   file = 'test',
-  wd = getwd(),
+  wd = ".",
   reads = 'mean',
   surface = 'abaxial',
   nir_variables = 'all',
@@ -69,27 +76,27 @@ After executing the function, a message will appear confirming the action and te
 
 Let's take a look at this file.
 
-```{r}
-readLines('test-NIR.txt')
+```{r, eval = FALSE}
+readLines('test-NIRparams.txt')
 ```
 
 After having our parameter file specification done, you can use function `read_NIRparams` to have your parameter file read as a dataframe.
 
-```{r}
-read_NIRparams('test-NIR.txt')
+```{r, eval = FALSE}
+read_NIRparams('test-NIRparams.txt')
 ```
 
 At last, let's use the parameter file to build a subset based on our data file. For that, let's use function `build_NIRdataset`
 
-```{r, cache = TRUE}
-subset01 <- build_NIRdataset(df = nir_data, params_file = 'test-NIR.txt', wd = '.')
+```{r, eval = FALSE}
+subset01 <- build_NIRdataset(dframe = nir_data, params_file_path = 'test-NIRparams.txt', save_txt = TRUE)
 ```
 
 Note that you can also choose to save a RDS and/or a txt file with this subset, you just need to choose `TRUE` instead of the default option `FALSE`.
 
 Let's check our subset01.
 
-```{r}
+```{r, eval = FALSE}
 head(subset01)[,1:10]
 ```
 
@@ -105,7 +112,7 @@ In this example, I will make use of a few packages of [tidyverse](https://www.ti
 
 First, let's create a vector of subset names.
 
-```{r, cache = TRUE}
+```{r, eval = FALSE}
 library(dplyr)
 library(magrittr)
 library(purrr)
@@ -118,7 +125,7 @@ individual_id <- 'especimenid'
 group_id <- 'SP1'
 nir_id <- 'X'
 
-metadata <- data_frame(subset_names, surface_values, reads_values, individual_id, surface_id, group_id, nir_id)
+metadata <- tibble::tibble(subset_names, surface_values, reads_values, individual_id, surface_id, group_id, nir_id)
 ```
 
 Now, let's create several parameter files at once, using all columns from our object `metadata`. Each one of its columns, as you can see above, contain all necessary data to create our parameter files.
@@ -131,7 +138,7 @@ The function `purrr::pwalk` takes a list of arguments and uses them as input for
 
 ### Building subsets one by one
 
-```{r}
+```{r, eval = FALSE}
 subset_files <- list.files(pattern = 'subset')
 # subset 01
 subset01 <- build_NIRdataset(nir_data, subset_files[1])
@@ -143,35 +150,35 @@ subset03 <- build_NIRdataset(nir_data, subset_files[3])
 
 Let's have a look at them.
 
-```{r}
+```{r, eval = FALSE}
 dim(subset01)
 ```
 
-```{r}
+```{r, eval = FALSE}
 dim(subset02)
 ```
 
-```{r}
+```{r, eval = FALSE}
 dim(subset03)
 ```
 
 What if I do not remember which dataset refers to what? You have your parameter files to check. For example, what does subset03 mean?
 
-```{r}
-readLines('subset03-NIR.txt')
+```{r, eval = FALSE}
+readLines('subset03-NIRparams.txt')
 ```
 
 Or let's have it as a dataframe.
 
-```{r}
-read_NIRparams('subset03-NIR.txt')
+```{r, eval = FALSE}
+read_NIRparams('subset03-NIRparams.txt')
 ```
 
 ### Building subsets all at once
 
 Now, let's use the parameter files to build all our subsets at once.
 
-```{r}
+```{r, eval = FALSE}
 subsets <- walk2(list(nir_data), subset_files, ~build_NIRdataset(df = .x, .y))
 subsets %>% str
 ```
@@ -180,13 +187,13 @@ The result of using function `walk2` is a list of dataframes, each one with the 
 
 Another option, and easier to deal with, in my opinion, would be to have our parameter files stored as a dataframe, and then create a column in it that would contain our subsets. Let's take a look below to see how it is done.
 
-```{r}
+```{r, eval = FALSE}
 nir_params <- map_dfr(subset_files, read_NIRparams)
 ```
 
 At last, let's have some magic. Let's create a column called `data` in `nir_params` and inside this column, we will store our subset in it. This is called a nested dataframe.
 
-```{r}
+```{r, eval = FALSE}
 nested_df <-
   nir_params %>% 
   mutate(
@@ -197,17 +204,17 @@ nested_df <-
 
 Let's check our nested dataframe.
 
-```{r}
+```{r, eval = FALSE}
 # subset 01
 dim(nested_df$data[[1]])
 ```
 
-```{r}
+```{r, eval = FALSE}
 # subset 02
 dim(nested_df$data[[2]])
 ```
 
-```{r}
+```{r, eval = FALSE}
 # subset 03
 dim(nested_df$data[[3]])
 ```

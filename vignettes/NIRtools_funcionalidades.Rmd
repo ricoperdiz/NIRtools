@@ -44,7 +44,7 @@ Neste exemplo, meu subconjunto se chamará `test`, eu utilizarei a *MÉDIA* das 
 ```{r, eval = FALSE}
 write_NIRparams(
   file = 'test',
-  wd = getwd(),
+  wd = ".",
   reads = 'mean',
   surface = 'abaxial',
   nir_variables = 'all',
@@ -56,15 +56,15 @@ write_NIRparams(
 
 Ao executar a função, uma messagem aparece confirmando a ação e informando onde o arquivo foi salvo.
 
-Olhemos este arquivo
+Olhemos este arquivo:
 
-```{r}
+```{r, eval = FALSE}
 readLines('test-NIRparams.txt')
 ```
 
 Após a criação do arquivo, você pode gerar um dataframe com este metadado utilizando a função `read_NIRparams`.
 
-```{r}
+```{r, eval = FALSE}
 read_NIRparams('test-NIRparams.txt')
 ```
 
@@ -75,13 +75,13 @@ Para construir um subconjunto de dados NIR, vamos utilizar a função `build_NIR
 
 ## Subset01
 
-```{r, cache = TRUE}
+```{r, eval = FALSE}
 subset01 <- build_NIRdataset(df = nir_data, params_file = 'test-NIRparams.txt')
 ```
 
 Chequemos nosso subconjunto `subset01`
 
-```{r}
+```{r, eval = FALSE}
 head(subset01)[,1:10]
 ```
 ## Subset02
@@ -101,11 +101,11 @@ write_NIRparams(
   nir_id = 'X')
 ```
 
-```{r, cache = TRUE}
+```{r, eval = FALSE}
 subset02 <- build_NIRdataset(df = nir_data, params_file = 'test02-NIRparams.txt')
 ```
 
-```{r}
+```{r, eval = FALSE}
 head(subset02)[,1:10]
 ```
 

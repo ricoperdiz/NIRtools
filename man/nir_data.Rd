@@ -4,14 +4,16 @@
 \name{nir_data}
 \alias{nir_data}
 \title{Dataset of Near Infra Red data}
-\format{A dataframe with 541 rows and 1561 columns
+\format{
+A dataframe with 541 rows and 1561 columns
 \describe{
 \item{especimenid}{Specimen identification}
 \item{SP1}{Species id}
 \item{read}{Read number id}
 \item{face}{Which leaf surface?}
 \item{Columns that starts with X}{each one of these is a spectrum}
-}}
+}
+}
 \usage{
 nir_data
 }
