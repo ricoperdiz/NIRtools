@@ -29,9 +29,15 @@ Leia este [artigo](http://www.scielo.br/scielo.php?script=sci_arttext&pid=S0103-
 
 You can install the development version from GitHub with the package `remotes`
 
-```
+```{r, eval = FALSE}
 install.packages("remotes")
 library(remotes)
+remotes::install_github("ricoperdiz/NIRtools"")
+```
+
+Se você quer os manuais instalados, então:
+
+```{r, eval = FALSE}
 remotes::install_github("ricoperdiz/NIRtools", build_vignettes = TRUE)
 ```
 
@@ -41,7 +47,7 @@ Vamos trabalhar com o conjunto de dados que vem com o pacote. Após carregar o p
 
 Primeiro, carregue o pacote e cheque as primeiras linhas dos dados.
 
-```{r}
+```{r, eval = FALSE}
 library(NIRtools)
 head(nir_data)[,1:10]
 ```
@@ -55,7 +61,7 @@ In this example, my first subset will be called `test`, and  I will use mean of 
 ```{r, eval = FALSE}
 write_NIRparams(
   file = 'test',
-  wd = getwd(),
+  wd = ".",
   reads = 'mean',
   surface = 'abaxial',
   nir_variables = 'all',
@@ -69,19 +75,19 @@ After executing the function, a message will appear confirming the action and te
 
 Let's take a look at this file.
 
-```{r}
+```{r, eval = FALSE}
 readLines('test-NIRparams.txt')
 ```
 
 After having our parameter file specification done, you can use function `read_NIRparams` to have your parameter file read as a dataframe.
 
-```{r}
+```{r, eval = FALSE}
 read_NIRparams('test-NIRparams.txt')
 ```
 
 At last, let's use the parameter file to build a subset based on our data file. For that, let's use function `build_NIRdataset`
 
-```{r, cache = TRUE}
+```{r, eval = FALSE}
 subset01 <- build_NIRdataset(dframe = nir_data, params_file_path = 'test-NIRparams.txt', save_txt = TRUE)
 ```
 
@@ -89,7 +95,7 @@ Note that you can also choose to save a RDS and/or a txt file with this subset, 
 
 Let's check our subset01.
 
-```{r}
+```{r, eval = FALSE}
 head(subset01)[,1:10]
 ```
 
@@ -105,7 +111,7 @@ In this example, I will make use of a few packages of [tidyverse](https://www.ti
 
 First, let's create a vector of subset names.
 
-```{r, cache = TRUE}
+```{r, eval = FALSE}
 library(dplyr)
 library(magrittr)
 library(purrr)
@@ -118,7 +124,7 @@ individual_id <- 'especimenid'
 group_id <- 'SP1'
 nir_id <- 'X'
 
-metadata <- data_frame(subset_names, surface_values, reads_values, individual_id, surface_id, group_id, nir_id)
+metadata <- tibble::tibble(subset_names, surface_values, reads_values, individual_id, surface_id, group_id, nir_id)
 ```
 
 Now, let's create several parameter files at once, using all columns from our object `metadata`. Each one of its columns, as you can see above, contain all necessary data to create our parameter files.

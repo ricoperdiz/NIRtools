@@ -1,8 +1,0 @@
-base
-data.table
-stringr
-tidyr
-NIRtools
-dplyr
-magrittr
-purrr

@@ -24,7 +24,7 @@ Você pode instalar esta versão em desenvolvimento por meio do pacote `remotes`
 ```
 install.packages("remotes")
 library(remotes)
-remotes::install_github("ricoperdiz/NIRtools", build_vignettes = TRUE)
+remotes::install_github("ricoperdiz/NIRtools"), build_vignettes = TRUE)
 ```
 
 Após instalar o NIRtools, digite o comando abaixo para ver o arquivo contendo o tutorial do pacote.
