@@ -12,7 +12,11 @@ BugReports: https://github.com/ricoperdiz/NIRtools/issues
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.1.0
-Depends: data.table, stringr, tidyr
+Depends: 
+    data.table,
+    stringr,
+    tidyr,
+    R (>= 2.10)
 Imports: data.table, stringr, tidyr
 Suggests: 
     dplyr,

@@ -190,10 +190,14 @@ build_NIRdataset <- function(dframe, params_file_path, save_RDS = FALSE, save_tx
     }
 
     dframe_res_filtered <- subset(dframe_res, get(individual_id)  %in%  ind_list)
-    # return data.frame with results
+    # return data.frame with results and class "nir_df"
+
+    class(dframe_res_filtered) <- c("nirdf", class(dframe_res_filtered))
+
     return(dframe_res_filtered)
   } else {
-    # return data.frame with results
+    # return data.frame with results and class "nir_df"
+    class(dframe_res) <- c("nirdf", class(dframe_res))
     return(dframe_res)
   }
 
