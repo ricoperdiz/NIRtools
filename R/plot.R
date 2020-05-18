@@ -11,6 +11,7 @@
 #' @param legend_position Posição da legenda, como adotado na função `legend()`.
 #' @param cex_pt Tamanho adotado no argumento cex da função `points()`.
 #' @param cex_leg Tamanho adotado no argumento cex da função `legend()`.
+#' @param text_font Tipo de fonte a ser utilizado em  `legend()`. Por padrão, opção 1, que corresponde em texto simples, sem formatação. Outras opções são `2`, negrito, `3`, itálico, e `4`, negrito e itálico.
 #' @param color Vetor de cores. Se não fornecido, a função providenciará uma seleção automaticamente. Atenção ao comprimento deste vetor. Ele deve ser de tamanho mínimo ao número de categorias do objeto nirdf.
 #' @param ... Funções adicionais a serem fornecidas à função `plot()`.
 #'
@@ -27,7 +28,7 @@
 #'   measure_columns_prefix = "X")
 #' plot(nirdad, "SP1")
 
-plot.nirdf <- function(x, category, remove_cols = NULL, xlabel = parse(text = "Wavenumber (cm^-1)"), ylabel = "Absorbance", legend_position = "topright", cex_pt = 0.05, cex_leg = 0.5, color = NULL, ...) {
+plot.nirdf <- function(x, category, remove_cols = NULL, xlabel = parse(text = "Wavenumber (cm^-1)"), ylabel = "Absorbance", legend_position = "topright", cex_pt = 0.05, cex_leg = 0.5, text_font = 1,color = NULL, ...) {
 
 
   stopifnot(is_nirdf(x))
@@ -99,10 +100,10 @@ plot.nirdf <- function(x, category, remove_cols = NULL, xlabel = parse(text = "W
     # i = 1
     cat_plot <- df_to_plot[SP1 == categories[i], ]
 
-    points(cat_plot$variable, cat_plot$value, cex = cex_pt, col = pal[i], ylim = y_axis)
+    points(cat_plot$variable, cat_plot$value, pch = 16, cex = cex_pt, col = pal[i], ylim = y_axis)
     col_legend <- c(col_legend, pal[i])
   }
 
-  legend(legend_position, legend = categories, pch = 16, cex = cex_leg, col = col_legend)
+  legend(legend_position, legend = categories, pch = 16, cex = cex_leg, col = col_legend, text.font = text_font)
 
 }
