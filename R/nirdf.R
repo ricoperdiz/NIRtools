@@ -2,22 +2,13 @@
 #'
 #' @param x Um data.frame, ou um data.table.
 #' @param category Um nome apontando o nome da variável categórica dentro do argument x.
-#' @param measure_columns Um vetor contendo nomes de coluna que contêm as variáveis NIR.
+#' @param measure_columns Um vetor contendo nomes de colunas que contêm as variáveis NIR.
 #'
 #' @return Um objeto nirdf.
 #' @export
 #'
 #' @examples
 nirdf <- function(x, category, measure_columns, measure_columns_prefix = NULL) {
-
-  # nir_data <- data.table::fread(system.file("extdata", "nir_data.csv", package = "NIRtools"))
-  # library(magrittr)
-  # x = nir_data
-  # x %>% names
-  # category = "SP1"
-  # measure_columns <- gsub("^X", "", names(nir_data))
-  # length(grep("^X", names(nir_data), value = TRUE))
-
 
   # Check base object
   stopifnot(is.data.frame(x))
