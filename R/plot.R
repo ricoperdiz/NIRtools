@@ -1,25 +1,27 @@
-#' Plot a nirdf object.
+#' Plota um objeto nirdf.
 #'
 #' @description
 #' \lifecycle{experimental}
 #'
-#' @param x A nirdf object.
-#' @param category A string pointing the name of the category variable of nirdf object.
-#' @param remove_cols Character vector pointing name of columns to be removed.
-#' @param xlabel X axis label.
-#' @param ylabel Y axis label.
-#' @param legend_position Legend position, as done in function legend.
-#' @param color Vector of colors. If not provided, function will provide one. Attention to the length of this vector. It should be the same length as the number of categories.
-#' @param ...
+#' @param x Um objeto nirdf.
+#' @param category Nome da coluna contendo a variável categórica do objeto nirdf.
+#' @param remove_cols Vetor de texto contendo os nomes das colunas a serem removidos.
+#' @param xlabel Texto do eixo X.
+#' @param ylabel Texto do eixo Y.
+#' @param legend_position Posição da legenda, como adotado na função `legend()`.
+#' @param cex_pt Tamanho adotado no argumento cex da função `points()`.
+#' @param cex_leg Tamanho adotado no argumento cex da função `legend()`.
+#' @param color Vetor de cores. Se não fornecido, a função providenciará uma seleção automaticamente. Atenção ao comprimento deste vetor. Ele deve ser de tamanho mínimo ao número de categorias do objeto nirdf.
+#' @param ... Funções adicionais a serem fornecidas à função `plot()`.
 #'
-#' @return A plot
+#' @return Um plot.
 #' @export
 #'
 #' @examples
 #' str(nirdf)
 #' # nirdf object is a data.frame containing a column for categories, `SP1`, an id column, `especimenid`, and all the rest of columns containg Near Infrared data.
 #' plot(nirdf, category = "SP1", remove_cols = "especimenid")
-plot.nirdf <- function(x, category, remove_cols = NULL,  xlabel = parse(text = "Wavenumber (cm^-1)"), ylabel = "Absorbance", legend_position = "topright", color = NULL, ...) {
+plot.nirdf <- function(x, category, remove_cols = NULL, xlabel = parse(text = "Wavenumber (cm^-1)"), ylabel = "Absorbance", legend_position = "topright", cex_pt = 0.05, cex_leg = 0.5, color = NULL, ...) {
 
 
   stopifnot(is_nirdf(x))
@@ -102,10 +104,10 @@ plot.nirdf <- function(x, category, remove_cols = NULL,  xlabel = parse(text = "
     # i = 1
     cat_plot <- df_to_plot[SP1 == categories[i], ]
 
-    points(cat_plot$variable, cat_plot$value, cex = 0.05, col = pal[i], ylim = y_axis)
+    points(cat_plot$variable, cat_plot$value, cex = cex_pt, col = pal[i], ylim = y_axis)
     col_legend <- c(col_legend, pal[i])
   }
 
-  legend(legend_position, legend = categories, pch = 16, cex = 0.5, col = col_legend)
+  legend(legend_position, legend = categories, pch = 16, cex = cex_leg, col = col_legend)
 
 }
