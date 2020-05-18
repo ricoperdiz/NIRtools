@@ -2,18 +2,20 @@
 % Please edit documentation in R/summarise.R
 \name{summarise_NIRdataset}
 \alias{summarise_NIRdataset}
-\title{Summarise NIR datasets}
+\title{Sumariza conjuntos de dados NIR.}
 \usage{
-summarise_NIRdataset(dframe, params_file_path)
+summarise_NIRdataset(dframe, params_file_path, use_cwd = TRUE)
 }
 \arguments{
-\item{dframe}{Raw NIR data.}
+\item{dframe}{Dados brutos NIR.}
 
-\item{params_file_path}{Location of NIR parameter file.}
+\item{params_file_path}{Localização do arquivo de parâmetros NIR.}
+
+\item{use_cwd}{Usa o atual diretório de trabalho?}
 }
 \value{
 
 }
 \description{
-Summarise NIR datasets
+Sumariza conjuntos de dados NIR.
 }
