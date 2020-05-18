@@ -9,8 +9,8 @@
 #' @importFrom tidyr separate
 #' @export
 #' @examples
-#' # Input file on vignette folder
-#' read_NIRparams("test-NIR.txt")
+#' params_file_path <- system.file("extdata", "test-NIRparams.txt", package = "NIRtools")
+#' read_NIRparams(params_file_path)
 read_NIRparams <- function(file) {
   file_text <-
     data.frame(text = readLines(file))

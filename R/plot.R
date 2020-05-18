@@ -15,12 +15,18 @@
 #' @param ... Funções adicionais a serem fornecidas à função `plot()`.
 #'
 #' @return Um plot.
+#' @importFrom graphics abline axis hist legend par plot points rect text
 #' @export
 #'
 #' @examples
-#' str(nirdf)
-#' # nirdf object is a data.frame containing a column for categories, `SP1`, an id column, `especimenid`, and all the rest of columns containg Near Infrared data.
-#' plot(nirdf, category = "SP1", remove_cols = "especimenid")
+#' # Load nir data
+#' library("NIRtools")
+#' data(nir_data)
+#' nirdad <- nirdf(nir_data, "SP1",
+#'  measure_columns = grep("^X", names(nir_data), value = TRUE),
+#'   measure_columns_prefix = "X")
+#' plot(nirdad, "SP1")
+
 plot.nirdf <- function(x, category, remove_cols = NULL, xlabel = parse(text = "Wavenumber (cm^-1)"), ylabel = "Absorbance", legend_position = "topright", cex_pt = 0.05, cex_leg = 0.5, color = NULL, ...) {
 
 
@@ -38,13 +44,6 @@ plot.nirdf <- function(x, category, remove_cols = NULL, xlabel = parse(text = "W
   if (length(category) > 1) {
     stop(paste0("Argument `category` must have length 1. Provide only one name of a column of your nirdf object to represent the categories of your nir dataset."))
   }
-
-
-  # names(nir2) <- gsub("^X", "", names(nir2))
-  # nirdf <- nir2
-  # category = "SP1"
-  # remove_cols = c("especimenid", "coletor")
-
 
   # select columns to keep
   if (is.null(remove_cols)) {
@@ -64,10 +63,6 @@ plot.nirdf <- function(x, category, remove_cols = NULL, xlabel = parse(text = "W
   # melt nirdf to long format
   df_to_plot <- melt(x, id.vars = category, measure.vars = measure_columns)
   df_to_plot$variable <- as.numeric(as.character(df_to_plot$variable))
-  # str(df_to_plot)
-
-  # plot mean of values or not?
-  # value = mean(value)
 
   # X axis
   x_axis <- range(unique(df_to_plot$variable))

@@ -3,11 +3,19 @@
 #' @param x Um data.frame, ou um data.table.
 #' @param category Um nome apontando o nome da variável categórica dentro do argument x.
 #' @param measure_columns Um vetor contendo nomes de colunas que contêm as variáveis NIR.
+#' @param measure_columns_prefix Um nome apontando qual prefixo foi utilizado para indicar as colunas que contêm variáveis NIR. Opcional. Caso haja, este nome será retirado do nome das colunas com o uso da função `gsub()`.
 #'
 #' @return Um objeto nirdf.
+#' @import data.table
 #' @export
 #'
 #' @examples
+#' # Load nir data
+#' library("NIRtools")
+#' data(nir_data)
+#' nirdad <- nirdf(nir_data, "SP1",
+#'  measure_columns = grep("^X", names(nir_data), value = TRUE),
+#'   measure_columns_prefix = "X")
 nirdf <- function(x, category, measure_columns, measure_columns_prefix = NULL) {
 
   # Check base object
@@ -46,7 +54,7 @@ nirdf <- function(x, category, measure_columns, measure_columns_prefix = NULL) {
   columns_to_keep <- c(category, measure_columns)
   columns_to_keep_pos <- which(names(x)  %in% columns_to_keep)
   # Coerce x to a data.table
-  nirdf <- data.table::as.data.table(x)
+  nirdf <- as.data.table(x)
   nirdf <- nirdf[, columns_to_keep_pos, with = FALSE]
 
 

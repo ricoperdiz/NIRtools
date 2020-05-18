@@ -2,7 +2,7 @@
 % Please edit documentation in R/analysis.R
 \name{pegateste}
 \alias{pegateste}
-\title{Cria uma funcao que seleciona 1 spectro aleatorio para cada uind}
+\title{Cria uma funcao que seleciona 1 espectro aleatorio para cada uind}
 \usage{
 pegateste(x, dd, ind, teste_n = 0.3)
 }
@@ -10,7 +10,7 @@ pegateste(x, dd, ind, teste_n = 0.3)
 
 }
 \description{
-Cria uma funcao que seleciona 1 spectro aleatorio para cada uind
+Cria uma funcao que seleciona 1 espectro aleatorio para cada uind
 }
 \author{
 Alberto Vicentini (INPA), \email{alberto.vicentini@inpa.gov.br}

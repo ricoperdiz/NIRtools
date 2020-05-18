@@ -14,7 +14,7 @@ pegaespectro <- function(x, tb, id) {
   return(xx)
 }
 
-#' Cria uma funcao que seleciona 1 spectro aleatorio para cada uind
+#' Cria uma funcao que seleciona 1 espectro aleatorio para cada uind
 #'
 #' @param x
 #' @param dd
@@ -39,6 +39,8 @@ pegateste <- function(x, dd, ind, teste_n = 0.3) {
 #' @param teste_n
 #' @author Alberto Vicentini (INPA), \email{alberto.vicentini@@inpa.gov.br}
 #' @return
+#' @importFrom utils write.table
+#' @importFrom stats filter prcomp predict
 #' @export
 #'
 #' @examples
@@ -196,6 +198,9 @@ resumo_lda <- function(resultado.bruto, acertosporpermutacao) {
 #' @param train_model
 #'
 #' @return
+#' @importFrom stats  predict
+#' @importFrom ggplot2 ggplot geom_point scale_color_manual scale_color_brewer
+#' @importFrom ggridges geom_density_ridges theme_ridges
 #' @export
 #'
 #' @examples
@@ -221,8 +226,8 @@ lda_lab_plot <- function(train_set, train_model, train_spp, col = FALSE, color_p
   } else {
     lda_plot <-
       ggplot(lda_df, aes(x = LD1, y = outcome)) +
-      ggridges::geom_density_ridges() +
-      ggridges::theme_ridges()
+      geom_density_ridges() +
+      theme_ridges()
     return(lda_plot)
   }
 }
@@ -279,11 +284,12 @@ lda_lab_batch <- function(df, aleatorizacao, teste_n = NULL) {
 #' Salva o resultado da LDA 70-30 (padrão) na forma de um pdf com histograma, e o conjunto de dados em um RDS.
 #'
 #' @param lda_lab_list
-#' @param save.pdf
-#' @param save.RDS
-#' @param wd
+#' @param save.pdf Salva pdf?
+#' @param save.RDS Salva RDS?
+#' @param wd Diretório de trabalho
 #' @author Ricardo de Oliveira Perdiz, \email{ricardoperdiz@@yahoo.com}; Alberto Vicentini (INPA), \email{alberto.vicentini@@inpa.gov.br}
 #' @return
+#' @importFrom grDevices pdf
 #' @export
 #'
 #' @examples
@@ -436,6 +442,7 @@ prep_pca <- function(df, var_grp, var_color_grp = NULL) {
 #' @param prep_pca_df
 #'
 #' @return
+#' @importFrom stats prcomp
 #' @export
 #'
 #' @examples
@@ -454,6 +461,9 @@ do_pca <- function(prep_pca_df) {
 #' @param add_CP
 #' @author Ricardo de Oliveira Perdiz, \email{ricardoperdiz@@yahoo.com}; Alberto Vicentini (INPA), \email{alberto.vicentini@@inpa.gov.br}
 #' @return
+#' @importFrom grDevices png
+#' @importFrom seplyr gather_se
+#' @importFrom  dplyr mutate_at group_by summarise
 #' @export
 #'
 #' @examples
@@ -497,7 +507,7 @@ run_NIRA <- function(dataset, nir_params_path, outfig = ".", run_analysis = c("p
   if ("plot_raw" %in% run_analysis) {
     plot_raw <-
       dad %>%
-      seplyr::gather_se(
+      gather_se(
         key = "key",
         value = "value",
         columns = grep("X", names(dad), value = TRUE)

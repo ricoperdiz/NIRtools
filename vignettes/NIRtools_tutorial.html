@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<meta name="author" content="Ricardo de Oliveira Perdiz" />
+
+<meta name="date" content="2020-05-18" />
+
+<title>NIRtools</title>
+
+
+
+
+
+
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">NIRtools</h1>
+<h4 class="author">Ricardo de Oliveira Perdiz</h4>
+<h4 class="date">2020-05-18</h4>
+
+
+
+<div id="overview" class="section level1">
+<h1>Overview</h1>
+<p>NIRTools was specifically designed to help plant taxonomist and ecologists in documenting and building near infrared (NIR) spectroscopy subsets from a dataset based on parameter files that will serve as a metadata of each subset.</p>
+</div>
+<div id="what-is-nir" class="section level1">
+<h1>What is NIR?</h1>
+<p>Read this <a href="http://www.scielo.br/scielo.php?script=sci_arttext&amp;pid=S0103-50532003000200006">paper</a>.</p>
+</div>
+<div id="installation" class="section level1">
+<h1>Installation</h1>
+<p>You can install the development version from GitHub with the package <code>remotes</code></p>
+<pre><code># install.packages(&quot;remotes&quot;)
+library(remotes)
+remotes::install_github(&quot;ricoperdiz/NIRtools&quot;)</code></pre>
+</div>
+<div id="quick-start" class="section level1">
+<h1>Quick start</h1>
+<p>Let’s take a look at our example dataset and use it to build our first subset.</p>
+<p>First, load the package and check the first rows of it.</p>
+<pre><code>library(&quot;NIRtools&quot;)
+data(nir_data)
+head(nir_data)[,1:10]</code></pre>
+<p>We have a column <code>especimenid</code> that specifies the sample id number, a columm <code>SP1</code> that specifies our sample identity (in this case, it is the number of the species, a hypothetical number); a column <code>read</code> that specifies the leaf/leaflet id, that is, for each leaf/leaflet, we have a different value; a column <code>face</code> that specifies which surface was used to obtain the data; and at least, a group of columns that starts with letter <em>X</em> and that refer to NIR spectra.</p>
+<p>There are samples that have more than one read per surface. So, suppose we want to create a subset that contains only read means for both surfaces and containing all NIR spectra variables, that is, for each specimen, we would calculate mean for all reads per surface per NIR spectra variable. Our first step would be to create a parameter file that will contain all specifications of it. Let’s use the function <code>write_NIRparams()</code>.</p>
+<p>In this example, my first subset will be called <code>test</code>, and I will use mean of reads, only abaxial surface, and I will inform which column names refer to surface(<code>face</code>), individual (<code>especimenid</code>), and species/group (<code>SP1</code>).</p>
+<pre><code>write_NIRparams(
+  file = 'test',
+  reads = 'mean',
+  surface = 'abaxial',
+  nir_variables = 'all',
+  surface_id = 'face',
+  individual_id = 'especimenid',
+  group_id = 'SP1',
+  nir_id = 'X')</code></pre>
+<p>After executing the function, a message will appear confirming the action and telling where the file has been saved.</p>
+<p>Let’s take a look at this file.</p>
+<pre><code>readLines('test-NIRparams.txt')</code></pre>
+<p>After having our parameter file specification done, you can use function <code>read_NIRparams()</code> to have your parameter file read as a dataframe.</p>
+<pre><code>read_NIRparams('test-NIRparams.txt')</code></pre>
+<p>At last, let’s use the parameter file to build a subset based on our data file. For that, let’s use function <code>build_NIRdataset()</code></p>
+<pre><code>subset01 &lt;- build_NIRdataset(dframe = nir_data, params_file_path = 'test-NIRparams.txt', save_txt = TRUE)</code></pre>
+<p>Note that you can also choose to save a RDS and/or a txt file with this subset, you just need to choose <code>TRUE</code> instead of the default option <code>FALSE</code>.</p>
+<p>Let’s check our subset01.</p>
+<pre><code>head(subset01)[,1:10]</code></pre>
+</div>
+<div id="tutorial" class="section level1">
+<h1>Tutorial</h1>
+<p>After our brief quick start, let’s take a deeper look at NIRtools functionality.</p>
+<p>Suppose you want to build many subsets at once, with different combinations of values for reads and surfaces.</p>
+<p>In this example, I will make use of a few packages of <a href="https://www.tidyverse.org/">tidyverse</a>. I suggest you to learn how to use these packages because they are easy to manipulate and make reading R code easier.</p>
+<div id="using-parameter-file" class="section level2">
+<h2>Using parameter file</h2>
+<p>First, let’s create a vector of subset names.</p>
+<pre><code>library(&quot;dplyr&quot;)
+library(&quot;magrittr&quot;)
+library(&quot;purrr&quot;)
+
+subset_names &lt;- sprintf('subset%02d', 1:3)
+surface_values &lt;- c('abaxial', 'adaxial', 'both')
+surface_id &lt;- 'face'
+reads_values &lt;- c('all', 'all', 'mean')
+individual_id &lt;- 'especimenid'
+group_id &lt;- 'SP1'
+nir_id &lt;- 'X'
+
+metadata &lt;- data.frame(subset_names, surface_values, reads_values, individual_id, surface_id, group_id, nir_id)
+metadata</code></pre>
+<p>Now, let’s create several parameter files at once, using all columns from our object <code>metadata</code>. Each one of its columns, as you can see above, contain all necessary data to create our parameter files.</p>
+<pre><code>pwalk(list(subset_names, surface_values, reads_values, individual_id, surface_id, group_id, nir_id), ~write_NIRparams(file = ..1, wd = '.', surface = ..2, reads = ..3, individual_id = ..4, surface_id = ..5, group_id = ..6, nir_id = ..7))</code></pre>
+<p>The function <code>purrr::pwalk()</code> takes a list of arguments and uses them as input for function ~NIRtools::write_NIRparams` whose result is having our three parameter files saved in our current working directory.</p>
+<div id="building-subsets-one-by-one" class="section level3">
+<h3>Building subsets one by one</h3>
+<pre><code>subset_files &lt;- list.files(pattern = 'subset')
+# subset 01
+subset01 &lt;- build_NIRdataset(nir_data, subset_files[1])
+# subset 02
+subset02 &lt;- build_NIRdataset(nir_data, subset_files[2])
+# subset 03
+subset03 &lt;- build_NIRdataset(nir_data, subset_files[3])</code></pre>
+<p>Let’s have a look at them.</p>
+<pre><code>dim(subset01)</code></pre>
+<pre><code>dim(subset02)</code></pre>
+<pre><code>dim(subset03)</code></pre>
+<p>What if I do not remember which dataset refers to what? You have your parameter files to check. For example, what does subset03 mean?</p>
+<pre><code>readLines('subset03-NIRparams.txt')</code></pre>
+<p>Or let’s have it as a dataframe.</p>
+<pre><code>read_NIRparams('subset03-NIRparams.txt')</code></pre>
+</div>
+<div id="building-subsets-all-at-once" class="section level3">
+<h3>Building subsets all at once</h3>
+<p>Now, let’s use the parameter files to build all our subsets at once.</p>
+<pre><code>subsets &lt;- walk2(list(nir_data), subset_files, ~build_NIRdataset(df = .x, .y))
+str(subsets)</code></pre>
+<p>The result of using function <code>walk2()</code> is a list of dataframes, each one with the desired subset.</p>
+<p>Another option, and easier to deal with, in my opinion, would be to have our parameter files stored as a dataframe, and then create a column in it that would contain our subsets. Let’s take a look below to see how it is done.</p>
+<pre><code>nir_params &lt;- map_dfr(subset_files, read_NIRparams)</code></pre>
+<p>At last, let’s have some magic. Let’s create a column called <code>data</code> in <code>nir_params</code> and inside this column, we will store our subset in it. This is called a nested dataframe.</p>
+<pre><code>nested_df &lt;-
+  mutate(
+    nir_params,
+    main_dataset = list(nir_data),
+    data = map2(main_dataset, subset_files, ~build_NIRdataset(df = .x, .y))
+  )</code></pre>
+<p>Let’s check our nested dataframe.</p>
+<pre><code># subset 01
+dim(nested_df$data[[1]])</code></pre>
+<pre><code># subset 02
+dim(nested_df$data[[2]])</code></pre>
+<pre><code># subset 03
+dim(nested_df$data[[3]])</code></pre>
+<p>Notice that the values are exacly as the ones shown by the objects <code>subset01</code>, <code>subset02</code>, and <code>subset03</code>.</p>
+</div>
+</div>
+<div id="using-a-dataframe-containing-parameter-specification" class="section level2">
+<h2>Using a dataframe containing parameter specification</h2>
+<p>In construction.</p>
+</div>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

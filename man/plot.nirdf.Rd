@@ -2,7 +2,7 @@
 % Please edit documentation in R/plot.R
 \name{plot.nirdf}
 \alias{plot.nirdf}
-\title{Plot a nirdf object.}
+\title{Plota um objeto nirdf.}
 \usage{
 \method{plot}{nirdf}(
   x,
@@ -11,35 +11,45 @@
   xlabel = parse(text = "Wavenumber (cm^-1)"),
   ylabel = "Absorbance",
   legend_position = "topright",
+  cex_pt = 0.05,
+  cex_leg = 0.5,
   color = NULL,
   ...
 )
 }
 \arguments{
-\item{x}{A nirdf object.}
+\item{x}{Um objeto nirdf.}
 
-\item{category}{A string pointing the name of the category variable of nirdf object.}
+\item{category}{Nome da coluna contendo a variável categórica do objeto nirdf.}
 
-\item{remove_cols}{Character vector pointing name of columns to be removed.}
+\item{remove_cols}{Vetor de texto contendo os nomes das colunas a serem removidos.}
 
-\item{xlabel}{X axis label.}
+\item{xlabel}{Texto do eixo X.}
 
-\item{ylabel}{Y axis label.}
+\item{ylabel}{Texto do eixo Y.}
 
-\item{legend_position}{Legend position, as done in function legend.}
+\item{legend_position}{Posição da legenda, como adotado na função `legend()`.}
 
-\item{color}{Vector of colors. If not provided, function will provide one. Attention to the length of this vector. It should be the same length as the number of categories.}
+\item{cex_pt}{Tamanho adotado no argumento cex da função `points()`.}
 
-\item{...}{}
+\item{cex_leg}{Tamanho adotado no argumento cex da função `legend()`.}
+
+\item{color}{Vetor de cores. Se não fornecido, a função providenciará uma seleção automaticamente. Atenção ao comprimento deste vetor. Ele deve ser de tamanho mínimo ao número de categorias do objeto nirdf.}
+
+\item{...}{Funções adicionais a serem fornecidas à função `plot()`.}
 }
 \value{
-A plot
+Um plot.
 }
 \description{
 \lifecycle{experimental}
 }
 \examples{
-str(nirdf)
-# nirdf object is a data.frame containing a column for categories, `SP1`, an id column, `especimenid`, and all the rest of columns containg Near Infrared data.
-plot(nirdf, category = "SP1", remove_cols = "especimenid")
+# Load nir data
+library("NIRtools")
+data(nir_data)
+nirdad <- nirdf(nir_data, "SP1",
+ measure_columns = grep("^X", names(nir_data), value = TRUE),
+  measure_columns_prefix = "X")
+plot(nirdad, "SP1")
 }

@@ -16,6 +16,6 @@ A data.frame
 Read NIR parameters file from disk
 }
 \examples{
-# Input file on vignette folder
-read_NIRparams("test-NIR.txt")
+params_file_path <- system.file("extdata", "test-NIRparams.txt", package = "NIRtools")
+read_NIRparams(params_file_path)
 }

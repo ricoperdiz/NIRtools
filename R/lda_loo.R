@@ -5,6 +5,9 @@
 #' @param save.csv
 #'
 #' @return
+#' @importFrom utils write.table
+#' @importFrom stats filter prcomp predict
+#' @importFrom glue glue
 #' @export
 #'
 #' @examples
@@ -75,7 +78,7 @@ lda_loo <- function(df, nir_params_path, save.csv = FALSE) {
       )
     res.loo <- rbind(res.loo, rr)
 
-    cat(glue::glue(
+    cat(glue(
       "Amostra {ind}-{nrow(dad)}, individuo {individuo} {teste_sp} predito {predicao} p={pv}% {acerto_perc}",
       ind = i,
       dad = dad,

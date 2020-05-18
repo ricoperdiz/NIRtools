@@ -1,14 +1,14 @@
-#' Summarise NIR datasets
+#' Sumariza conjuntos de dados NIR.
 #'
-#' @param dframe Raw NIR data.
-#' @param params_file_path Location of NIR parameter file.
-#'
+#' @param dframe Dados brutos NIR.
+#' @param params_file_path Localização do arquivo de parâmetros NIR.
+#' @param use_cwd Usa o atual diretório de trabalho?
 #' @return
 #' @importFrom data.table data.table
 #' @export
 #'
 #' @examples
-summarise_NIRdataset <- function(dframe, params_file_path) {
+summarise_NIRdataset <- function(dframe, params_file_path, use_cwd = TRUE) {
   stopifnot(is.data.frame(dframe))
 
   dframe_tbl <- as.data.table(dframe)
@@ -46,12 +46,12 @@ summarise_NIRdataset <- function(dframe, params_file_path) {
     message("\n\n\n######## Variable `group_id` is empty ########\n\n\n")
   }
 
+
   nirset <- build_NIRdataset(dframe, params_file_path)
 
   n_samples <- length(unique(nirset[[individual_id]]))
   n_taxa <- length(unique(nirset[[group_id]]))
   n_variables <- length(nir_cols_names)
-
 
   res <- data.table(
     `Dataset` = dataset_name,

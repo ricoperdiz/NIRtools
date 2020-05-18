@@ -16,7 +16,12 @@
 #' @export
 #' @examples
 #' # Write to disk a parameter file
-#' write_NIRparams(file = "test", wd = getwd(), reads = "mean", surface = "abaxial", nir_variables = "all", surface_id = "face", individual_id = "especimenid", individual_list = NULL, group_id = "SP1", nir_id = "X")
+#' write_NIRparams(file = "test", wd = getwd(),
+#'  reads = "mean", surface = "abaxial",
+#'   nir_variables = "all", surface_id = "face",
+#'    individual_id = "especimenid",
+#'    individual_list = NULL, group_id = "SP1",
+#'     nir_id = "X")
 #'
 #' # Read parameter file called "test" with function `read_NIRparams()`. It returns a data.frame
 #' read_NIRparams("test-NIR.txt")

@@ -1,7 +1,7 @@
 #' Build NIR dataset based on a parameters file.
 #'
 #' @param dframe A dataframe in long format, that is, each NIR variable must be stored in its own column, and other columns containing identifications for individuals, and leaf surface, at least.
-#' @param params_file A path for a NIR parameter file.
+#' @param params_file_path A path for a NIR parameter file.
 #' @param save_RDS If you want to save a .RDS file with final result, just use TRUE instead. Default value is FALSE.
 #' @param save_txt If you want to save a text delimited file with final result, just use TRUE instead. Default value is FALSE.
 #' @return A dataframe.
