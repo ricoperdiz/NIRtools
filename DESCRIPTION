@@ -1,11 +1,12 @@
 Package: NIRtools
 Type: Package
-Title: Tools to deal with near infrared (NIR) spectrocospy data.
+Title: Tools to deal with near infrared (NIR) spectrocospy data
 Version: 0.2.000
 Authors@R: person("Ricardo", "de Oliveira Perdiz", email = "ricoperdiz@gmail.com", role = c("aut", "cre"), comment = c(ORCID = "0000-0002-2333-6549"))
 Description: 
     Build NIR parameter files;
-    Build NIR subsets based on parameters files and a dataset.
+    Build NIR subsets based on parameters files and a dataset;
+    Build NIRdf objects.
 License: GPL-3
 URL: https://github.com/ricoperdiz/NIRtools
 BugReports: https://github.com/ricoperdiz/NIRtools/issues
@@ -15,15 +16,17 @@ RoxygenNote: 7.1.0
 RdMacros: 
     lifecycle
 Depends: 
-    data.table,
+    R (>= 3.0)
+Imports: 
+    data.table (>= 1.11.0),
     stringr,
     tidyr,
-    R (>= 2.10)
-Imports: data.table, stringr, tidyr
+    lifecycle
 Suggests: 
     dplyr,
     knitr,
     purrr,
     rmarkdown,
-    testthat
+    testthat,
+    magrittr
 VignetteBuilder: knitr

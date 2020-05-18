@@ -9,11 +9,11 @@ build_NIRdataset(dframe, params_file_path, save_RDS = FALSE, save_txt = FALSE)
 \arguments{
 \item{dframe}{A dataframe in long format, that is, each NIR variable must be stored in its own column, and other columns containing identifications for individuals, and leaf surface, at least.}
 
+\item{params_file_path}{A path for a NIR parameter file.}
+
 \item{save_RDS}{If you want to save a .RDS file with final result, just use TRUE instead. Default value is FALSE.}
 
 \item{save_txt}{If you want to save a text delimited file with final result, just use TRUE instead. Default value is FALSE.}
-
-\item{params_file}{A path for a NIR parameter file.}
 }
 \value{
 A dataframe.

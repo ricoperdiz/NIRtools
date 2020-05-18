@@ -11,11 +11,21 @@ nirdf(x, category, measure_columns, measure_columns_prefix = NULL)
 
 \item{category}{Um nome apontando o nome da variável categórica dentro do argument x.}
 
-\item{measure_columns}{Um vetor contendo nomes de coluna que contêm as variáveis NIR.}
+\item{measure_columns}{Um vetor contendo nomes de colunas que contêm as variáveis NIR.}
+
+\item{measure_columns_prefix}{Um nome apontando qual prefixo foi utilizado para indicar as colunas que contêm variáveis NIR. Opcional. Caso haja, este nome será retirado do nome das colunas com o uso da função `gsub()`.}
 }
 \value{
 Um objeto nirdf.
 }
 \description{
 Cria um objeto nirdf
+}
+\examples{
+# Load nir data
+library("NIRtools")
+data(nir_data)
+nirdad <- nirdf(nir_data, "SP1",
+ measure_columns = grep("^X", names(nir_data), value = TRUE),
+  measure_columns_prefix = "X")
 }

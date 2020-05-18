@@ -6,6 +6,13 @@
 \usage{
 save_lda(lda_lab_list, save.pdf = TRUE, save.RDS = TRUE, wd = NULL)
 }
+\arguments{
+\item{save.pdf}{Salva pdf?}
+
+\item{save.RDS}{Salva RDS?}
+
+\item{wd}{Diretório de trabalho}
+}
 \value{
 
 }
