@@ -12,6 +12,7 @@
 #' @param cex_pt Tamanho adotado no argumento cex da função `points()`.
 #' @param cex_leg Tamanho adotado no argumento cex da função `legend()`.
 #' @param text_font Tipo de fonte a ser utilizado em  `legend()`. Por padrão, opção 1, que corresponde em texto simples, sem formatação. Outras opções são `2`, negrito, `3`, itálico, e `4`, negrito e itálico.
+#' plot_legend Plota a legenda? Se não plotar, ao utilizar `FALSE`, a função retorna um `data.frame` para ser utilizado a posteriori na construção de uma legenda utilizando a função `layout`.
 #' @param color Vetor de cores. Se não fornecido, a função providenciará uma seleção automaticamente. Atenção ao comprimento deste vetor. Ele deve ser de tamanho mínimo ao número de categorias do objeto nirdf.
 #' @param ... Funções adicionais a serem fornecidas à função `plot()`.
 #'
@@ -28,7 +29,7 @@
 #'   measure_columns_prefix = "X")
 #' plot(nirdad, "SP1")
 
-plot.nirdf <- function(x, category, remove_cols = NULL, xlabel = parse(text = "Wavenumber (cm^-1)"), ylabel = "Absorbance", legend_position = "topright", cex_pt = 0.05, cex_leg = 0.5, text_font = 1,color = NULL, ...) {
+plot.nirdf <- function(x, category, remove_cols = NULL, xlabel = parse(text = "Wavenumber (cm^-1)"), ylabel = "Absorbance", legend_position = "topright", cex_pt = 0.05, cex_leg = 0.5, text_font = 1, plot_legend = TRUE, color = NULL, ...) {
 
 
   stopifnot(is_nirdf(x))
@@ -104,6 +105,12 @@ plot.nirdf <- function(x, category, remove_cols = NULL, xlabel = parse(text = "W
     col_legend <- c(col_legend, pal[i])
   }
 
-  legend(legend_position, legend = categories, pch = 16, cex = cex_leg, col = col_legend, text.font = text_font)
+  if (plot_legend) {
+    legend(legend_position, legend = categories, pch = 16, cex = cex_leg, col = col_legend, text.font = text_font)
+  } else {
+    df_legend <- data.frame(categories = categories, pch = 16, cex = cex_leg, col = col_legend, text_font = text_font)
+    invisible(df_legend)
+  }
+
 
 }
