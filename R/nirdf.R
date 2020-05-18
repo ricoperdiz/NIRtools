@@ -1,14 +1,10 @@
-#' @importFrom methods setOldClass
-#' @exportClass nir_df
-setOldClass(c("nirdf", "data.table", "data.frame"))
-
-#' Title
+#' Cria um objeto nirdf
 #'
-#' @param x A data.frame, or a data.table object.
-#' @param category A string pointing the name of the category variable of nirdf object.
-#' @param measure_columns A vector containing column names that contain NIR measurements.
+#' @param x Um data.frame, ou um data.table.
+#' @param category Um nome apontando o nome da variável categórica dentro do argument x.
+#' @param measure_columns Um vetor contendo nomes de coluna que contêm as variáveis NIR.
 #'
-#' @return A nirdf object.
+#' @return Um objeto nirdf.
 #' @export
 #'
 #' @examples
