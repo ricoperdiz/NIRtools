@@ -73,7 +73,7 @@ plot.nirdf <- function(x, category, remove_cols = NULL, xlabel = parse(text = "W
   y_axis <- range(df_to_plot$value)
 
   # plot empty nirdf
-  plot(df_to_plot$variable, df_to_plot$value, type = "n", xlab = xlabel, ylab = ylabel)
+  plot(df_to_plot$variable, df_to_plot$value, type = "n", xlab = xlabel, ylab = ylabel, ...)
 
   # prepare to plot categories
   ## a vector for categories
