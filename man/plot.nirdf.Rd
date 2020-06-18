@@ -13,6 +13,8 @@
   legend_position = "topright",
   cex_pt = 0.05,
   cex_leg = 0.5,
+  text_font = 1,
+  plot_legend = TRUE,
   color = NULL,
   ...
 )
@@ -33,6 +35,9 @@
 \item{cex_pt}{Tamanho adotado no argumento cex da função `points()`.}
 
 \item{cex_leg}{Tamanho adotado no argumento cex da função `legend()`.}
+
+\item{text_font}{Tipo de fonte a ser utilizado em  `legend()`. Por padrão, opção 1, que corresponde em texto simples, sem formatação. Outras opções são `2`, negrito, `3`, itálico, e `4`, negrito e itálico.
+plot_legend Plota a legenda? Se não plotar, ao utilizar `FALSE`, a função retorna um `data.frame` para ser utilizado a posteriori na construção de uma legenda utilizando a função `layout`.}
 
 \item{color}{Vetor de cores. Se não fornecido, a função providenciará uma seleção automaticamente. Atenção ao comprimento deste vetor. Ele deve ser de tamanho mínimo ao número de categorias do objeto nirdf.}
 
