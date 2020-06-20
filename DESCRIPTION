@@ -1,7 +1,7 @@
 Package: NIRtools
 Type: Package
 Title: Tools to deal with near infrared (NIR) spectrocospy data
-Version: 0.2.004
+Version: 0.2.006
 Authors@R: person("Ricardo", "de Oliveira Perdiz", email = "ricoperdiz@gmail.com", role = c("aut", "cre"), comment = c(ORCID = "0000-0002-2333-6549"))
 Description: 
     Build NIR parameter files;
@@ -16,7 +16,7 @@ RoxygenNote: 7.1.0
 RdMacros: 
     lifecycle
 Depends: 
-    R (>= 3.0)
+    R (>= 3.5.0)
 Imports: 
     data.table (>= 1.11.0),
     stringr,
