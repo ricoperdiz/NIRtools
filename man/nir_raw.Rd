@@ -3,22 +3,21 @@
 \docType{data}
 \name{nir_raw}
 \alias{nir_raw}
-\title{Dataset of Near Infra Red data}
+\title{Conjunto de dados NIR em formato bruto}
 \format{
-A dataframe with 541 rows and 1561 columns
+Um dataframe com 1557 linhas e 2 colunas
 \describe{
-\item{especimenid}{Specimen identification}
-\item{SP1}{Species id}
-\item{face}{Which leaf surface?}
-\item{coletor}{Nome do coletor da amostra}
-\item{number}{Número da amostra coletada}
-\item{Columns that starts with X}{each one of these is a spectrum}
+\item{wavenumber}{Número da onda}
+\item{absorbance}{Absorbância}
 }
 }
 \usage{
 nir_raw
 }
 \description{
-A dataset containing a subset from the author's thesis, that consists of reads of  near infrared spectrum of leaves of a group of neotropical plants
+Subconjunto de dados utilizado na tese do autor do pacote, consistindo em leituras espectrais do infravermelho próximo de um grupo de plantas de distribuição Neotropical. Formato dos dados consiste em uma observação de leitura espectral por linha.
+}
+\details{
+`r (nir_raw)`
 }
 \keyword{datasets}
