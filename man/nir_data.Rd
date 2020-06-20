@@ -5,7 +5,7 @@
 \alias{nir_data}
 \title{Conjunto de dados NIR processado}
 \format{
-Um data.frame de `r nrows(nir_data)` linhas e `r ncol(nir_data)` colunas.
+Um data.frame de 48 linhas e 1562 colunas.
 \describe{
 \item{especimenid}{Identificador da amostras.}
 \item{SP1}{Nome da espécie da amostras.}
