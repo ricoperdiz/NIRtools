@@ -99,7 +99,7 @@ plot.nirdf <- function(x, category, remove_cols = NULL, xlabel = parse(text = "W
   col_legend <- NULL
   for (i in seq_along(categories)) {
     # i = 1
-    cat_plot <- df_to_plot[SP1 == categories[i], ]
+    cat_plot <- df_to_plot[df_to_plot[[category]] == categories[i], ]
 
     points(cat_plot$variable, cat_plot$value, pch = 16, cex = cex_pt, col = pal[i], ylim = y_axis)
     col_legend <- c(col_legend, pal[i])
