@@ -15,19 +15,16 @@
 #' @return A message that indicates the file has been saved to disk.
 #' @export
 #' @examples
-#' # Write to disk a parameter file
-#' write_NIRparams(file = "test", wd = getwd(),
+#' \dontrun{
+#' write_NIRparams(file = "teste", wd = ".",
 #'  reads = "mean", surface = "abaxial",
 #'   nir_variables = "all", surface_id = "face",
 #'    individual_id = "especimenid",
 #'    individual_list = NULL, group_id = "SP1",
 #'     nir_id = "X")
-#'
-#' # Read parameter file called "test" with function `read_NIRparams()`. It returns a data.frame
-#' read_NIRparams("test-NIR.txt")
-#'
-#' # You can also check parameter file with function `readLines()`
-#' readLines("test-NIR.txt")
+#' read_NIRparams("teste-NIR.txt")
+#' readLines("teste-NIR.txt")
+#' }
 write_NIRparams <- function(file = "", wd = ".", surface = "", reads = "", nir_variables = "", subset_file = "", individual_id = "", individual_list = NULL, surface_id = "", group_id = "", nir_id = "X") {
   surface_var <- c("abaxial", "adaxial", "both")
   reads_var <- c("all", "mean")

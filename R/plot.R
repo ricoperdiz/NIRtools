@@ -12,12 +12,13 @@
 #' @param cex_pt Tamanho adotado no argumento cex da função `points()`.
 #' @param cex_leg Tamanho adotado no argumento cex da função `legend()`.
 #' @param text_font Tipo de fonte a ser utilizado em  `legend()`. Por padrão, opção 1, que corresponde em texto simples, sem formatação. Outras opções são `2`, negrito, `3`, itálico, e `4`, negrito e itálico.
-#' plot_legend Plota a legenda? Se não plotar, ao utilizar `FALSE`, a função retorna um `data.frame` para ser utilizado a posteriori na construção de uma legenda utilizando a função `layout`.
+#' @param plot_legend Plota a legenda? Se não plotar, ao utilizar `FALSE`, a função retorna um `data.frame` para ser utilizado a posteriori na construção de uma legenda utilizando a função `layout`.
 #' @param color Vetor de cores. Se não fornecido, a função providenciará uma seleção automaticamente. Atenção ao comprimento deste vetor. Ele deve ser de tamanho mínimo ao número de categorias do objeto nirdf.
 #' @param ... Funções adicionais a serem fornecidas à função `plot()`.
 #'
 #' @return Um plot.
 #' @importFrom graphics abline axis hist legend par plot points rect text
+#' @importFrom grDevices cm.colors gray
 #' @export
 #'
 #' @examples
