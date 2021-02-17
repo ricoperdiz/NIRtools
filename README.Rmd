@@ -19,6 +19,11 @@ knitr::opts_chunk$set(
 <!-- badges: end -->
 
 NIRtools foi desenhado para auxiliar taxonomistas e ecólogos de plantas em **documentar** e **construir** subconjuntos de dados do infravermelho próximo (NIR, do inglês *Near infrared spectroscopy*), por meio do usos de arquivos de parâmetros que servirão como metadados de cada subconjunto. Também estão inclusas funções para auxiliar a plotar os resultados.
+O pacote foi criado inicialmente para lidar com leituras obtidas de um espectrofotômetro Thermo Nicollet (Thermo Fischer Scientific, Waltham, Massachusetts, USA), modelo Antaris II FT-NIR Analyzer, hospedado no herbário do INPA, Amazonas, Brasil.  
+
+# Contribuições
+
+Caso haja o desejo de contribuir para o desenvolvimento do pacote, ou se verifique algum erro na instalação, no uso de alguma função, abra um problema na seção `Issues` do GitHub e dê um alô: <https://github.com/ricoperdiz/NIRtools/issues>.  
 
 <!-- NIRtools was specifically designed to help plant taxonomist and ecologists in documenting and building near infrared (NIR) spectroscopy subsets from a dataset based on parameter files that will serve as a metadata of each subset.-->
 
@@ -119,11 +124,11 @@ readLines(system.file("extdata", "conjunto1-NIRparams.txt", package = "NIRtools"
 Após a criação do arquivo, você pode visualizar as informações deste metadado em um `data.frame` utilizando a função `read_NIRparams()`.
 
 ```{r, eval = FALSE}
-read_NIRparams("test-NIRparams.txt")
+read_NIRparams(arq = "conjunto1-NIRparams.txt")
 ```
 
 ```{r, echo = FALSE, eval = TRUE}
-read_NIRparams(system.file("extdata", "conjunto1-NIRparams.txt", package = "NIRtools"))
+read_NIRparams(arq = system.file("extdata", "conjunto1-NIRparams.txt", package = "NIRtools"))
 ```
 Tendo um arquivo de metadado pronto, podemos utilizá-lo para construir subconjuntos de dados com a função `build_NIRdataset()`.
 Vamos utilizar nosso conjunto `nir_data` nesta ação e atribuir o subconjunto ao objeto `subset01`:

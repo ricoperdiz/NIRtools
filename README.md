@@ -12,7 +12,17 @@ em **documentar** e **construir** subconjuntos de dados do infravermelho
 próximo (NIR, do inglês *Near infrared spectroscopy*), por meio do usos
 de arquivos de parâmetros que servirão como metadados de cada
 subconjunto. Também estão inclusas funções para auxiliar a plotar os
-resultados.
+resultados. O pacote foi criado inicialmente para lidar com leituras
+obtidas de um espectrofotômetro Thermo Nicollet (Thermo Fischer
+Scientific, Waltham, Massachusetts, USA), modelo Antaris II FT-NIR
+Analyzer, hospedado no herbário do INPA, Amazonas, Brasil.
+
+# Contribuições
+
+Caso haja o desejo de contribuir para o desenvolvimento do pacote, ou se
+verifique algum erro na instalação, no uso de alguma função, abra um
+problema na seção `Issues` do GitHub e dê um alô:
+<https://github.com/ricoperdiz/NIRtools/issues>.
 
 <!-- NIRtools was specifically designed to help plant taxonomist and ecologists in documenting and building near infrared (NIR) spectroscopy subsets from a dataset based on parameter files that will serve as a metadata of each subset.-->
 <!-- # O que é o NIR? -->
@@ -153,7 +163,7 @@ Após a criação do arquivo, você pode visualizar as informações deste
 metadado em um `data.frame` utilizando a função `read_NIRparams()`.
 
 ``` r
-read_NIRparams("test-NIRparams.txt")
+read_NIRparams(arq = "conjunto1-NIRparams.txt")
 ```
 
     #>    dataset_index dataset_name group_id individual_id individual_list nir_id
