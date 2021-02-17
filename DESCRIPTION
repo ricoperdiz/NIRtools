@@ -19,7 +19,6 @@ Depends:
     R (>= 3.5.0)
 Imports: 
     data.table (>= 1.11.0),
-    stringr,
     tidyr,
     lifecycle
 Suggests: 
