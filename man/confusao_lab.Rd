@@ -4,12 +4,14 @@
 \alias{confusao_lab}
 \title{Plota matriz de confusão, estilo LABOTAM}
 \usage{
-confusao_lab(xtab, add_CP = FALSE)
+confusao_lab(xtab, add_CP = FALSE, ...)
 }
 \arguments{
 \item{xtab}{Tabela cruzamento de dados observados versus dados preditos.}
 
 \item{add_CP}{Vetor lógico que, se TRUE, adiciona a taxa de predição correta como última coluna da matrix, dispondo os valores em porcentagem. Comportamento padrão é não adicionar essa coluna.}
+
+\item{...}{Argumentos adicionais a serem utilizados na função `plotamatriz()`.}
 }
 \value{
 Um plot.
