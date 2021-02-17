@@ -19,6 +19,6 @@ Um data.frame de `r nrows(nir_data)` linhas e `r ncol(nir_data)` colunas.
 nir_dad
 }
 \description{
-Um subconjunto de dados oriundos da tese do autor, que consiste em uma série de leituras do espectro infravermelho de folhas de um grupo de árvores de distribuição neotropical. Dados convertidos para um objeto nirdf com a função `nirdf()`.
+Um subconjunto de dados oriundos da tese do autor ([Perdiz, 2020](https://repositorio.inpa.gov.br/handle/1/36948)), que consiste em uma série de leituras do espectro infravermelho de folhas de um grupo de árvores de distribuição neotropical. Dados convertidos para um objeto nirdf com a função `nirdf()`.
 }
 \keyword{datasets}

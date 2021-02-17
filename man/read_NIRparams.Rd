@@ -2,20 +2,20 @@
 % Please edit documentation in R/read.R
 \name{read_NIRparams}
 \alias{read_NIRparams}
-\title{Read NIR parameters file from disk}
+\title{Lê metadados de um subconjunto de dados NIR a partir de um arquivo de texto}
 \usage{
-read_NIRparams(file)
+read_NIRparams(arq)
 }
 \arguments{
-\item{file}{A path to a file.}
+\item{arq}{Vetor de texto indicando caminho a um arquivo.}
 }
 \value{
-A data.frame
+Um data.frame
 }
 \description{
-Read NIR parameters file from disk
+Lê metadados de um subconjunto de dados NIR a partir de um arquivo de texto
 }
 \examples{
-params_file_path <- system.file("extdata", "test-NIRparams.txt", package = "NIRtools")
-read_NIRparams(params_file_path)
+params_file_path <- system.file("extdata", "conjunto1-NIRparams.txt", package = "NIRtools")
+read_NIRparams(arq = params_file_path)
 }

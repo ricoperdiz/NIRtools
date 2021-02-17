@@ -14,8 +14,18 @@ summarise_NIRdataset(dframe, params_file_path, use_cwd = TRUE)
 \item{use_cwd}{Usa o atual diretório de trabalho?}
 }
 \value{
-
+Um data.frame contendo o nome do conjunto de dados especificado no arquivo de metadados, número de amostras, número de taxa, e número de variáveis NIR.
 }
 \description{
 Sumariza conjuntos de dados NIR.
+}
+\examples{
+library("NIRtools")
+dados <-
+read.table(system.file("extdata", "nir_data.csv", package = "NIRtools"), sep = "\t", header = TRUE)
+arq_metadado <-
+system.file("extdata", "teste_comListaEspecimes-NIRparams.txt", package = "NIRtools")
+## Teste com indicacao de uma lista de especimes
+nirset_summarised <-
+summarise_NIRdataset(dframe = dados, params_file_path = arq_metadado)
 }
