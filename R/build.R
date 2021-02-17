@@ -149,12 +149,16 @@ build_NIRdataset <- function(dframe, params_file_path, save_RDS = FALSE, save_tx
     cd <- getwd()
     # Check current directory - is it different from wd?
     if (wd != cd) {
-      message(glue::glue("Working directory pointed by params_file is different than current directory.\n
-                         Working diretory in params_file: {wd}\n
-                         Current directory: {cd}\n
-                         File will be saved then in current directory.",
-                         wd = wd,
-                         cd = cd))
+      message(
+        sprintf(
+          "Working directory pointed by params_file is different than current directory.\n
+Working diretory in params_file: %s\n
+Current directory: %s\n
+File will be saved then in current directory.",
+          wd,
+          cd
+        )
+      )
       wd <- cd
       saveRDS(dframe_res, file = paste0(wd, dataset_name, ".RDS"))
     }
@@ -168,12 +172,14 @@ build_NIRdataset <- function(dframe, params_file_path, save_RDS = FALSE, save_tx
     cd <- getwd()
     # Check current directory - is it different from wd?
     if (wd != cd) {
-      message(glue::glue("Working directory pointed by params_file is different than current directory.\n
-                         Working diretory in params_file: {wd}\n
-                         Current directory: {cd}\n
-                         File will be saved then in current directory.",
-                         wd = wd,
-                         cd = cd))
+      message(sprintf(
+        "Working directory pointed by params_file is different than current directory.\n
+        Working diretory in params_file: %s\n
+        Current directory: %s\n
+        File will be saved then in current directory.",
+        wd,
+        cd
+      ))
       wd <- cd
       fwrite(dframe_res, file = paste0(wd, dataset_name, ".txt"), sep = "\t")
     }

@@ -10,8 +10,8 @@ plotamatriz(
   txt.cols = NULL,
   valcex = 1,
   cexaxis = 1,
-  lasx = lasx,
-  lasy = lasy
+  lasx = NULL,
+  lasy = NULL
 )
 }
 \arguments{

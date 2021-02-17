@@ -1,7 +1,11 @@
+# NIRtools 0.2.1
+
+* Tradução e aperfeiçoamento do arquivo `README.md` incluindo instruções de como usar o pacote.
+* Tradução da documentação das funções.
+* Remoção de conjunto de funções anteriormente presentes no arquivo `analysis.R` e `lda_loo.R`. Em breve, incluirei um tutorial usando a plataforma do pacote caret e tidymodels.
+
 # NIRtools 0.2.000
 
-* Added a `NEWS.md` file to track changes to the package;
-
-* Method for plot;
-
-* Creation of nirdf objects with `nirdf()` function.
+* Adicionei um arquivo `NEWS.md` para mapear as mudanças no pacote.
+* Método adicionado para a função `plot()`.
+* Criação de objetos de classe `nirdf` com a função `nirdf()`.

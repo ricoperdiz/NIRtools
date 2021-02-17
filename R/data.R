@@ -1,6 +1,6 @@
 #' Conjunto de dados NIR em formato bruto
 #'
-#' Subconjunto de dados utilizado na tese do autor do pacote, consistindo em leituras espectrais do infravermelho próximo de um grupo de plantas de distribuição Neotropical. Formato dos dados consiste em uma observação de leitura espectral por linha.
+#' Subconjunto de dados utilizado na tese do autor do pacote ([Perdiz, 2020](https://repositorio.inpa.gov.br/handle/1/36948)), consistindo em leituras espectrais do infravermelho próximo de um grupo de plantas de distribuição Neotropical. Formato dos dados consiste em uma observação de leitura espectral por linha.
 #'
 #' `r (nir_raw)`
 #' @format Um dataframe com 1557 linhas e 2 colunas
@@ -12,7 +12,7 @@
 
 #' Conjunto de dados NIR processado
 #'
-#' Um subconjunto de dados oriundos da tese do autor, que consiste em uma série de leituras do espectro infravermelho de folhas de um grupo de árvores de distribuição neotropical.
+#' Um subconjunto de dados oriundos da tese do autor ([Perdiz, 2020](https://repositorio.inpa.gov.br/handle/1/36948)), que consiste em uma série de leituras do espectro infravermelho de folhas de um grupo de árvores de distribuição neotropical.
 #'
 #' @format Um data.frame de 48 linhas e 1562 colunas.
 #' \describe{
@@ -27,7 +27,7 @@
 
 #' Conjunto de dados NIR processado e convertido em objeto nirdf
 #'
-#' Um subconjunto de dados oriundos da tese do autor, que consiste em uma série de leituras do espectro infravermelho de folhas de um grupo de árvores de distribuição neotropical. Dados convertidos para um objeto nirdf com a função `nirdf()`.
+#' Um subconjunto de dados oriundos da tese do autor ([Perdiz, 2020](https://repositorio.inpa.gov.br/handle/1/36948)), que consiste em uma série de leituras do espectro infravermelho de folhas de um grupo de árvores de distribuição neotropical. Dados convertidos para um objeto nirdf com a função `nirdf()`.
 #'
 #' @format Um data.frame de `r nrows(nir_data)` linhas e `r ncol(nir_data)` colunas.
 #' \describe{

@@ -1,0 +1,323 @@
+---
+output: github_document
+bibliography: /Users/ricoperdiz/Documents/CV/pubs.bib
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+
+# Descrição
+
+<!-- badges: start -->
+[![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
+<!-- badges: end -->
+
+NIRtools foi desenhado para auxiliar taxonomistas e ecólogos de plantas em **documentar** e **construir** subconjuntos de dados do infravermelho próximo (NIR, do inglês *Near infrared spectroscopy*), por meio do usos de arquivos de parâmetros que servirão como metadados de cada subconjunto. Também estão inclusas funções para auxiliar a plotar os resultados.
+O pacote foi criado inicialmente para lidar com leituras obtidas de um espectrofotômetro Thermo Nicollet (Thermo Fischer Scientific, Waltham, Massachusetts, USA), modelo Antaris II FT-NIR Analyzer, hospedado no herbário do INPA, Amazonas, Brasil.  
+
+# Contribuições e relatos de problemas
+
+Caso haja o desejo de contribuir para o desenvolvimento do pacote, ou se verifique algum erro na instalação, no uso de alguma função, abra um problema na seção `Issues` do GitHub e dê um alô: <https://github.com/ricoperdiz/NIRtools/issues>.  
+
+**Problemas/Issues**: <https://github.com/ricoperdiz/NIRtools/issues>.  
+
+<!-- NIRtools was specifically designed to help plant taxonomist and ecologists in documenting and building near infrared (NIR) spectroscopy subsets from a dataset based on parameter files that will serve as a metadata of each subset.-->
+
+<!-- # O que é o NIR? -->
+<!-- Para mais detalhes, [leia este trabalho](http://www.scielo.br/scielo.php?script=sci_arttext&pid=S0103-50532003000200006). -->
+
+# Instalação
+
+Você pode instalar esta versão em desenvolvimento por meio do pacote `remotes`. 
+
+```
+install.packages("remotes")
+library(remotes)
+remotes::install_github("ricoperdiz/NIRtools")
+```
+
+Após instalar o NIRtools, digite o comando abaixo para ver o arquivo contendo o tutorial do pacote.
+
+<!--After installing NIRtools, type the command below to see the vignette with NIRtools tutorial.-->
+
+```
+vignette("NIRtools_tutorial", package = "NIRtools")
+```
+
+# Como usar?
+
+Primeiro, carregue o pacote:
+
+```{r}
+library("NIRtools")
+```
+
+Vamos trabalhar com o conjunto de dados que vem com o pacote, chamado `nir_data`.
+Após o carregamento do pacote, ele ficará disponível.
+Ele consiste em um arquivo com 48 linhas e 1562 colunas e é uma pequena porção de um conjunto de dados muito maior utilizado na minha tese [@Perdiz2020], que abrange dados NIR extraídos de espécimes do complexo de espécies *Protium aracouchini* (Aubl.) Marchand, um grupo de árvores pertencentes à família Burseraceae e de distribuição Neotropical.  
+
+```{r}
+dim(nir_data)
+```
+
+As cinco primeiras colunas correspondem aos identificadores dos dados:
+
+* `especimenid` - identificador numérico do espécime dentro da base de dados `DuckeWiki`, onde estoco todos os dados de minha tese. Trata-se da coluna identificadora da amostra.
+* `SP1` - nome da espécie. Aqui pode haver epítetos específicos, nomes de espécies, nomes de morfotipos etc;
+* `face` - face do folíolo que foi extraída a leitura NIR. Este conjunto de dados é proveniente de plantas com flores, logo, utilizamos faces das folhas/folíolos para obter as leituras.
+* `coletor` - nome do coletor da amostra.
+* `number` - número de coleta da amostra.
+
+```{r}
+names(nir_data)[1:5]
+```
+
+Abaixo, vemos as primeiras seis linhas e dez colunas dos dados:
+
+```{r}
+head(nir_data)[, 1:10]
+```
+
+As colunas que começam _X_ correspondem aos espectros NIR.  
+
+## Metadados
+
+É comum durante as análises de dados NIR criarmos vários subconjuntos de dados.
+Para facilitar o processo de arquivamento de cada subconjunto de dados, criei uma função para auxiliar no processo de criação de metadados que descrevam cada um dos subconjuntos.  
+
+O metadado é um arquivo de texto em que estão especificados todos os parâmetros para se criar um subconjunto de dados NIR.
+Para isso, fazemos uso da função `write_NIRparams`.
+
+Neste exemplo, meu subconjunto se chamará `conjunto1`, eu utilizarei a *MÉDIA* das leituras (argumento `mean`no parâmetro **reads**) e apenas a face *abaxial* (argumento `abaxial` no parâmetro **surface**) das folhas.
+Também informo qual o nome da coluna para reconhecer a amostra (argumento `especimenid` no parâmetro **individual_id**) e o táxon (argumento `SP1` no parâmetro **group_id**).  
+
+```{r, eval = FALSE}
+write_NIRparams(
+  file = "conjunto1",
+  wd = ".",
+  reads = "mean",
+  surface = "abaxial",
+  nir_variables = "all",
+  surface_id = "face",
+  individual_id = "especimenid",
+  group_id = "SP1",
+  nir_id = "X"
+)
+```
+
+Ao executar a função, uma messagem aparece confirmando a ação e informando onde o arquivo foi salvo.
+
+Vamos ver este arquivo:
+
+```{r, eval = FALSE}
+readLines("test-NIRparams.txt")
+```
+
+```{r, echo = FALSE, eval = TRUE}
+readLines(system.file("extdata", "conjunto1-NIRparams.txt", package = "NIRtools"))
+```
+
+Após a criação do arquivo, você pode visualizar as informações deste metadado em um `data.frame` utilizando a função `read_NIRparams()`.
+
+```{r, eval = FALSE}
+read_NIRparams(arq = "conjunto1-NIRparams.txt")
+```
+
+```{r, echo = FALSE, eval = TRUE}
+read_NIRparams(arq = system.file("extdata", "conjunto1-NIRparams.txt", package = "NIRtools"))
+```
+Tendo um arquivo de metadado pronto, podemos utilizá-lo para construir subconjuntos de dados com a função `build_NIRdataset()`.
+Vamos utilizar nosso conjunto `nir_data` nesta ação e atribuir o subconjunto ao objeto `subset01`:
+
+```{r, eval = FALSE}
+subset01 <- build_NIRdataset(dframe = nir_data, params_file_path = "test-NIRparams.txt", save_txt = TRUE, save_RDS = FALSE)
+```
+
+Você pode também salvar o conjunto de dados como um arquivo `.RDS`, bastando alterar o argumento `save_RDS = FALSE` para `save_RDS = TRUE`.  
+
+Vamos checar nosso subconjunto `subset01`:
+
+```{r, include = FALSE}
+subset01 <- data.table::fread("inst/extdata/subset01.csv")
+```
+
+```{r}
+head(subset01)[, 1:10]
+```
+
+
+## Construção de subconjuntos de dados NIR
+
+Já demonstramos o uso da função `build_NIRdataset()` para construir subconjuntos de dados NIR.
+Vou dar outro exemplo.  
+
+Vamos fazer um novo subconjunto, desta vez utilizando ambas as faces (argumento `both` no parâmetro **surface**).
+
+```{r, eval = FALSE}
+write_NIRparams(
+  file = "conjunto2",
+  wd = ".",
+  reads = "mean",
+  surface = "both",
+  nir_variables = "all",
+  surface_id = "face",
+  individual_id = "especimenid",
+  group_id = "SP1",
+  nir_id = "X"
+)
+```
+
+```{r, eval = FALSE}
+subset02 <- build_NIRdataset(dframe = nir_data, params_file_path = 'conjunto2-NIRparams.txt', save_txt = FALSE, save_RDS = FALSE)
+```
+
+```{r, include = FALSE}
+subset02 <- data.table::fread("inst/extdata/subset02.csv")
+```
+
+```{r, eval = TRUE, echo = TRUE}
+head(subset02)[, 1:10]
+```
+
+## Plotar gráficos
+
+Criei uma função para facilitar a criação de gráficos com os espectros NIR.
+Vamos utilizar novamente o conjunto `nir_data` como demonstração.  
+
+Primeiramente, precisamos converter os dados para um objeto de classe `nirdf`.
+Esta classe foi criada neste pacote e visa facilitar a produção de gráficos de espectros mais facilmente.
+Para converter um conjunto de dados NIR em um objeto de classe `nirdf`, são necessários itens:
+
+(1) Especificar a variável que contem a nossa categoria de interesse no gráfico. Neste caso, a nossa variável de interesse se chama `SP1` e corresponde a uma coluna do objeto `nir_data`. Esta informação deve ser informada no argumento `category`.
+(2) Informar quais colunas possuem as variáveis NIR. Em nosso objeto `nir_data`, as variáveis NIR possuem a letra *X* precedendo cada variável NIR. Esta informação deve ser colocada no argumento `measure_columns`.
+
+```{r}
+nirdad <- nirdf(nir_data, category = "SP1", measure_columns = grep("^X", names(nir_data), value = TRUE), measure_columns_prefix = "X")
+```
+
+Ao executar esta ação, obtemos um objeto de classe `nirdf`:
+
+```{r}
+class(nirdad)
+```
+
+Em seguida, basta usar a função `plot()` informando no argumento `category` o nome da coluna contendo a categoria de interesse. Neste caso, trata-se da variável `SP1`
+
+```{r}
+plot(nirdad, "SP1")
+```
+
+Incluí alguns argumentos novos para facilitar a mudança de alguns parâmetros gráficos.
+
+## Mudar o título dos eixos x e y
+
+```{r}
+plot(nirdad, "SP1", xlabel ="Meu eixo X",
+  ylabel = "Meu eixo Y")
+```
+
+## Mudar a posição da legenda
+
+```{r}
+plot(nirdad, "SP1", legend_position = "topright")
+```
+
+```{r}
+plot(nirdad, "SP1", legend_position = "topleft")
+```
+
+```{r}
+plot(nirdad, "SP1", legend_position = "bottomright")
+```
+
+```{r}
+plot(nirdad, "SP1", legend_position = "bottomleft")
+```
+
+## Mudar a grossura das linhas espectrais
+
+```{r}
+plot(nirdad, "SP1", cex_pt = 0.08)
+```
+
+```{r}
+plot(nirdad, "SP1", cex_pt = 0.14)
+```
+
+## Mudar o tamanho da legenda
+
+```{r}
+plot(nirdad, "SP1", cex_leg = 0.6)
+```
+
+```{r}
+plot(nirdad, "SP1", cex_leg = 0.9)
+```
+
+## Mudar a fonte da legenda
+
+```{r}
+plot(nirdad, "SP1", text_font = 1)
+```
+
+```{r}
+plot(nirdad, "SP1", text_font = 2)
+```
+
+```{r}
+plot(nirdad, "SP1", text_font = 3)
+```
+
+## Alterar a cor das linhas espectrais
+
+```{r}
+plot(nirdad, "SP1", color = c("green", "red"))
+```
+
+## Incluir ou não a legenda
+
+```{r}
+plot(nirdad, "SP1", plot_legend = TRUE)
+```
+
+```{r}
+plot(nirdad, "SP1", plot_legend = FALSE)
+```
+
+# Aplicativo Shiny
+
+Está em processo de construção um aplicativo [Shiny](https://shiny.rstudio.com/gallery/) para auxiliar no processo de importação e visualização dos dados NIR.  
+
+No momento, o aplicativo está funcionando, porém ainda não aceita dados do usuários.
+Como uma maneira de demonstração, sugiro a você usuário testar o aplicativo e em caso de sugestões, abrir um problema na seção [Issues](https://github.com/ricoperdiz/NIRtools/issues) relatando sua experiência e sugestões de melhora no aplicativo.  
+
+A idéia é permitir que o usuário carregue seus dados, possa executar análises, checar espectros e salvá-los, dando a possibilidade de alterar argumentos em todos os passos.  
+
+## Demonstração
+
+Instale os pacotes abaixo:
+
+```{r, eval = FALSE}
+install.packages(c("shiny", "DT", "RColorBrewer"), dependencies = TRUE)
+```
+
+Agora, execute os comandos abaixo:
+
+```{r, eval = FALSE}
+library("NIRtools")
+meuaplicativo()
+```
+
+Por enquanto, o aplicativo só permite visualizar algumas variáveis do conjunto de dados `nir_data` utilizado nos exemplos anteriores.  
+
+Em breve, teremos novas funcionalidades.
+Aguarde!
+
+
+# Referências

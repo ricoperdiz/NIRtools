@@ -19,6 +19,6 @@ Um data.frame de 48 linhas e 1562 colunas.
 nir_data
 }
 \description{
-Um subconjunto de dados oriundos da tese do autor, que consiste em uma série de leituras do espectro infravermelho de folhas de um grupo de árvores de distribuição neotropical.
+Um subconjunto de dados oriundos da tese do autor ([Perdiz, 2020](https://repositorio.inpa.gov.br/handle/1/36948)), que consiste em uma série de leituras do espectro infravermelho de folhas de um grupo de árvores de distribuição neotropical.
 }
 \keyword{datasets}

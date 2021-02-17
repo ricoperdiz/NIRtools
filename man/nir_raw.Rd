@@ -15,7 +15,7 @@ Um dataframe com 1557 linhas e 2 colunas
 nir_raw
 }
 \description{
-Subconjunto de dados utilizado na tese do autor do pacote, consistindo em leituras espectrais do infravermelho próximo de um grupo de plantas de distribuição Neotropical. Formato dos dados consiste em uma observação de leitura espectral por linha.
+Subconjunto de dados utilizado na tese do autor do pacote ([Perdiz, 2020](https://repositorio.inpa.gov.br/handle/1/36948)), consistindo em leituras espectrais do infravermelho próximo de um grupo de plantas de distribuição Neotropical. Formato dos dados consiste em uma observação de leitura espectral por linha.
 }
 \details{
 `r (nir_raw)`
