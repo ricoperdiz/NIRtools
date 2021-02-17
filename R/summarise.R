@@ -3,11 +3,19 @@
 #' @param dframe Dados brutos NIR.
 #' @param params_file_path Localização do arquivo de parâmetros NIR.
 #' @param use_cwd Usa o atual diretório de trabalho?
-#' @return
+#' @return Um data.frame contendo o nome do conjunto de dados especificado no arquivo de metadados, número de amostras, número de taxa, e número de variáveis NIR.
 #' @importFrom data.table data.table
 #' @export
 #'
 #' @examples
+#' library("NIRtools")
+#' dados <-
+#' read.table(system.file("extdata", "nir_data.csv", package = "NIRtools"), sep = "\t", header = TRUE)
+#' arq_metadado <-
+#' system.file("extdata", "teste_comListaEspecimes-NIRparams.txt", package = "NIRtools")
+#' ## Teste com indicacao de uma lista de especimes
+#' nirset_summarised <-
+#' summarise_NIRdataset(dframe = dados, params_file_path = arq_metadado)
 summarise_NIRdataset <- function(dframe, params_file_path, use_cwd = TRUE) {
   stopifnot(is.data.frame(dframe))
 

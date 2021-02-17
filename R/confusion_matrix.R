@@ -53,34 +53,6 @@ confusao_lab <- function(xtab, add_CP = FALSE, ...) {
   }
 }
 
-#' Plota matriz de confusao, versão 2
-#'
-#' @param xtab Tabela cruzamento de dados observados versus dados preditos.
-#'
-#' @author Ricardo O. Perdiz, \email{ricoperdiz@@gmail.com}
-#'
-#' @return Um plot.
-#'
-#'
-#' @examples
-confusao <- function(xtab) {
-
-  ## Checar se colocamos o observado no eixo X ou Y
-  ## De qualquer forma, colocar uma coluna OU linha com o TOTAL de individuos
-  ## para facilitar no entendimento
-  #  <- table(por_amostra$Classe, por_amostra$PreditoComo)
-
-  cm <- caret::confusionMatrix(xtab)
-  tabela_conf <- as.data.frame(cm$table)
-
-  ggplot(data = tabela_conf, aes(x = Var2, y = Var1), size = 5) +
-    geom_tile(aes(fill = as.factor(Freq)), color = "white", size = 5) +
-    geom_text(aes(label = sprintf("%1.0f", Freq)), vjust = 1, size = 5) +
-    xlab("Predito") + ylab("Observado") +
-    theme_bw() +
-    theme(legend.position = "none")
-}
-
 #' Plota matriz de confusão
 #'
 #' @param matriz matrix com colnames e rownames

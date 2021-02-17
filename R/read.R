@@ -1,19 +1,18 @@
-#' Read NIR parameters file from disk
+#' Lê metadados de um subconjunto de dados NIR a partir de um arquivo de texto
 #'
-#' @param file A path to a file.
+#' @param arq Vetor de texto indicando caminho a um arquivo.
 #'
-#' @return A data.frame
+#' @return Um data.frame
 #'
 #' @importFrom data.table dcast setDT
-#' @importFrom stringr str_trim
 #' @importFrom tidyr separate
 #' @export
 #' @examples
-#' params_file_path <- system.file("extdata", "test-NIRparams.txt", package = "NIRtools")
-#' read_NIRparams(params_file_path)
-read_NIRparams <- function(file) {
+#' params_file_path <- system.file("extdata", "conjunto1-NIRparams.txt", package = "NIRtools")
+#' read_NIRparams(arq = params_file_path)
+read_NIRparams <- function(arq) {
   file_text <-
-    data.frame(text = readLines(file))
+    data.frame(text = readLines(arq))
   file_text_sbset <-
     subset(file_text, grepl("##", text))
   parameters_separated <-
@@ -25,11 +24,11 @@ read_NIRparams <- function(file) {
     parameters_separated[, list(value, key)]
 
   parameters$key <-
-    str_trim(gsub("\\[|\\]", "", parameters$key), "both")
+    trimws(gsub("\\[|\\]", "", parameters$key), "both")
 
 
   parameters$value <-
-    str_trim(parameters$value, "both")
+    trimws(parameters$value, "both")
 
   parameters[, `:=`(dataset_index = cumsum(key == "dataset_name"))]
 
@@ -39,35 +38,37 @@ read_NIRparams <- function(file) {
   return(parameters)
 }
 
-#' Read near infrared (NIR) spectroscopy data in raw format
+#' Lê dados NIR em formato bruto obtido em um espectrofotômetro Thermo Nicollet \(Thermo Fischer Scientific, Waltham, Massachusetts, USA\), modelo Antaris II FT-NIR Analyzer, hospedado no herbário do INPA, Amazonas, Brasil
 #'
-#' @param file A path to a file containing near infrared (NIR) spectroscopy raw data. This means that it expects to be a file with 1557 rows, in which first column contains identification of spectrum number, and second column the NIR absorbance.
+#' @param arq Vetor de texto contendo caminho para um arquivo contendo dados de infravermelho próximo em formato bruto. Geralmente o dado será um arquivo de 1557 linhas, em que a primeira coluna conterá o número identificador do espectro, e a segunda coluna conterá o valor de absorbância NIR.
 #'
-#' @return A data.frame in `wide` format in which each row contains 1557 columns of near infrared spectroscopy data.
+#'@param add_nir_id Vetor lógico, `TRUE` ou `FALSE`, para saber se deve ser adicionado a letra `X` antes de cada variável NIR no arquivo final
+#' @return Um data.frame em formato amplo (`wide`  em inglês) em que cada linha conterá as 1557 colunas de dados NIR..
 #' @importFrom tidyr spread
 #' @importFrom data.table fread
 #' @export
 #' @examples
-#'
 #' # read file with raw data
-#' nir_raw <- read_NIRraw("data/nir_raw.csv")
+#' nir_raw <- system.file("extdata", "nir_raw.csv", package = "NIRtools")
+#' nir_raw <- read_dirNIRraw(arq = nir_raw, add_nir_id = TRUE)
 #' # check first rows and 5 first columns of data
 #' dim(nir_raw)
 #' names(nir_raw)
-#' head(nir_raw)[, 1:10]
-read_NIRraw <- function(file, add_nir_id = TRUE) {
-  nir_raw <- fread(file, header = FALSE, blank.lines.skip = TRUE)
-  message(paste0("Raw NIR file dimension:\n", paste(dim(nir_raw), collapse = " ")))
+#' head(nir_raw)[,1:10]
+read_dirNIRraw <- function(arq, add_nir_id = TRUE) {
 
-  if (dim(nir_raw)[2] != 2) {
-    stop("Raw NIR file does not have two columns. Please, check your data to see if it really contains two columns only.")
+  nir_raw <- fread(arq, header = FALSE, blank.lines.skip = TRUE)
+  message(paste0('Raw NIR file dimension:\n', paste(dim(nir_raw), collapse = ' ')))
+
+  if(dim(nir_raw)[2] != 2) {
+    stop('Raw NIR file does not have two columns. Please, check your data to see if it really contains two columns only.')
   }
 
-  names(nir_raw) <- c("key", "value")
+  names(nir_raw) <- c('key', 'value')
 
-  if (add_nir_id == TRUE) {
+  if(add_nir_id == TRUE) {
     message("Adding letter 'X' before NIR spectra")
-    nir_raw[, key := paste0("X", key)]
+    nir_raw[, key := paste0('X', key)]
   }
 
   nir_raw_spread <-
