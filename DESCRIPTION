@@ -24,8 +24,9 @@ Imports:
 Suggests: 
     dplyr,
     knitr,
+    magrittr,
     purrr,
     rmarkdown,
-    testthat,
-    magrittr
+    shiny,
+    testthat
 VignetteBuilder: knitr
