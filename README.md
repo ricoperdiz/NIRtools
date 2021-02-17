@@ -17,12 +17,14 @@ obtidas de um espectrofotômetro Thermo Nicollet (Thermo Fischer
 Scientific, Waltham, Massachusetts, USA), modelo Antaris II FT-NIR
 Analyzer, hospedado no herbário do INPA, Amazonas, Brasil.
 
-# Contribuições
+# Contribuições e relatos de problemas
 
 Caso haja o desejo de contribuir para o desenvolvimento do pacote, ou se
 verifique algum erro na instalação, no uso de alguma função, abra um
 problema na seção `Issues` do GitHub e dê um alô:
 <https://github.com/ricoperdiz/NIRtools/issues>.
+
+**Problemas/Issues**: <https://github.com/ricoperdiz/NIRtools/issues>.
 
 <!-- NIRtools was specifically designed to help plant taxonomist and ecologists in documenting and building near infrared (NIR) spectroscopy subsets from a dataset based on parameter files that will serve as a metadata of each subset.-->
 <!-- # O que é o NIR? -->
@@ -398,6 +400,42 @@ plot(nirdad, "SP1", plot_legend = FALSE)
 ```
 
 <img src="man/figures/README-unnamed-chunk-35-1.png" width="100%" />
+
+# Aplicativo Shiny
+
+Está em processo de construção um aplicativo
+[Shiny](https://shiny.rstudio.com/gallery/) para auxiliar no processo de
+importação e visualização dos dados NIR.
+
+No momento, o aplicativo está funcionando, porém ainda não aceita dados
+do usuários. Como uma maneira de demonstração, sugiro a você usuário
+testar o aplicativo e em caso de sugestões, abrir um problema na seção
+[Issues](https://github.com/ricoperdiz/NIRtools/issues) relatando sua
+experiência e sugestões de melhora no aplicativo.
+
+A idéia é permitir que o usuário carregue seus dados, possa executar
+análises, checar espectros e salvá-los, dando a possibilidade de alterar
+argumentos em todos os passos.
+
+## Demonstração
+
+Instale os pacotes abaixo:
+
+``` r
+install.packages(c("shiny", "DT", "RColorBrewer"), dependencies = TRUE)
+```
+
+Agora, execute os comandos abaixo:
+
+``` r
+library("NIRtools")
+meuaplicativo()
+```
+
+Por enquanto, o aplicativo só permite visualizar algumas variáveis do
+conjunto de dados `nir_data` utilizado nos exemplos anteriores.
+
+Em breve, teremos novas funcionalidades. Aguarde!
 
 # Referências
 
