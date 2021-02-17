@@ -2,6 +2,7 @@
 #'
 #' @param xtab Tabela cruzamento de dados observados versus dados preditos.
 #' @param add_CP Vetor lógico que, se TRUE, adiciona a taxa de predição correta como última coluna da matrix, dispondo os valores em porcentagem. Comportamento padrão é não adicionar essa coluna.
+#' @param ... Argumentos adicionais a serem utilizados na função `plotamatriz()`.
 #'
 #' @author Alberto Vicentini, \email{vicentini.beto@@gmail.com}; Ricardo O. Perdiz, \email{ricoperdiz@@gmail.com}
 #'
@@ -17,7 +18,7 @@
 #' confusao_lab(table(dad$observ, dad$pre), add_CP = TRUE)
 #' # sem predicao correta como ultima coluna
 #' confusao_lab(table(dad$observ, dad$pre), add_CP = FALSE)
-confusao_lab <- function(xtab, add_CP = FALSE) {
+confusao_lab <- function(xtab, add_CP = FALSE, ...) {
 
   mt <- xtab
   mt2 <- as.matrix.data.frame(xtab)
@@ -42,13 +43,13 @@ confusao_lab <- function(xtab, add_CP = FALSE) {
       rn_cp <- sort(rownames(mt2_cp), decreasing = T)
       mt2_cp <- mt2_cp[rn_cp, ]
       mt2_cp
-      return(plotamatriz(mt2_cp))
+      return(plotamatriz(mt2_cp, ...))
     }
   } else {
     rn <- sort(rownames(mt2), decreasing = T)
     mt2 <- mt2[rn, ]
     mt2
-    return(plotamatriz(mt2))
+    return(plotamatriz(mt2, ...))
   }
 }
 
@@ -87,6 +88,8 @@ confusao <- function(xtab) {
 #' @param txt.cols matrix com valores de cores para o texto dos valores das células
 #' @param valcex cex do texto dos valores das células
 #' @param cexaxis cex do texto dos eixos = nomes de colunas e linhas
+#' @param lasx Orientação do texto do eixo x.
+#' @param lasy Orientação do texto do eixo y.
 #'
 #' @author Alberto Vicentini, \email{vicentini.beto@@gmail.com}
 #'
@@ -95,7 +98,18 @@ confusao <- function(xtab) {
 #' @export
 #'
 #' @examples
-plotamatriz <- function(matriz, bg.cols = NULL, txt.cols = NULL, valcex = 1, cexaxis = 1) {
+plotamatriz <- function(matriz, bg.cols = NULL, txt.cols = NULL, valcex = 1, cexaxis = 1, lasx = NULL, lasy = NULL) {
+
+  if(is.null(lasx)) {
+    lasx = 2
+  } else {
+    lasx = lasx
+  }
+  if(is.null(lasy)) {
+    lasy = 2
+  } else {
+    lasy = lasy
+  }
   # matriz = mt2_cp
   tb <- matriz
   if (any(colnames(matriz) == "%CP")) {
@@ -150,6 +164,6 @@ plotamatriz <- function(matriz, bg.cols = NULL, txt.cols = NULL, valcex = 1, cex
       }
     }
   }
-  axis(side = 3, at = ay, labels = colnames(tb), cex.axis = cexaxis, las = 2)
-  axis(side = 2, at = ax, labels = rownames(tb), cex.axis = cexaxis, las = 2)
+  axis(side = 3, at = ay, labels = colnames(tb), cex.axis = cexaxis, las = lasy)
+  axis(side = 2, at = ax, labels = rownames(tb), cex.axis = cexaxis, las = lasx)
 }

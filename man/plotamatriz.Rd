@@ -4,7 +4,15 @@
 \alias{plotamatriz}
 \title{Plota matriz de confusão}
 \usage{
-plotamatriz(matriz, bg.cols = NULL, txt.cols = NULL, valcex = 1, cexaxis = 1)
+plotamatriz(
+  matriz,
+  bg.cols = NULL,
+  txt.cols = NULL,
+  valcex = 1,
+  cexaxis = 1,
+  lasx = lasx,
+  lasy = lasy
+)
 }
 \arguments{
 \item{matriz}{matrix com colnames e rownames}
@@ -16,6 +24,10 @@ plotamatriz(matriz, bg.cols = NULL, txt.cols = NULL, valcex = 1, cexaxis = 1)
 \item{valcex}{cex do texto dos valores das células}
 
 \item{cexaxis}{cex do texto dos eixos = nomes de colunas e linhas}
+
+\item{lasx}{Orientação do texto do eixo x.}
+
+\item{lasy}{Orientação do texto do eixo y.}
 }
 \value{
 Um plot.
