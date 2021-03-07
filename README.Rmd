@@ -16,6 +16,7 @@ knitr::opts_chunk$set(
 
 <!-- badges: start -->
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
+[![License](https://img.shields.io/github/license/mashape/apistatus.svg)](https://choosealicense.com/licenses/mit/)
 <!-- badges: end -->
 
 NIRtools foi desenhado para auxiliar taxonomistas e ecólogos de plantas em **documentar** e **construir** subconjuntos de dados do infravermelho próximo (NIR, do inglês *Near infrared spectroscopy*), por meio do usos de arquivos de parâmetros que servirão como metadados de cada subconjunto. Também estão inclusas funções para auxiliar a plotar os resultados.

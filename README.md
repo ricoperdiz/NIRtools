@@ -5,6 +5,7 @@
 
 [![Lifecycle:
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
+[![License](https://img.shields.io/github/license/mashape/apistatus.svg)](https://choosealicense.com/licenses/mit/)
 <!-- badges: end -->
 
 NIRtools foi desenhado para auxiliar taxonomistas e ecólogos de plantas
@@ -445,8 +446,9 @@ Em breve, teremos novas funcionalidades. Aguarde!
 
 Perdiz, R. O. 2020. “<span class="nocase">Delimitação específica e
 filogeografia do complexo *Protium aracouchini* (Aubl.) Marchand
-(Burseraceae)</span>.” PhD thesis, Programa de pós-graduação em Ciências
-Biológicas (Botânica), Instituto Nacional de Pesquisas da Amazônia.
+(Burseraceae)</span>.” PhD thesis, Manaus, Amazonas, Brasil: Programa de
+pós-graduação em Ciências Biológicas (Botânica), Instituto Nacional de
+Pesquisas da Amazônia. <https://repositorio.inpa.gov.br/handle/1/36948>.
 
 </div>
 
