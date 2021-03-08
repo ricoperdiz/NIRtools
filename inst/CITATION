@@ -1,0 +1,13 @@
+citHeader("To cite NIRtools in publications use:")
+
+citEntry(entry = "Misc",
+  title        = "Tools to deal with near infrared (NIR) spectrocospy data",
+  author       = personList(as.person("Ricardo Oliveira Perdiz")),
+  year         = "2021",
+  url          = "https://github.com/ricoperdiz/NIRtools",
+
+  textVersion  =
+  paste("Ricardo Oliveira Perdiz (2021).",
+        "Tools to deal with near infrared (NIR) spectrocospy data",
+        "URL https://github.com/ricoperdiz/NIRtools.")
+)
