@@ -57,22 +57,22 @@ read_NIRparams <- function(arq) {
 #' head(nir_raw)[,1:10]
 read_dirNIRraw <- function(arq, add_nir_id = TRUE) {
 
-  nir_raw <- fread(arq, header = FALSE, blank.lines.skip = TRUE)
-  message(paste0('Raw NIR file dimension:\n', paste(dim(nir_raw), collapse = ' ')))
+  nir_data_read <- data.table::fread(arq, blank.lines.skip = TRUE)
+  message(paste0('Raw NIR file dimension:\n', paste(dim(nir_data_read), collapse = ' ')))
 
-  if(dim(nir_raw)[2] != 2) {
+  if(dim(nir_data_read)[2] != 2) {
     stop('Raw NIR file does not have two columns. Please, check your data to see if it really contains two columns only.')
   }
 
-  names(nir_raw) <- c('key', 'value')
+  names(nir_data_read) <- c('key', 'value')
 
   if(add_nir_id == TRUE) {
     message("Adding letter 'X' before NIR spectra")
-    nir_raw[, key := paste0('X', key)]
+    nir_data_read[, key := paste0('X', key)]
   }
 
   nir_raw_spread <-
-    spread(as.data.frame(nir_raw), key, value)
+    tidyr::spread(as.data.frame(nir_data_read), key, value)
 
   return(nir_raw_spread)
 }
