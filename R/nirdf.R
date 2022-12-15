@@ -14,8 +14,9 @@
 #' library("NIRtools")
 #' data(nir_data)
 #' nirdad <- nirdf(nir_data, "SP1",
-#'  measure_columns = grep("^X", names(nir_data), value = TRUE),
-#'   measure_columns_prefix = "X")
+#'   measure_columns = grep("^X", names(nir_data), value = TRUE),
+#'   measure_columns_prefix = "X"
+#' )
 nirdf <- function(x, category, measure_columns, measure_columns_prefix = NULL) {
 
   # Check base object
@@ -52,29 +53,24 @@ nirdf <- function(x, category, measure_columns, measure_columns_prefix = NULL) {
   }
 
   columns_to_keep <- c(category, measure_columns)
-  columns_to_keep_pos <- which(names(x)  %in% columns_to_keep)
+  columns_to_keep_pos <- which(names(x) %in% columns_to_keep)
   # Coerce x to a data.table
   nirdf <- as.data.table(x)
   nirdf <- nirdf[, columns_to_keep_pos, with = FALSE]
 
 
   if (is.null(measure_columns_prefix)) {
-
     class(nirdf) <- c("nirdf", class(nirdf))
     message("\nReturning a nirdf object.")
     return(nirdf)
-
   } else {
     measure_columns_prefix <- "X"
     message(paste0("\nRemoving measurement column prefix: ", measure_columns_prefix))
-    names(nirdf) <- gsub(paste0("^",measure_columns_prefix), "", names(nirdf))
+    names(nirdf) <- gsub(paste0("^", measure_columns_prefix), "", names(nirdf))
     class(nirdf) <- c("nirdf", class(nirdf))
     message("\nReturning a nirdf object.")
     return(nirdf)
-
   }
-
-
 }
 
 #' Testa se o objeto é um nirdf
