@@ -76,3 +76,47 @@ read_dirNIRraw <- function(arq, add_nir_id = TRUE) {
 
   return(nir_raw_spread)
 }
+
+#' Importa arquivo da Texas Instruments
+#'
+#' @param file
+#' @param sep Separador
+#'
+#' @return
+#' @export
+#'
+#' @examples
+read_dlp_nano <- function(file = "", sep = "\n") {
+  # arq = "data-raw/nir_raw3.csv"
+  # sep = "\n"
+  # file = arq
+  dad <- scan(file, what = "character", sep = sep)
+  search_pt <-
+    grep("^wavelength|^absorbance", dad, ignore.case = TRUE)
+  dad_df <- dad[search_pt:length(dad)]
+  dad_out <- data.table::fread(text = dad_df, sep = ",")
+  return(dad_out)
+}
+
+
+#' Importa arquivo da INNO, modelo NIR-S-G1
+#'
+#' @param file Localização do arquivo
+#' @param sep Separador
+#'
+#' @return
+#' @export
+#'
+#' @examples
+read_inno <- function(file = "", sep = "\n") {
+  # arq = "data-raw/nir_raw4.csv"
+  # sep = "\n"
+  # file = arq
+  dad <- scan(file, what = "character", sep = sep)
+  search_pt <-
+    grep("^wavelength|^absorbance", dad, ignore.case = TRUE)
+  dad_df <- dad[search_pt:length(dad)]
+  dad_out <- data.table::fread(text = dad_df, sep = ",")
+  return(dad_out)
+}
+
