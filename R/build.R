@@ -1,3 +1,29 @@
+if_statements <-
+  function(dframe,
+           individual_id,
+           surface_id,
+           group_id) {
+    if (individual_id == "") {
+      stop("Variable `individual_id` is empty. You must supply a value for it!")
+    }
+
+    if (is.na(individual_id)) {
+      stop("Variable `individual_id` is empty. You must supply a value for it!")
+    }
+
+    if (surface_id %in% names(dframe)) {
+      message(paste0("Variable `surface_id`: ", surface_id))
+    } else {
+      stop(
+        "Supplied variable `surface_id` is not present in `dframe`. You must supply a correct value for it!"
+      )
+    }
+
+    if (any(group_id == "" | is.na(group_id))) {
+      message("\n\n\n######## Variable `group_id` is empty ########\n\n\n")
+    }
+
+  }
 #' Build NIR dataset based on a parameters file.
 #'
 #' @param dframe A dataframe in long format, that is, each NIR variable must be stored in its own column, and other columns containing identifications for individuals, and leaf surface, at least.
@@ -28,23 +54,7 @@ build_NIRdataset <- function(dframe, params_file_path, save_RDS = FALSE, save_tx
   wd <- nir_params$working_dir
 
   #### If statements ####
-  if (individual_id == "") {
-    stop("Variable `individual_id` is empty. You must supply a value for it!")
-  }
-
-  if (is.na(individual_id)) {
-    stop("Variable `individual_id` is empty. You must supply a value for it!")
-  }
-
-  if (surface_id %in% names(dframe)) {
-    message(paste0("Variable `surface_id`: ", surface_id))
-  } else {
-    stop("Supplied variable `surface_id` is not present in `dframe`. You must supply a correct value for it!")
-  }
-
-  if (group_id == "" | is.na(group_id)) {
-    message("\n\n\n######## Variable `group_id` is empty ########\n\n\n")
-  }
+  if_statements(dframe = dframe, individual_id = individual_id, surface_id = surface_id, group_id = group_id)
 
 
   ## Both surfaces
@@ -56,7 +66,7 @@ build_NIRdataset <- function(dframe, params_file_path, save_RDS = FALSE, save_tx
       message(paste0("Variable `reads`: ", reads))
       message(paste0("Building dataset: ", dataset_name, ".\nAll reads from both surfaces grouped by variable `", individual_id, "`"))
 
-      if (group_id == "" | is.na(group_id)) {
+      if (any(group_id == "" | is.na(group_id))) {
         dframe_res <-
           dframe_tbl[, .SD, .SDcols = c(individual_id, surface_id, nir_cols_names)]
       } else {
@@ -70,7 +80,7 @@ build_NIRdataset <- function(dframe, params_file_path, save_RDS = FALSE, save_tx
       message(paste0("Variable `reads`: ", reads))
       message(paste0("Building dataset: ", dataset_name, ".\nMean of reads from both sides grouped by variable `", individual_id, "`"))
 
-      if (group_id == "" | is.na(group_id)) {
+      if (any(group_id == "" | is.na(group_id))) {
         dframe_tbl_melted <-
           melt(dframe_tbl, id.vars = individual_id, measure.vars = nir_cols)
 
@@ -106,7 +116,7 @@ build_NIRdataset <- function(dframe, params_file_path, save_RDS = FALSE, save_tx
       message(paste0("Variable `reads`: ", reads))
       message(paste0("Building dataset: ", dataset_name, ".\nAll reads from ", surface, " side grouped by variable `", individual_id, "`"))
 
-      if (group_id == "" | is.na(group_id)) {
+      if (any(group_id == "" | is.na(group_id))) {
         dframe_res <-
           dframe_tbl_surfaceFiltered[, .SD, .SDcols = c(individual_id, surface_id, nir_cols_names)]
       } else {
@@ -121,7 +131,7 @@ build_NIRdataset <- function(dframe, params_file_path, save_RDS = FALSE, save_tx
       message(paste0("Variable `reads`: ", reads))
       message(paste0("Building dataset: ", dataset_name, ".\nMean of reads from both sides grouped by variable `", individual_id, "`"))
 
-      if (group_id == "" | is.na(group_id)) {
+      if (any(group_id == "" | is.na(group_id))) {
         dframe_tbl_surfaceFiltered_melted <-
           melt(dframe_tbl_surfaceFiltered, id.vars = individual_id, measure.vars = nir_cols_names)
         dframe_long <-

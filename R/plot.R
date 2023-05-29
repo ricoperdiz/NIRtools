@@ -30,7 +30,7 @@
 #'   measure_columns_prefix = "X")
 #' plot(nirdad, "SP1")
 
-plot.nirdf <- function(x, category, remove_cols = NULL, xlabel = parse(text = "Wavenumber (cm^-1)"), ylabel = "Absorbance", legend_position = "topright", cex_pt = 0.05, cex_leg = 0.5, text_font = 1, plot_legend = TRUE, color = NULL, ...) {
+plot.nirdf <- function(x, category, remove_cols = NULL, xlabel = parse(text = "Wavenumber  (cm^-1)"), ylabel = "Absorbance", legend_position = "topright", cex_pt = 0.05, cex_leg = 0.5, text_font = 1, plot_legend = TRUE, color = NULL, ...) {
 
 
   stopifnot(is_nirdf(x))

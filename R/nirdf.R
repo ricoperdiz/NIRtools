@@ -64,7 +64,6 @@ nirdf <- function(x, category, measure_columns, measure_columns_prefix = NULL) {
     message("\nReturning a nirdf object.")
     return(nirdf)
   } else {
-    measure_columns_prefix <- "X"
     message(paste0("\nRemoving measurement column prefix: ", measure_columns_prefix))
     names(nirdf) <- gsub(paste0("^", measure_columns_prefix), "", names(nirdf))
     class(nirdf) <- c("nirdf", class(nirdf))

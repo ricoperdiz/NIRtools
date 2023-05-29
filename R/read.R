@@ -1,6 +1,6 @@
 #' Lê metadados de um subconjunto de dados NIR a partir de um arquivo de texto
 #'
-#' @param arq Vetor de texto indicando caminho a um arquivo.
+#' @param arq Vetor de texto indicando caminho a um arquivo contendo dados NIR.
 #'
 #' @return Um data.frame
 #'
@@ -79,44 +79,128 @@ read_dirNIRraw <- function(arq, add_nir_id = TRUE) {
 
 #' Importa arquivo da Texas Instruments
 #'
-#' @param file
+#' @param file Vetor de texto indicando caminho a um arquivo com dados de leitura espectroscópica obtidos com um aparelho Texas Instruments, modelo DLPNIRNANOEVM.
 #' @param sep Separador
 #'
-#' @return
+#' @return Um data.frame
 #' @export
 #'
 #' @examples
+#' arq <- system.file("extdata", "nir_raw3.csv", package = "NIRtools")
+#' read_dlp_nano(file = arq)
 read_dlp_nano <- function(file = "", sep = "\n") {
-  # arq = "data-raw/nir_raw3.csv"
-  # sep = "\n"
-  # file = arq
   dad <- scan(file, what = "character", sep = sep)
   search_pt <-
     grep("^wavelength|^absorbance", dad, ignore.case = TRUE)
   dad_df <- dad[search_pt:length(dad)]
-  dad_out <- data.table::fread(text = dad_df, sep = ",")
+  pkg <- "data.table"
+  if (system.file(package = pkg) != "") {
+    dad_out <- as.data.frame(data.table::fread(text = dad_df, sep = ","))
+  } else {
+    dad_out <- read.table(textConnection(dad_df), sep = ",", header = TRUE)
+  }
   return(dad_out)
 }
 
-
 #' Importa arquivo da INNO, modelo NIR-S-G1
 #'
-#' @param file Localização do arquivo
+#' @param file Vetor de texto indicando caminho a um arquivo com dados de leitura espectroscópica obtidos com um aparelho INNO, modelo NIR-S-G1.
 #' @param sep Separador
 #'
-#' @return
+#' @return Um data.frame
 #' @export
 #'
 #' @examples
+#' arq <- system.file("extdata", "nir_raw4.csv", package = "NIRtools")
+#' read_inno(file = arq)
 read_inno <- function(file = "", sep = "\n") {
-  # arq = "data-raw/nir_raw4.csv"
-  # sep = "\n"
-  # file = arq
   dad <- scan(file, what = "character", sep = sep)
   search_pt <-
     grep("^wavelength|^absorbance", dad, ignore.case = TRUE)
   dad_df <- dad[search_pt:length(dad)]
-  dad_out <- data.table::fread(text = dad_df, sep = ",")
+  pkg <- "data.table"
+  if (system.file(package = pkg) != "") {
+    dad_out <- as.data.frame(data.table::fread(text = dad_df, sep = ","))
+  } else {
+    dad_out <- read.table(textConnection(dad_df), sep = ",", header = TRUE)
+  }
   return(dad_out)
+}
+
+#' Title
+#'
+#' @param list_files
+#' @param source
+#' @param wavelength_var_name_partial
+#' @param absorbance_var_name_partial
+#'
+#' @return Um data.frame
+#' @export
+#'
+#' @examples
+read_dirNIRraw_alt <- function(list_files, source = c("nano", "inno"), wavelength_var_name_partial = "Wavelength", absorbance_var_name_partial = "Absorbance") {
+
+  # Lista arquivos na pasta
+
+  pkg <- "data.table"
+  if (system.file(package = pkg) != "") {
+    # usa pacote data.table caso esteja instalado no computador
+    dad_binded <- data.table::rbindlist(lapply(list_files, function(x) {
+      if(length(source) == 2) {
+        dad <- read_dlp_nano(x)
+      } else {
+        if (source == "nano") {
+          dad <- read_dlp_nano(x)
+        } else if (source == "inno") {
+          dad <- read_inno(x)
+        } else {
+          stop("Argument `source` is wrong. Please fix it! and run again this function!")
+        }
+      }
+
+      id_var <- "id"
+      dad$id <- x
+      wavelength_var <- grep(wavelength_var_name_partial, names(dad), value = TRUE)
+      absorbance_var <- grep(absorbance_var_name_partial, names(dad), value = TRUE)
+      pos_names <- which(names(dad) %in% c(id_var, absorbance_var, wavelength_var))
+      dad_df <- dad[, pos_names]
+      names(dad_df)[names(dad_df) == absorbance_var] <- "absorbance"
+      names(dad_df)[names(dad_df) == wavelength_var] <- "wavelength"
+      return(as.data.frame(dad_df))
+    }))
+    # agora converte do formato longo para o formato amplo
+    dad_binded$wavelength <- paste0("X", dad_binded$wavelength)
+    dad_wide <- data.table::dcast(dad_binded, id ~ wavelength, value.var = "absorbance")
+    return(dad_wide)
+  } else {
+    # Usando R base
+    ## Primeiro, une arquivos
+    dad_binded <- do.call(rbind, lapply(list_csv_files, function(x) {
+      if(length(source) == 2) {
+        dad <- read_dlp_nano(x)
+      } else {
+        if (source == "nano") {
+          dad <- read_dlp_nano(x)
+        } else if (source == "inno") {
+          dad <- read_inno(x)
+        } else {
+          stop("Argument `source` is wrong. Please fix it! and run again this function!")
+        }
+      }
+      id_var <- "id"
+      dad$id <- x
+      wavelength_var <- grep(wavelength_var_name_partial, names(dad), value = TRUE)
+      absorbance_var <- grep(absorbance_var_name_partial, names(dad), value = TRUE)
+      pos_names <- which(names(dad) %in% c(id_var, absorbance_var, wavelength_var))
+      dad_df <- dad[, pos_names]
+      names(dad_df)[names(dad_df) == absorbance_var] <- "absorbance"
+      names(dad_df)[names(dad_df) == wavelength_var] <- "wavelength"
+      return(dad_df)
+    }))
+    # agora converte do formato longo para o formato amplo
+    dad_wide <- reshape(dad_binded, direction = "wide", idvar = id_var, timevar = "wavelength")
+    names(dad_wide) <- gsub("absorbance.", "X", names(dad_wide))
+    return(dad_wide)
+  }
 }
 

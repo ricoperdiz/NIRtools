@@ -8,7 +8,7 @@
   x,
   category,
   remove_cols = NULL,
-  xlabel = parse(text = "Wavenumber (cm^-1)"),
+  xlabel = parse(text = "Wavenumber  (cm^-1)"),
   ylabel = "Absorbance",
   legend_position = "topright",
   cex_pt = 0.05,

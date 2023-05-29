@@ -31,8 +31,6 @@ plotamatriz(
 }
 \value{
 Um plot.
-
-
 }
 \description{
 Plota matriz de confusão

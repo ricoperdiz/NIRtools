@@ -7,7 +7,7 @@
 read_NIRparams(arq)
 }
 \arguments{
-\item{arq}{Vetor de texto indicando caminho a um arquivo.}
+\item{arq}{Vetor de texto indicando caminho a um arquivo contendo dados NIR.}
 }
 \value{
 Um data.frame
