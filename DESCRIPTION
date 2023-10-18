@@ -1,7 +1,7 @@
 Package: NIRtools
 Type: Package
 Title: Tools to deal with near infrared (NIR) spectrocospy data
-Version: 0.0.0.9006
+Version: 0.0.1
 Authors@R: person("Ricardo", "de Oliveira Perdiz", email = "ricoperdiz@gmail.com", role = c("aut", "cre"), comment = c(ORCID = "0000-0002-2333-6549"))
 Description: 
     Constrói arquivos de metadados para descrever subconjuntos de dados NIR;
@@ -10,12 +10,10 @@ Description:
 License: MIT + file LICENSE
 URL: https://github.com/ricoperdiz/NIRtools
 BugReports: https://github.com/ricoperdiz/NIRtools/issues
-Config/testthat/edition: 3
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.1.1
-RdMacros: 
-    lifecycle
+RdMacros: lifecycle
 Depends: 
     R (>= 3.5.0)
 Imports: 
@@ -29,5 +27,5 @@ Suggests:
     purrr,
     rmarkdown,
     shiny,
-    testthat
+    tinytest
 VignetteBuilder: knitr
