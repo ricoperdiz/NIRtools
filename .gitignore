@@ -2,9 +2,6 @@ badges/
 code/
 doc/
 data-raw/
-Meta/
-tests/
-test_functions/
 NIRtools.Rproj
 test*
 git_message.txt
