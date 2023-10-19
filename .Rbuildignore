@@ -1,7 +1,8 @@
 ^badges$
 ^code$
-^doc$
 ^data-raw$
+^doc$
+^dev$
 ^tests$
 ^test_functions$
 ^NIRtools\.Rproj$
