@@ -3,7 +3,6 @@ code/
 doc/
 data-raw/
 NIRtools.Rproj
-test*
 git_message.txt
 *.Rproj
 .Rproj.user
