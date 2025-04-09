@@ -26,6 +26,7 @@ Cria um objeto nirdf
 library("NIRtools")
 data(nir_data)
 nirdad <- nirdf(nir_data, "SP1",
- measure_columns = grep("^X", names(nir_data), value = TRUE),
-  measure_columns_prefix = "X")
+  measure_columns = grep("^X", names(nir_data), value = TRUE),
+  measure_columns_prefix = "X"
+)
 }

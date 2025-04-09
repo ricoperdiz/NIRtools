@@ -6,9 +6,6 @@
 \usage{
 meuaplicativo(display.mode = "normal")
 }
-\value{
-
-}
 \description{
 Executa um aplicativo Shiny
 }
